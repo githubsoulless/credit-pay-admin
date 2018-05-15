@@ -1,0 +1,9 @@
+/*分页*/
+#pageGro{ width:330px; padding:15px 0; float:right;}
+#pageGro div,#pageGro div ul li{ font-size:13px; color:#6b6b6b; line-height:23px; float:left; margin-left:10px; font-weight:bold;}
+#pageGro div ul li{ width:29px; list-style: none; height:29px; line-height:27px; background:url(../img/page_icon1.png) no-repeat; text-align:center; cursor:pointer;}
+#pageGro div ul li.on{ color:#fff; background:url(../img/page_icon2.png) no-repeat;}
+#pageGro .pageUp,#pageGro .pageDown{ width:29px; height:29px; line-height:29px; background:url(../img/page_icon1.png) no-repeat; cursor:pointer;}
+#pageGro .pageUp{ text-indent:8px;}
+#pageGro .pageDown{ text-indent:8px;}
+#pageGro .pageList{ margin-left:0; width:196px;}
