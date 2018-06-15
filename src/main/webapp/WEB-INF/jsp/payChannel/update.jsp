@@ -47,7 +47,7 @@
 			$("#feeRate").focus();
 			return;
 		}
-		if($('#chnlType').val() != 2 && $('#chnlType').val() != 3){
+		if($('#chnlType').val() != 1 && $('#chnlType').val() != 2 && $('#chnlType').val() != 3){
 			if ($("#minAmountDou").val() == "") {
 				alert("请输入单笔最小金额");
 				$("#minAmountDou").focus();
@@ -215,16 +215,16 @@ function upType(){
 						</span></td>
 					</tr>
 				</c:if>
-				<c:if test="${payChannel.chnlType == 0 || payChannel.chnlType == 4 }">
+				<c:if test="${payChannel.chnlType == 0 || payChannel.chnlType == 1 || payChannel.chnlType == 4 }">
 					<tr>
 						<td class="width90"><span style="color:red;">*</span><span>单笔最小金额(元)：</span></td>
-						<td><span><input name="minAmountDou" id="minAmountDou" type="text" maxlength="15" class="ipt" value='<chrone:fen2Yuan amt="${payChannel.minAmount }"></chrone:fen2Yuan>' 
+						<td><span><input <c:if test="${payChannel.chnlType == 1}">readonly = "readonly" style='background:#ebebe4'</c:if> name="minAmountDou" id="minAmountDou" type="text" maxlength="15" class="ipt" value='<chrone:fen2Yuan amt="${payChannel.minAmount }"></chrone:fen2Yuan>' 
 						 				onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 							 			onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 									 	onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
 						 	</span></td>
 						<td class="width90"><span style="color:red;">*</span><span> 单笔最大金额(元)：</span></td>
-						<td><span><input name="maxAmountDou" id="maxAmountDou" type="text" maxlength="15" class="ipt" value='<chrone:fen2Yuan amt="${payChannel.maxAmount }"></chrone:fen2Yuan>' 
+						<td><span><input <c:if test="${payChannel.chnlType == 1}">readonly = "readonly" style='background:#ebebe4'</c:if>   name="maxAmountDou" id="maxAmountDou" type="text" maxlength="15" class="ipt" value='<chrone:fen2Yuan amt="${payChannel.maxAmount }"></chrone:fen2Yuan>' 
 										onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 							 			onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 										onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
@@ -232,9 +232,9 @@ function upType(){
 					</tr>
 					<tr>
 						<td class="width90"><span style="color:red;">*</span><span>单日累计笔数：</span></td>
-						<td><span><input name="daySumCnt" id="daySumCnt" type="text" maxlength="10" class="ipt" value="${payChannel.daySumCnt }" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /></span></td>
+						<td><span><input <c:if test="${payChannel.chnlType == 1}">readonly = "readonly" style='background:#ebebe4'</c:if>  name="daySumCnt" id="daySumCnt" type="text" maxlength="10" class="ipt" value="${payChannel.daySumCnt }" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /></span></td>
 						<td class="width90"><span style="color:red;">*</span><span>单日累计金额(元)：</span></td>
-						<td><span><input name="daySumAmtDou" id="daySumAmtDou" type="text" maxlength="15" class="ipt" value="<chrone:fen2Yuan amt="${payChannel.daySumAmount }"></chrone:fen2Yuan>" 
+						<td><span><input <c:if test="${payChannel.chnlType == 1}">readonly = "readonly" style='background:#ebebe4'</c:if>  name="daySumAmtDou" id="daySumAmtDou" type="text" maxlength="15" class="ipt" value="<chrone:fen2Yuan amt="${payChannel.daySumAmount }"></chrone:fen2Yuan>" 
 									onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 							 		onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 									 onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />

@@ -106,7 +106,7 @@ function cancelVal() {
 							<td>预计执行日期</td>
 							<td>任务状态</td>
 							<td>消费行业</td>
-							<td>消费城市</td>
+							<!-- <td>消费城市</td> -->
 							<td>实际执行时间</td>
 							<td>备注</td>
 						</tr>
@@ -134,7 +134,7 @@ function cancelVal() {
 									<c:if test="${p.industry=='05' }">快餐</c:if>
 									<c:if test="${p.industry=='99' }">其他</c:if>
 								</td>
-								<td>${p.city}</td>
+								<!-- <td>${p.city}</td> -->
 								<td><fmt:formatDate value="${p.finshTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td>${p.remark }</td>
 							</tr>

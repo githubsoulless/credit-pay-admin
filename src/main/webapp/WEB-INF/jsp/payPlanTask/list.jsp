@@ -121,7 +121,7 @@ function addClose(){
 										<th>预计执行日期</th>
 										<th>任务状态</th>
 										<th>消费行业</th>
-										<th>消费城市</th>
+										<!-- <th>消费城市</th> -->
 										<th>交易时间</th>
 										<th>信用卡号</th>
 										<th>所属银行</th>
@@ -158,7 +158,7 @@ function addClose(){
 												<c:if test="${l.industry=='05' }">快餐</c:if>
 												<c:if test="${l.industry=='99' }">其他</c:if>
 											</td>
-											<td>${l.city}</td>
+											<!-- <td>${l.city}</td> -->
 											<td><fmt:formatDate value="${l.finshTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td><chrone:HiddenStr head="4" srcStr="${l.cardNo}" footer="4"/> </td>
 											<td>${l.bankName}</td>

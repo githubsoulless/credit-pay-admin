@@ -668,7 +668,8 @@
   	 from t_app_user t 
   	<include refid="where_page" />
   	order by t.row_crt_ts desc
-  	)a limit  #{startRow} , #{pageSize}
+  	limit  #{startRow} , #{pageSize}
+  	)a 
   </select>
   
   <select id="getAppUserByParentIdList" parameterType="map" resultType="String">

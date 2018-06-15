@@ -30,7 +30,7 @@ import net.chrone.creditpay.util.MyPage;
  * Title: PayChannelController Description: 通道管理
  * 
  * @author huoliang
- * @data 2017年11月24日 上午11:39:52
+ * @data  2017年11月24日 上午11:39:52
  *
  */
 @Controller
@@ -114,8 +114,12 @@ public class PayChannelController {
 				payChannel.setMinAmount(BigDecimal.valueOf(payChannel.getMinAmountDou()*100).intValue());
 				payChannel.setMaxAmount(BigDecimal.valueOf(payChannel.getMaxAmountDou()*100).intValue());
 				payChannel.setDaySumAmount(BigDecimal.valueOf(payChannel.getDaySumAmtDou()*100).intValue());
-				payChannel.setUpperlimit((payChannel.getUpperlimitDou().multiply(new BigDecimal(100))).intValue());
-				payChannel.setPayFeeRate(payChannel.getPayFeeRate().multiply(new BigDecimal(100)));
+				if(null != payChannel.getUpperlimitDou()) {
+					payChannel.setUpperlimit((payChannel.getUpperlimitDou().multiply(new BigDecimal(100))).intValue());
+				}
+				if(null != payChannel.getPayFeeRate()) {
+					payChannel.setPayFeeRate(payChannel.getPayFeeRate().multiply(new BigDecimal(100)));
+				}
 				try {
 					if(StringUtils.isEmpty(payChannel.getStartDate())) {
 						payChannel.setStartTime(DateUtils.parseDate("00:00:00", "HH:mm:ss"));
