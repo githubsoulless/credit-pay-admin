@@ -510,7 +510,7 @@
 			<if test="endTime !=null and endTime !=''">
 				and a.row_crt_ts &lt;=#{endTime}
 			</if>
-			and a.profits_num > 3
+			and a.profits_num >= 3
 		</where>
 	</sql>
 

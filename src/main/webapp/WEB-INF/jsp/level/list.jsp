@@ -140,36 +140,35 @@ function init() {
 											<td rowspan="2">${l.levelId }</td>
 											<td rowspan="2"><input name="levels[${i.index }].levelName" id="levelName-${l.levelId }" value="${l.levelName }" type="text" class="input-sm"  maxlength="45"></td>
 											<td>升级费(元)</td>
-											<td>升级返润方式</td>
-											<td>直接推荐人</td>
-											<td>间接推荐人</td>
-											<td>上上上级推荐人</td>
-											<td>直属代理</td>
-											<td>间接代理</td>
-											<td>上上上级代理</td>
+											<td colspan="2">升级返润方式</td>
+											<td>二级用户</td>
+											<td>一级用户</td>
+											<td>三级代理</td>
+											<td>二级代理</td>
+											<td>一级代理</td>
 										</tr>
 										<tr>
 											<td>
 												<input id="upgradeFee" name="levels[${i.index }].upgradeFeeFJ" value="<chrone:fen2Yuan amt="${l.upgradeFee }"/>" type="text" class="input-sm" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
 											</td>
-											<td>
+											<td colspan="2">
 												<select id="profitsType" name="levels[${i.index }].profitsType" class="input-sm">
 													<option value="1" <c:if test="${l.profitsType == 1 }">selected="selected"</c:if>>按比例分配</option>
 													<option value="0" <c:if test="${l.profitsType == 0 }">selected="selected"</c:if>>固定金额分配</option>
 												</select>
 											</td>
-											<td>
-												<div class="input-group">
-													<input id="directUserFee" name="levels[${i.index }].directUserFee" 
-													value="<fmt:formatNumber value="${l.directUserFee }" type="currency" pattern="0.00"/>" 
-													type="text" class="input-sm" maxlength="12" 
-													onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
-													<span class="input-span">
-														<c:if test="${l.profitsType == 0 }">元</c:if>
-														<c:if test="${l.profitsType == 1 }">%</c:if>
-													</span>
-												</div>
-											</td>
+<!-- 											<td> -->
+<!-- 												<div class="input-group"> -->
+<%-- 													<input id="directUserFee" name="levels[${i.index }].directUserFee"  --%>
+<%-- 													value="<fmt:formatNumber value="${l.directUserFee }" type="currency" pattern="0.00"/>"  --%>
+<!-- 													type="text" class="input-sm" maxlength="12"  -->
+<!-- 													onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"> -->
+<!-- 													<span class="input-span"> -->
+<%-- 														<c:if test="${l.profitsType == 0 }">元</c:if> --%>
+<%-- 														<c:if test="${l.profitsType == 1 }">%</c:if> --%>
+<!-- 													</span> -->
+<!-- 												</div> -->
+<!-- 											</td> -->
 											<td>
 												<div class="input-group">
 													<input id="indirectUserFee" name="levels[${i.index }].indirectUserFee" value="<fmt:formatNumber value="${l.indirectUserFee }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">

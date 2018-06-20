@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-   <classPathEntry location="D:\maven\mvnRespo\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
+   <classPathEntry location="C:\Users\aojiong\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
 		<context id="context1" defaultModelType="flat" targetRuntime="MyBatis3">
- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://115.28.85.178:3306/creditpaydb_wlf" userId="root"
-           password="123456" />
+ <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.92.69.83:3306/creditpay_kws" userId="root"
+           password="hwmysqlpwd" />
 	
         <javaModelGenerator targetPackage="net.chrone.creditpay.model" targetProject="credit-pay-admin\src\main\java">
             <property name="enableSubPackages" value="false" />
@@ -135,7 +135,12 @@
 <!-- 			enableUpdateByExample="true"> -->
 <!-- 			<property name="useActualColumnNames" value="false" /> -->
 <!-- 		</table> -->
-		<table schema=""  tableName="t_pay_plan_task_temp" domainObjectName="PayPlanTaskTemp"   enableSelectByExample="true"
+<!-- 		<table schema=""  tableName="t_pay_plan_task_temp" domainObjectName="PayPlanTaskTemp"   enableSelectByExample="true" -->
+<!-- 			enableDeleteByExample="true" enableCountByExample="true" -->
+<!-- 			enableUpdateByExample="true"> -->
+<!-- 			<property name="useActualColumnNames" value="false" /> -->
+<!-- 		</table> -->
+		<table schema=""  tableName="t_agent_fee_rate" domainObjectName="AgentFeeRate"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />

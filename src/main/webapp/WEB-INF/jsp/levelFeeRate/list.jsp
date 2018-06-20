@@ -44,8 +44,8 @@ function addClose(){
 		document.getElementById("searchForm").submit();
 	}
 }
-function update(levelId){
-	var url = "url:${ctx }/levelFeeRate/update?level.levelId="+levelId+"&type=toUpdate&a="+encodeURIComponent(new Date());
+function update(levelId,levelType){
+	var url = "url:${ctx }/levelFeeRate/update?level.levelId="+levelId+"&level.levelType="+levelType+"&type=toUpdate&a="+encodeURIComponent(new Date());
 	$.dialog({content:url ,
 		        title:'等级费率设置',
 		        lock: true,
@@ -163,7 +163,7 @@ table.table1 tr th{
 											</td>
 											<td>
 												<chrone:isAuth authCode="600000601">
-													<a href="#" onclick="update('${l.levelId }')">修改</a>
+													<a href="#" onclick="update('${l.levelId }','${l.levelType}')">修改</a>
 												</chrone:isAuth>
 											</td>
 										</tr>

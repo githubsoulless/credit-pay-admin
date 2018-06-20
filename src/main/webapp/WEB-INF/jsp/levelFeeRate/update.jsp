@@ -119,6 +119,7 @@ table tr td{
 						<span>
 							${level.levelName }
 							<input name="level.levelId" id="levelId" value="${level.levelId }" type="hidden" class="ipt" />
+							<input name="level.levelType" id="levelType" value="${level.levelType }" type="hidden" class="ipt" />
 						</span>
 					</td>
 				</tr>

@@ -132,7 +132,7 @@ function detail(profitsId){
 									</c:forEach>
 									<tr>
 										<td colspan="3" align="left">查询结果：${page.rowTotal }条</td>
-										<td colspan="2" align="right">合计：</td>
+										<td align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.sumAmt }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumFee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumUserProfits }"/></td>
