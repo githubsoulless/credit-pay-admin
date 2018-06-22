@@ -15,6 +15,8 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 
 	public final static String HUAPAY="huapay";//融信优贝
 	
+	public final static String REAPALFAST="reapalfast";//融宝
+	
 	
 	/**
 	 * 代付接口(TX)
@@ -26,6 +28,12 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 		Map<String, String> resultMap = new HashMap<String, String>();
 		logger.info("找到通道:"+code);
 		if(CHRONE.equals(code)){
+			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chroneFastTxPayOrgId"), 
+					ConfigReader.getConfig("chroneFastTxPayPriKey"));
+			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+				resultMap.put("status", "1");//成功
+			}
+		}if(REAPALFAST.equals(code)){
 			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chroneFastTxPayOrgId"), 
 					ConfigReader.getConfig("chroneFastTxPayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
