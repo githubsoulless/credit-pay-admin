@@ -92,6 +92,7 @@ public class ChroneApi {
 	public static Map<String, String> agentPay(FastOrder order, String orgId, String privateKey) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("orgId", orgId);
+		map.put("reserved1", ConfigReader.getConfig("chroneFastTxProfitOrgId"));
 		map.put("orgPayforSsn", order.getOrderNo());
 		map.put("accountName", order.getCardName());
 		map.put("destAmount", (order.getAmount() - order.getFee()) + "");
