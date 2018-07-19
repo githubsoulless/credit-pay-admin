@@ -38,7 +38,7 @@ public class LevelServiceImpl implements LevelService {
 	public void updateLevels(List<Level> levels) {
 		for (Level level : levels) {
 			if (0 == level.getProfitsType()) {
-				level.setDirectUserFee(level.getDirectUserFee() * 100);
+//				level.setDirectUserFee(level.getDirectUserFee() * 100);
 				level.setIndirectUserFee(level.getIndirectUserFee() * 100);
 				level.setUpUserFee(level.getUpUserFee() * 100);
 				level.setDirectAgentFee(level.getDirectAgentFee() * 100);
@@ -46,7 +46,7 @@ public class LevelServiceImpl implements LevelService {
 				level.setUpAgentFee(level.getUpAgentFee() * 100);
 			}
 			if (1 == level.getProfitsType()) {
-				level.setDirectUserFee(level.getDirectUserFee() / 100);
+//				level.setDirectUserFee(level.getDirectUserFee() / 100);
 				level.setIndirectUserFee(level.getIndirectUserFee() / 100);
 				level.setUpUserFee(level.getUpUserFee() / 100);
 				level.setDirectAgentFee(level.getDirectAgentFee() / 100);

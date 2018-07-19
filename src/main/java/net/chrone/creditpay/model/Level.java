@@ -675,7 +675,19 @@ public class Level {
 	private BigDecimal upgradeFeeFJ;
 	
 	private BigDecimal plan_df_fee;//计划还款代付手续费
-	private List<LevelFeeRate> listLevelFeeRate;
+	private List<?> listLevelFeeRate;
+	private int levelType=0;//0:用户，1：代理
+	
+	
+	
+	
+	public int getLevelType() {
+		return levelType;
+	}
+
+	public void setLevelType(int levelType) {
+		this.levelType = levelType;
+	}
 
 	public BigDecimal getTxRateFJ() {
 		return txRateFJ;
@@ -733,11 +745,11 @@ public class Level {
 		this.plan_df_fee = plan_df_fee;
 	}
 
-	public List<LevelFeeRate> getListLevelFeeRate() {
+	public List<?> getListLevelFeeRate() {
 		return listLevelFeeRate;
 	}
 
-	public void setListLevelFeeRate(List<LevelFeeRate> listLevelFeeRate) {
+	public void setListLevelFeeRate(List<?> listLevelFeeRate) {
 		this.listLevelFeeRate = listLevelFeeRate;
 	}
 

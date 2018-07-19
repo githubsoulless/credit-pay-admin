@@ -72,28 +72,21 @@ function cancelVal() {
 							<tr>
 								<td>${i.index+1 }</td>
 								<td>
-									<c:if test="${ empty p.agentId }">
 										<c:if test="${p.profitsNum == 1 }">
-											直接推荐人分润
+											二级推荐人分润
 										</c:if>
 										<c:if test="${p.profitsNum == 2 }">
-											间接推荐人分润
+											一级推荐人分润
 										</c:if>
 										<c:if test="${p.profitsNum == 3 }">
-											上上上级推荐人分润
+											三级代理分润
 										</c:if>
-									</c:if> 
-									<c:if test="${ not empty p.agentId }">
 										<c:if test="${p.profitsNum == 4}">
-											直属代理分润	
+											二级代理分润
 										</c:if>
 										<c:if test="${p.profitsNum == 5 }">
-											间接代理分润
+											一级代理分润
 										</c:if>
-										<c:if test="${p.profitsNum == 6 }">
-											上上上级代理分润
-										</c:if>
-									</c:if> 
 								</td>
 								<td>${p.profitsUserId }</td>
 								<td>${p.accountName }</td>
