@@ -29,7 +29,7 @@ public class AgentFeeRateServiceImpl implements AgentFeeRateService {
 	@Override
 	public List<AgentFeeRate> listLevelFeeRate(int levelId) {
 		AgentFeeRateExample agentFeeRateExample = new AgentFeeRateExample();
-		agentFeeRateExample.createCriteria().andLevelIdEqualTo(levelId).andTransTypeEqualTo(1);
+		agentFeeRateExample.createCriteria().andLevelIdEqualTo(levelId).andTransTypeEqualTo(1).andPayChnlCodeNotEqualTo("");
 		List<AgentFeeRate> agentFeeRates = agentFeeRateMapper.selectByExample(agentFeeRateExample);
 		for (AgentFeeRate agentFeeRate : agentFeeRates) {
 			agentFeeRate.setFeeRate(agentFeeRate.getFeeRate().multiply(new BigDecimal(100)));

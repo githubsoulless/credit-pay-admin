@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-   <classPathEntry location="C:\Users\aojiong\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
+   <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
 		<context id="context1" defaultModelType="flat" targetRuntime="MyBatis3">
- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.92.69.83:3306/creditpay_kws" userId="root"
+ <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.92.69.83:3306/creditpaydb_dev" userId="root"
            password="hwmysqlpwd" />
 	
-        <javaModelGenerator targetPackage="net.chrone.creditpay.model" targetProject="credit-pay-admin\src\main\java">
+        <javaModelGenerator targetPackage="net.chrone.creditpay.model" targetProject="credit-pay-admin/src/main/java">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="net.chrone.creditpay.xml" targetProject="credit-pay-admin\src\main\java">
+       
+        <sqlMapGenerator targetPackage="net.chrone.creditpay.xml" targetProject="credit-pay-admin/src/main/java">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
-        <javaClientGenerator targetPackage="net.chrone.creditpay.mapper" targetProject="credit-pay-admin\src\main\java" type="XMLMAPPER">
+         <javaClientGenerator targetPackage="net.chrone.creditpay.mapper" targetProject="credit-pay-admin/src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false" />
              <property name="rootInterface" value="net.chrone.creditpay.mapper.ParentMapper"/>
-        </javaClientGenerator>
+        </javaClientGenerator> 
 
 
 	
@@ -139,11 +140,25 @@
 <!-- 			enableDeleteByExample="true" enableCountByExample="true" -->
 <!-- 			enableUpdateByExample="true"> -->
 <!-- 			<property name="useActualColumnNames" value="false" /> -->
-<!-- 		</table> -->
+<!-- 		</table>
 		<table schema=""  tableName="t_agent_fee_rate" domainObjectName="AgentFeeRate"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />
-		</table>
+		</table> -->
+		
+	<!-- 	<table schema=""  tableName="t_level_fee_rate" domainObjectName="LevelFeeRate"   enableSelectByExample="true"
+			enableDeleteByExample="true" enableCountByExample="true"
+			enableUpdateByExample="true">
+			<property name="useActualColumnNames" value="false" />
+		</table> -->
+		
+	<table schema=""  tableName="t_agent_fee_rate" domainObjectName="AgentFeeRate"   enableSelectByExample="true"
+			enableDeleteByExample="true" enableCountByExample="true"
+			enableUpdateByExample="true">
+			<property name="useActualColumnNames" value="false" />
+	</table> 
+		
+		
     </context>
 </generatorConfiguration>

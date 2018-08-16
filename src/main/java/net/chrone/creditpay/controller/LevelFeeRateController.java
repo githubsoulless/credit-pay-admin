@@ -57,7 +57,11 @@ public class LevelFeeRateController {
 		return "levelFeeRate/list";
 	}
 	
-	public void getLeves(List<Level> list) {
+	/**
+	 * 为层级增加费率还有 增加 代理层级
+	 * @param list
+	 */
+	private void getLeves(List<Level> list) {
 		SysParam sysParam = sysParamService.getSysParam("plan_df_fee");
 		for(Level level : list) {
 			if(null != sysParam) {

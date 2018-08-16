@@ -60,32 +60,48 @@ table tr td{
 			$('#payFee3').val('0');
 		}
 		var reg = /^[0-9]+(.[0-9]{0,2})?$/;
+
 		if(!reg.test($("#feeRate").val())) {
 			alert('请输入正确的还款服务费，最多保留两位小数');
 			$("#feeRate").focus();
 			return;
 		}
-		for(var i=0;i<4;i++){
-			if(!reg.test($("#feeRate"+i).val())) {
-				alert('请输入正确的费率，最多保留两位小数');
-				$("#feeRate"+i).focus();
-				return;
-			}
+		
+	
+		if(!reg.test($("#feeRate_reapalfast").val())) {
+			alert('请输入RB通道正确的费率，最多保留两位小数');
+			$("#feeRate_reapalfast").focus();
+			return;
 		}
-		for(var i=0;i<4;i++){
-			if(!reg.test($("#upperlimit"+i).val())) {
-				alert('请输入正确的封顶手续费，最多保留两位小数');
-				$("#upperlimit"+i).focus();
-				return;
-			}
+		if(!reg.test($("#feeRate_yitong").val())) {
+			alert('请输入YT通道正确的费率，最多保留两位小数');
+			$("#feeRate_yitong").focus();
+			return;
 		}
-		for(var i=0;i<4;i++){
-			if(!reg.test($("#payFee"+i).val())) {
-				alert('请输入正确的单笔结算固定手续费，最多保留两位小数');
-				$("#payFee"+i).focus();
-				return;
-			}
+	
+	
+		if(!reg.test($("#upperlimit_reapalfast").val())) {
+			alert('请输入RB正确的封顶手续费，最多保留两位小数');
+			$("#upperlimit_reapalfast").focus();
+			return;
 		}
+		if(!reg.test($("#upperlimit_yitong").val())) {
+			alert('请输入YT正确的封顶手续费，最多保留两位小数');
+			$("#upperlimit_yitong").focus();
+			return;
+		}
+	
+		if(!reg.test($("#payFee_reapalfast").val())) {
+			alert('请输入RB正确的单笔结算固定手续费，最多保留两位小数');
+			$("#payFee_reapalfast").focus();
+			return;
+		}
+		if(!reg.test($("#payFee_yitong").val())) {
+			alert('请输入YT正确的单笔结算固定手续费，最多保留两位小数');
+			$("#payFee_yitong").focus();
+			return;
+		}
+		
 		
 		showWait();
 		document.getElementById("subForm").submit();
@@ -132,66 +148,39 @@ table tr td{
 						</span>
 					</td>
 				</tr>
+				
 				<tr>
-					<td class="width90"><span>快捷D0-无积分：</span></td>
+					<td class="width90"><span>RB快捷：</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
-								<c:if test="${lfr.settleType == 0 && lfr.integralType == 0 }">
+								<c:if test="${lfr.payChnlCode eq 'reapalfast' }">
 									<input name="levelFeeRates[${i.index }].id" value="${lfr.id }" type="hidden" class="ipt" />
-									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate${i.index }" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
-									封顶手续费<input name="levelFeeRates[${i.index }].upperlimitFj" id="upperlimit${i.index }" value='<chrone:fen2Yuan amt="${lfr.upperlimit }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元，
-									单笔结算固定<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee${i.index }" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
+									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate_reapalfast" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
+									封顶手续费<input name="levelFeeRates[${i.index }].upperlimitFj" id="upperlimit_reapalfast" value='<chrone:fen2Yuan amt="${lfr.upperlimit }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元，
+									单笔结算固定<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee_reapalfast" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
 								</c:if>
 							</c:forEach>
 						</span>
 					</td>
 				</tr>
+				
 				<tr>
-					<td class="width90"><span>快捷D0-有积分：</span></td>
+					<td class="width90"><span>YT快捷：</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
-								<c:if test="${lfr.settleType == 0 && lfr.integralType == 1 }">
+								<c:if test="${lfr.payChnlCode eq 'yitong' }">
 									<input name="levelFeeRates[${i.index }].id" value="${lfr.id }" type="hidden" class="ipt" />
-									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate${i.index }" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
-									封顶手续费<input name="levelFeeRates[${i.index }].upperlimitFj" id="upperlimit${i.index }" value='<chrone:fen2Yuan amt="${lfr.upperlimit }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元，
-									单笔结算固定<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee${i.index }" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
+									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate_yitong" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
+									封顶手续费<input name="levelFeeRates[${i.index }].upperlimitFj" id="upperlimit_yitong" value='<chrone:fen2Yuan amt="${lfr.upperlimit }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元，
+									单笔结算固定<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee_yitong" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
 								</c:if>
 							</c:forEach>
 						</span>
 					</td>
 				</tr>
-				<tr>
-					<td class="width90"><span>快捷T1-无积分：</span></td>
-					<td>
-						<span>
-							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
-								<c:if test="${lfr.settleType == 1 && lfr.integralType == 0 }">
-									<input name="levelFeeRates[${i.index }].id" value="${lfr.id }" type="hidden" class="ipt" />
-									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate${i.index }" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
-									封顶手续费<input name="levelFeeRates[${i.index }].upperlimitFj" id="upperlimit${i.index }" value='<chrone:fen2Yuan amt="${lfr.upperlimit }"/>' type="text" class="input-sm" />元，
-									单笔结算固定<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee${i.index }" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" />元/笔
-								</c:if>
-							</c:forEach>
-						</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="width90"><span>快捷T1-无积分：</span></td>
-					<td>
-						<span>
-							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
-								<c:if test="${lfr.settleType == 1 && lfr.integralType == 1 }">
-									<input name="levelFeeRates[${i.index }].id" value="${lfr.id }" type="hidden" class="ipt" />
-									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate${i.index }" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
-									封顶手续费<input name="levelFeeRates[${i.index }].upperlimitFj" id="upperlimit${i.index }" value='<chrone:fen2Yuan amt="${lfr.upperlimit }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元，
-									单笔结算固定<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee${i.index }" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
-								</c:if>
-							</c:forEach>
-						</span>
-					</td>
-				</tr>
+				
 				<tr class="textcenter">
 					<td colspan="4">
 						<button class="btn1" type="button" onclick="subForm()">保存</button>

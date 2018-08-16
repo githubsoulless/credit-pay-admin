@@ -6,16 +6,16 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import net.chrone.creditpay.model.FastOrder;
+import net.chrone.creditpay.util.CHException;
 import net.chrone.creditpay.util.ConfigReader;
 
 public class FastPayApi {
 private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	
 	public final static String CHRONE="chrone";//乾恩
-
 	public final static String HUAPAY="huapay";//融信优贝
-	
 	public final static String REAPALFAST="reapalfast";//融宝
+	public final static String YITONG="yitong";//易通
 	
 	
 	/**
@@ -39,6 +39,9 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
+		}else if(YITONG.equals(code)) {
+			throw new CHException("500","YT快捷不支持重新代付操作...");
+			
 		}else{
 			logger.error("未找到通道");
 		}

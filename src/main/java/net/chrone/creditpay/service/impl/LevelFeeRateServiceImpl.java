@@ -20,7 +20,7 @@ public class LevelFeeRateServiceImpl implements LevelFeeRateService {
 	@Override
 	public List<LevelFeeRate> listLevelFeeRate(int levelId) {
 		LevelFeeRateExample levelFeeRateExample = new LevelFeeRateExample();
-		levelFeeRateExample.createCriteria().andLevelIdEqualTo(levelId).andTransTypeEqualTo(1);
+		levelFeeRateExample.createCriteria().andLevelIdEqualTo(levelId).andTransTypeEqualTo(1).andPayChnlCodeNotEqualTo("");
 		List<LevelFeeRate> levelFeeRates = levelFeeRateMapper.selectByExample(levelFeeRateExample);
 		for(LevelFeeRate levelFeeRate : levelFeeRates) {
 			levelFeeRate.setFeeRate(levelFeeRate.getFeeRate().multiply(new BigDecimal(100)));
