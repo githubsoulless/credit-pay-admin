@@ -84,7 +84,7 @@ public class ChroneApi {
 	
 	
 	/**
-	 * 代付
+	 * 融宝快捷代付
 	 * 
 	 * @param order
 	 * @return
@@ -100,6 +100,7 @@ public class ChroneApi {
 		map.put("cardNo", order.getCardNo());
 		map.put("certNo", "11111111111111111");
 		map.put("pmsBankCd", order.getBankNo());
+		map.put("payChannelId", order.getChannel());
 		String plainText = SignatureUtil.hex(map);
 		map.put("signature", MyRSAUtils.sign(privateKey, plainText, MyRSAUtils.MD5_SIGN_ALGORITHM));
 		try {

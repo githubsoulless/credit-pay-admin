@@ -88,12 +88,10 @@ public class LevelFeeRateController {
 			level.setLevelName("三级代理");
 		}
 		if(null != sysParam) {
-			level.setPlan_df_fee(new BigDecimal(AmountUtil.parseAmountStr2Long(sysParam.getValue())));
+			level.setPlan_df_fee(new BigDecimal(AmountUtil.parseAmountStr2Long(sysParam.getValue()))); 
 		}
 		List<AgentFeeRate> listLevelFeeRate = agentFeeRateService.listLevelFeeRate(levelId);
-		if(listLevelFeeRate!=null&&listLevelFeeRate.size()>0){
-			level.setFeeRate(listLevelFeeRate.get(0).getPayFeeRate()*100);
-		}
+		//完美还款费率在费率列表中
 		level.setListLevelFeeRate(listLevelFeeRate);
 		return level;
 	}

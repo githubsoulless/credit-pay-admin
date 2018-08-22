@@ -46,9 +46,11 @@ public class AgentFeeRateServiceImpl implements AgentFeeRateService {
 			
 			String json = JSON.toJSONString(levelFeeRate);
 			AgentFeeRate agentFeeRate = JSON.parseObject(json, AgentFeeRate.class);
-			agentFeeRate.setPayFeeRate(level.getFeeRate()/100);
+			if(null != level.getFeeRate())
+				agentFeeRate.setPayFeeRate(level.getFeeRate()/100);
 			agentFeeRate.setFeeRate(levelFeeRate.getFeeRate().divide(new BigDecimal(100)));
-			agentFeeRate.setUpperlimit(levelFeeRate.getUpperlimitFj().multiply(new BigDecimal(100)).intValue());
+			if(null != levelFeeRate.getUpperlimitFj())
+				agentFeeRate.setUpperlimit(levelFeeRate.getUpperlimitFj().multiply(new BigDecimal(100)).intValue());
 			agentFeeRate.setPayFee(levelFeeRate.getPayFeeFj().multiply(new BigDecimal(100)).intValue());
 			agentFeeRate.setRecUpdTs(new Date());
 			agentFeeRate.setRecUpdUsr(level.getRecUpdUsr());

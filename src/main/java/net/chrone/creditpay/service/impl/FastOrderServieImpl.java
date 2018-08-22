@@ -79,11 +79,12 @@ public class FastOrderServieImpl implements FastOrderService {
 		agentPayOrder.setCreateTime(new Date());
 		agentPayOrder.setUserId(fastOrder.getUserId());
 		agentPayOrder.setFee(fastOrder.getFee());
-
+		
 		PayChannel payChannel = payChannelMapper.selectByPrimaryKey(fastOrder.getChnlId());
 		if(null == payChannel) {
 			return 0;
 		}
+		agentPayOrder.setChannel(payChannel.getCode());
 		Map<String, String> resultMap = new HashMap<>();
 		try {
 			resultMap = FastPayApi.fastPay_df(agentPayOrder, payChannel.getCode());

@@ -579,7 +579,24 @@ public class FastOrder extends ParentMode{
 	private String startAmtStr;
 	private String endAmtStr;
 	
-	
+	private String channel;
+	private String paySmsCode;
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+	public String getPaySmsCode() {
+		return paySmsCode;
+	}
+
+	public void setPaySmsCode(String paySmsCode) {
+		this.paySmsCode = paySmsCode;
+	}
 
 	public void setStartAmt(Integer startAmt) {
 		this.startAmt = startAmt;

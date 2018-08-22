@@ -98,7 +98,15 @@ table.table1 tr th{
 									<c:forEach items="${list }" varStatus="i" var="l">
 										<tr>
 											<td>${l.levelName}</td>
-											<td><fmt:formatNumber value="${l.feeRate }" type="currency" pattern="0.00"/>%+<chrone:fen2Yuan amt="${l.plan_df_fee/100 }"/>元/笔</td>
+											<td>
+												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
+													<c:if test="${lfr.payChnlCode eq 'reapal' }">
+														<c:if test="${lfr.feeRate > 0 }">
+															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%+<chrone:fen2Yuan amt="${lfr.payFee }"/>元/笔
+														</c:if>
+													</c:if>
+												</c:forEach>
+											</td>
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'reapalfast' }">
