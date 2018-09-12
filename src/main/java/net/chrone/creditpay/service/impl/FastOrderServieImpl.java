@@ -14,6 +14,7 @@ import net.chrone.creditpay.mapper.PayChannelMapper;
 import net.chrone.creditpay.model.FastOrder;
 import net.chrone.creditpay.model.FastOrderExample;
 import net.chrone.creditpay.model.PayChannel;
+import net.chrone.creditpay.service.CardExtService;
 import net.chrone.creditpay.service.FastOrderService;
 import net.chrone.creditpay.service.SeqService;
 import net.chrone.creditpay.util.DateUtils;
@@ -26,6 +27,8 @@ public class FastOrderServieImpl implements FastOrderService {
 	private SeqService seqService;
 	@Autowired
 	private PayChannelMapper payChannelMapper;
+	@Autowired
+	private CardExtService cardExtService;
 
 	@Override
 	public Map<String, Object> getOrderByPageCount(FastOrder order) {
@@ -87,7 +90,7 @@ public class FastOrderServieImpl implements FastOrderService {
 		agentPayOrder.setChannel(payChannel.getCode());
 		Map<String, String> resultMap = new HashMap<>();
 		try {
-			resultMap = FastPayApi.fastPay_df(agentPayOrder, payChannel.getCode());
+			resultMap = FastPayApi.fastPay_df(agentPayOrder, cardExtService,payChannel.getCode());
 		} catch (Exception e) {
 			agentPayOrder.setPaySt(3);
 			fastOrderMapper.insertSelective(agentPayOrder);

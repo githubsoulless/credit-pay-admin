@@ -137,9 +137,17 @@ public class AgentServiceImpl implements AgentService {
 		idMap.put("ids", ids);
 		userIdList = appUserMapper.getAppUserByParentIdList(idMap);
 		allIdList.addAll(userIdList);
-        while (!userIdList.isEmpty()) {
+		while (!userIdList.isEmpty()) {
             idMap.clear();
             idMap.put("ids", userIdList);
+            List<String> tempList = new ArrayList<>();
+            for(String temUserId : userIdList){
+            	Agent tempAgent = getAgentByUserId(temUserId);
+            	if(tempAgent==null){
+            		tempList.add(temUserId);
+            	}
+            }
+            idMap.put("ids", tempList);
             userIdList = appUserMapper.getAppUserByParentIdList(idMap);
             allIdList.addAll(userIdList);
         }

@@ -41,6 +41,12 @@ public class AccountInterceptor extends HandlerInterceptorAdapter  {
 
 //    	LogWriter.info("==============执行顺序: 1、preHandle================");  
         String url=request.getServletPath().substring(1);    
+        System.out.println("url:"+url);
+        
+        if ("".equals(url)||url.startsWith("api")){//默认权限
+        	return true;  
+		}
+        
         if ("".equals(url)||url.startsWith("public")){//默认权限
         	return true;  
 		}else{
@@ -97,6 +103,8 @@ public class AccountInterceptor extends HandlerInterceptorAdapter  {
     	list.add("appUser/getUsersForMsg");
     	list.add("appUser/img");
     	list.add("taskStatistics/realTimeTask");
+    	//hui fu
+    	list.add("huifu/bindCashCard");
     	return list;
     }
     

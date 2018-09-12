@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import net.chrone.creditpay.model.FastOrder;
+import net.chrone.creditpay.service.CardExtService;
 import net.chrone.creditpay.util.CHException;
 import net.chrone.creditpay.util.ConfigReader;
 
@@ -16,6 +17,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String HUAPAY="huapay";//融信优贝
 	public final static String REAPALFAST="reapalfast";//融宝
 	public final static String YITONG="yitong";//易通
+	public final static String HUIFU="huifu";//易通
 	
 	
 	/**
@@ -24,7 +26,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	 * @param code 通道代码
 	 * @return status 1:成功
 	 */
-	public static Map<String, String> fastPay_df(FastOrder order,String code){
+	public static Map<String, String> fastPay_df(FastOrder order,CardExtService cardExtService,String code){
 		Map<String, String> resultMap = new HashMap<String, String>();
 		logger.info("找到通道:"+code);
 		if(CHRONE.equals(code)){
@@ -42,8 +44,15 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 		}else if(YITONG.equals(code)) {
 			throw new CHException("500","YT快捷不支持重新代付操作...");
 			
+		}else if(HUIFU.equals(code)) {
+			Map<String, String> resMap = ChroneApi.agentPayByHuifu(order, cardExtService,ConfigReader.getConfig("chroneFastTxPayOrgId"), 
+					ConfigReader.getConfig("chroneFastTxPayPriKey"));
+			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+				resultMap.put("status", "1");//成功
+			}
+			
 		}else{
-			logger.error("未找到通道");
+			logger.error("fastPay_df 未找到通道");
 		}
 		return resultMap;
 	}
