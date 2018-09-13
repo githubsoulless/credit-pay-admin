@@ -41,10 +41,19 @@
 		var location=$("input[name='file']").val(); 
 	     var point = location.lastIndexOf("."); 
 	     var type = location.substr(point);
-	     if(type != ".apk"){
-	    	alert("应用文件类型错误");
-			return false;
-	     } 
+	     
+	    var osType = $("#osType").val();
+	    if(osType == "0"){//android
+	    	 if(type != ".apk"){
+	 	    	alert("应用文件类型错误,请上传apk文件");
+	 			return false;
+	 	     } 
+	     }else if(osType == "1"){
+	    	 if(type != ".ipa"){
+		 	    	alert("应用文件类型错误,请上传ipa文件");
+		 			return false;
+		 	     } 
+	     }
 		
 		showWait();
 		document.getElementById("subForm").submit();
@@ -77,7 +86,7 @@
 					<td><span>
 							<select id="osType" name="osType" class="input-sm">
 								<option value="0" selected="selected">Android</option>
-	  					   	<!-- <option value="1">IOS</option> -->
+	  					   		<option value="1">IOS</option>
 							</select>	
 						</span>
 					</td>

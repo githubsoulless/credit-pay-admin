@@ -2,8 +2,11 @@ package net.chrone.creditpay.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 
 import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.MobileVersion;
@@ -43,7 +49,8 @@ public class MobileVersionController {
 	@Autowired
 	private LogConstant logConstant;
 	private String saveFilePath = PropertiseUtil.getDataFromPropertiseFile("pay", "APK_FILE_PATH");
-
+	private String httpBaseUrl = PropertiseUtil.getDataFromPropertiseFile("pay", "APK_HTTP_BASE_URL");
+	
 	@RequestMapping("list")
 	public String list(MobileVersion mobileVersion, String start, Model model) {
 		int starIndex = StringUtils.isEmpty(start) ? 0 : Integer.valueOf(start);
@@ -120,16 +127,43 @@ public class MobileVersionController {
 	@RequestMapping("toUpdate")
 	public String toUpdate(MobileVersion mobileVersion, Model model){
 		MobileVersion oMobileVersion = mobileVersionService.getMobileVersion(mobileVersion);
+		oMobileVersion.setFileName(httpBaseUrl+oMobileVersion.getFileName());
 		model.addAttribute("mobileVersion", oMobileVersion);
+		if(oMobileVersion != null && oMobileVersion.getOsType().equals("1")) {//ios
+			
+			Map<String, String> ipaDownloadPaths = null;
+			if(mobileVersion.getOsType().equals("1")) {
+				try {
+					ipaDownloadPaths = JSON.parseObject(oMobileVersion.getDownloadUrl(), new TypeReference<HashMap<String, String>>() {});
+					model.addAttribute("plistfile",ipaDownloadPaths.get("plistPath"));
+					model.addAttribute("icon1file", ipaDownloadPaths.get("icon1Path"));
+					model.addAttribute("icon2file", ipaDownloadPaths.get("icon2Path"));
+				}catch(Exception e) {
+					
+				}
+			}
+		}
 		return "mobileVersion/update";
 	}
 
 	@RequestMapping("update")
-	public String update(MobileVersion mobileVersion, Model model, HttpServletRequest request, MultipartFile file) {
+	public String update(MobileVersion mobileVersion, Model model, HttpServletRequest request, MultipartFile file,
+			MultipartFile plistfile,MultipartFile icon1,MultipartFile icon2) {
 		String message = "";
 		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+		//plistPath = ""  icon1Path="" icon2Path=""
+		Map<String, String> ipaDownloadPaths = null;
+		if(mobileVersion.getOsType().equals("1")) {
+			try {
+				MobileVersion mobileVersionTmp = mobileVersionService.getMobileVersion(mobileVersion);
+				ipaDownloadPaths = JSON.parseObject(mobileVersionTmp.getDownloadUrl(), new TypeReference<HashMap<String, String>>() {});
+			}catch(Exception e) {
+				ipaDownloadPaths = new HashMap<String,String>();
+			}
+		}
+		
 		try {
-			if(!file.isEmpty()){
+			if(file != null && !file.isEmpty()){
 				long fileSize = file.getSize();
 				String oFileName = file.getOriginalFilename();
 				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
@@ -144,6 +178,53 @@ public class MobileVersionController {
 	            mobileVersion.setOldFileName(oFileName);
 	            mobileVersion.setFileName(fileName);
 	            mobileVersion.setFilePath(saveFilePath);
+			}
+			
+			if(plistfile != null && !plistfile.isEmpty()){
+				long fileSize = plistfile.getSize();
+				String oFileName = plistfile.getOriginalFilename();
+				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+				File newFile = new File(saveFilePath + fileName);
+	            if (!newFile.exists()) { // 文件夹
+	            	newFile.getParentFile().mkdirs();
+	            	newFile.createNewFile();
+	            }
+	            // 将内存中的数据写入磁盘
+	            plistfile.transferTo(newFile);
+	            ipaDownloadPaths.put("plistPath", httpBaseUrl+fileName);
+			}
+			
+			if(icon1 != null && !icon1.isEmpty()){
+				long fileSize = icon1.getSize();
+				String oFileName = icon1.getOriginalFilename();
+				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+				File newFile = new File(saveFilePath + fileName);
+	            if (!newFile.exists()) { // 文件夹
+	            	newFile.getParentFile().mkdirs();
+	            	newFile.createNewFile();
+	            }
+	            // 将内存中的数据写入磁盘
+	            icon1.transferTo(newFile);
+	            ipaDownloadPaths.put("icon1Path", httpBaseUrl+fileName);
+			}
+			
+			if(icon2 != null && !icon2.isEmpty()){
+				long fileSize = icon2.getSize();
+				String oFileName = icon2.getOriginalFilename();
+				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+				File newFile = new File(saveFilePath + fileName);
+	            if (!newFile.exists()) { // 文件夹
+	            	newFile.getParentFile().mkdirs();
+	            	newFile.createNewFile();
+	            }
+	            // 将内存中的数据写入磁盘
+	            icon2.transferTo(newFile);
+	            ipaDownloadPaths.put("icon2Path", httpBaseUrl+fileName);
+			}
+			
+			if(mobileVersion.getOsType().equals("1")) {
+				String json = JSON.toJSONString(ipaDownloadPaths);
+				mobileVersion.setDownloadUrl(json);
 			}
 			mobileVersion.setModTime(new Date());
 			mobileVersion.setOperator(userInfSeesion.getLoginId());
@@ -161,5 +242,5 @@ public class MobileVersionController {
 		model.addAttribute("message", message);
 		return "mobileVersion/update";
 	}
-
+	
 }

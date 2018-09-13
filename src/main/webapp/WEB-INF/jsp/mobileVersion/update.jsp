@@ -60,6 +60,7 @@
 					<td class="width90"><span>操作系统：</span></td>
 					<td><span>
 							<c:if test="${mobileVersion.osType == 0 }">Android</c:if>
+							<c:if test="${mobileVersion.osType == 1 }">IOS</c:if>
 						</span>
 					</td>
 					<td class="width90"><span><span style="color: red;">*</span>版本号</span></td>
@@ -83,10 +84,44 @@
 				</tr>
 				<tr>
 					<td class="width90"><span>应用文件：</span></td>
-					<td colspan="3"><span>
-						${mobileVersion.oldFileName }&nbsp;&nbsp;&nbsp;<input type="file" name="file" id="file"/>
-					</span></td>
+					<td colspan="3">
+						<span>
+							${mobileVersion.oldFileName }&nbsp;&nbsp;&nbsp;<input type="file" name="file" id="file"/>
+						</span>
+						<c:if test="${mobileVersion.osType eq '1' }"><span id="ipaurl">${mobileVersion.fileName}</span></c:if>
+						
+					</td>
 				</tr>
+				
+				<c:if test="${mobileVersion.osType eq '1' }"><!-- 苹果包需要再上传plist和2张图片 -->
+					<tr>
+						<td class="width90"><span>plist文件：</span></td>
+						<td colspan="3">
+							<span>
+							${plistfile}&nbsp;&nbsp;&nbsp;	<input type="file" name="plistfile" id="plistfile"/>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="width90"><span>icon1文件：</span></td>
+						<td colspan="3">
+							<span>
+								${icon1file}&nbsp;&nbsp;&nbsp;<input type="file" name="icon1" id="icon1"/>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="width90"><span>icon2文件：</span></td>
+						<td colspan="3">
+							<span>
+								${icon2file}&nbsp;&nbsp;&nbsp;<input type="file" name="icon2" id="icon2"/>
+							</span>
+						</td>
+					</tr>
+				
+				</c:if>
+				
+				
 				<tr>
 					<td class="width90"><span>版本描述：</span></td>
 					<td colspan="3">

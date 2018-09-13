@@ -153,11 +153,20 @@
 			<property name="useActualColumnNames" value="false" />
 		</table> -->
 		
-	<table schema=""  tableName="t_agent_fee_rate" domainObjectName="AgentFeeRate"   enableSelectByExample="true"
+	<!-- <table schema=""  tableName="t_agent_fee_rate" domainObjectName="AgentFeeRate"   enableSelectByExample="true"
+			enableDeleteByExample="true" enableCountByExample="true"
+			enableUpdateByExample="true">
+			<property name="useActualColumnNames" value="false" />
+	</table>  -->
+	
+	<table schema=""  tableName="t_mobile_version" domainObjectName="MobileVersion"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />
 	</table> 
+	
+	
+	
 		
 		
     </context>
