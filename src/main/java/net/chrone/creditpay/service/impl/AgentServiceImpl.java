@@ -137,11 +137,23 @@ public class AgentServiceImpl implements AgentService {
 		idMap.put("ids", ids);
 		userIdList = appUserMapper.getAppUserByParentIdList(idMap);
 		allIdList.addAll(userIdList);
-        while (!userIdList.isEmpty()) {
+		while (!userIdList.isEmpty()) {
             idMap.clear();
             idMap.put("ids", userIdList);
-            userIdList = appUserMapper.getAppUserByParentIdList(idMap);
-            allIdList.addAll(userIdList);
+            List<String> tempList = new ArrayList<>();
+            for(String temUserId : userIdList){
+            	Agent tempAgent = getAgentByUserId(temUserId);
+            	if(tempAgent==null){
+            		tempList.add(temUserId);
+            	}
+            }
+            idMap.put("ids", tempList);
+            if(tempList.size()>0) {
+            	userIdList = appUserMapper.getAppUserByParentIdList(idMap);
+            	allIdList.addAll(userIdList);
+            }else {
+            	userIdList = new ArrayList<>();
+            }
         }
         return allIdList;
 	}
@@ -172,6 +184,24 @@ public class AgentServiceImpl implements AgentService {
 			return null;
 		}
 		return list.get(0);
+	}
+
+	@Override
+	public int updateAllAgentUser() {
+		List<Agent> agentList = getAgentAll();
+		int count=0;
+		for(Agent agent:agentList) {
+			// 更新当前绑定的用户所有下属用户agent_id字段
+			List<String> userIds = getUserIdsByParentId(agent.getUserId());
+			if (userIds.size() > 0) {
+				AppUser appUser = new AppUser();
+				appUser.setAgentId(agent.getAgentId());
+				AppUserExample appUserExample = new AppUserExample();
+				appUserExample.createCriteria().andUserIdIn(getUserIdsByParentId(agent.getUserId()));
+				count+=appUserMapper.updateByExampleSelective(appUser, appUserExample);
+			}
+		}
+		return count;
 	}
 
 }

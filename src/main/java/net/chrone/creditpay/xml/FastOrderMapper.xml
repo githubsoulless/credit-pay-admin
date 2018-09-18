@@ -25,6 +25,8 @@
     <result column="settle_order_no" jdbcType="VARCHAR" property="settleOrderNo" />
     <result column="chnl_id" jdbcType="VARCHAR" property="chnlId" />
     <result column="chnlName" jdbcType="VARCHAR" property="chnlName" />
+    <result column="userProfits" jdbcType="INTEGER" property="userProfits" />
+    <result column="agentProfits" jdbcType="INTEGER" property="agentProfits" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -516,12 +518,25 @@
   	</where>
   </sql>
    <select id="getOrderByPageCount" parameterType="net.chrone.creditpay.model.FastOrder" resultType="map">
-  	select count(1) as count,sum(amount)as sumamt, sum(fee) as sumfee, sum(chnl_fee) as sumChnlfee from t_fast_order t left join t_pay_channel b on t.chnl_id=b.id
+  	select count(1) as count,sum(amount)as sumamt, 
+  	sum(t.fee) as sumfee, 
+  	sum(t.chnl_fee) as sumChnlfee,
+  	sum(p.user_profits) as  sumUserProfits,
+  	sum(p.agent_profits) as sumAgentProfits 
+  	from t_fast_order t 
+  	left join t_pay_channel b on t.chnl_id=b.id
+  	left join t_fast_profits p on p.order_no=t.order_no
   	<include refid="where_page" />
   </select>
   <select id="getOrderByPage" parameterType="net.chrone.creditpay.model.FastOrder" resultMap="BaseResultMap">
  	 select a.* from (
-  	select t.*,b.name as chnlName from t_fast_order t left join t_pay_channel b on t.chnl_id=b.id
+  	select t.*,
+  	b.name as chnlName,
+  	p.user_profits as  userProfits,
+  	p.agent_profits as agentProfits 
+  	from t_fast_order t 
+  	left join t_pay_channel b on t.chnl_id=b.id 
+  	left join t_fast_profits p on p.order_no=t.order_no
   	<include refid="where_page" />
   	order by t.create_time desc,t.order_no desc
   	)a limit  #{startRow} , #{pageSize}

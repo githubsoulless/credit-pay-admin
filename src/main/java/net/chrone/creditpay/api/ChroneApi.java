@@ -13,8 +13,11 @@ import com.alibaba.fastjson.TypeReference;
 
 import net.chrone.creditpay.http.HttpClientHelper;
 import net.chrone.creditpay.http.HttpResponse;
+import net.chrone.creditpay.model.CardExt;
 import net.chrone.creditpay.model.FastOrder;
 import net.chrone.creditpay.model.SmsWarning;
+import net.chrone.creditpay.service.CardExtService;
+import net.chrone.creditpay.util.CHException;
 import net.chrone.creditpay.util.ConfigReader;
 import net.chrone.creditpay.util.LogWriter;
 import net.chrone.creditpay.util.MyRSAUtils;
@@ -82,6 +85,27 @@ public class ChroneApi {
 		return null;
 	}
 	
+	public static Map<String, String> queryVerifiedFee(String orgId, String privateKey) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("orgId", orgId);
+		String plainText = SignatureUtil.hex(map);
+		map.put("signature", MyRSAUtils.sign(privateKey, plainText, MyRSAUtils.MD5_SIGN_ALGORITHM));
+		try {
+			List<String[]> headers = new ArrayList<>();
+			headers.add(new String[]{"Content-Type", "application/json"});
+			HttpResponse httpRes = HttpClientHelper.doHttp(ConfigReader.getConfig("chroneQueryVerifiedFeeUrl"),
+					HttpClientHelper.POST,headers, "UTF-8", JSON.toJSONString(map), "60000");
+			logger.info(httpRes.getRspStr());
+			if (StringUtils.isNotEmpty(httpRes.getRspStr())) {
+				return JSON.parseObject(httpRes.getRspStr(), new TypeReference<HashMap<String, String>>() {
+				});
+			}
+		} catch (Exception e) {
+			LogWriter.error("请求认证费用查询接口失败");
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * 融宝快捷代付
@@ -92,7 +116,7 @@ public class ChroneApi {
 	public static Map<String, String> agentPay(FastOrder order, String orgId, String privateKey) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("orgId", orgId);
-		map.put("reserved1", ConfigReader.getConfig("chroneTxAgentPayOrgId"));//代付orgid
+		map.put("reserved1", ConfigReader.getConfig("chronePayOrgId"));//代付orgid
 		map.put("reserved2", order.getFee()+"");//代付手续费
 		map.put("orgPayforSsn", order.getOrderNo());
 		map.put("accountName", order.getCardName());
@@ -119,8 +143,54 @@ public class ChroneApi {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * 易通快捷代付,易通快捷消费与代付是一个动作<br>
+	 * 在第一次消费成功的时候就会自动的代付到储蓄卡中,这里的代付实际上只是启到一个查询状态的意思
+	 * @param order
+	 * @return
+	 */
+	public static Map<String, String> agentPayByHuifu(FastOrder order,CardExtService cardExtService, String orgId, String privateKey) {
+	
+		CardExt cashCardExt = cardExtService.getCardExtByCardNo(order.getCardNo(), "huifu");
+		if(cashCardExt == null || StringUtils.isEmpty(cashCardExt.getReserve4())) {
+			throw new CHException("500","HF通道代付失败,请绑定取现卡!");
+		}
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("orgId", orgId);
+		map.put("reserved1", ConfigReader.getConfig("chronePayOrgId"));//代付orgid
+		map.put("reserved2", order.getFee()+"");//代付手续费
+		map.put("orgPayforSsn", order.getOrderNo());
+		map.put("accountName", order.getCardName());
+		map.put("destAmount", order.getAmount() +"");
+		map.put("cardNo", order.getCardNo());
+		map.put("certNo", "11111111111111111");
+		map.put("pmsBankCd", order.getBankNo());
+		map.put("payChannelId", order.getChannel());
+		map.put("reserve1", cashCardExt.getReserve1());
+		map.put("reserve2", cashCardExt.getReserve2());
+		map.put("reserve4", cashCardExt.getReserve4());
+		String plainText = SignatureUtil.hex(map);
+		map.put("signature", MyRSAUtils.sign(privateKey, plainText, MyRSAUtils.MD5_SIGN_ALGORITHM));
+		try {
+			List<String[]> headers = new ArrayList<>();
+			headers.add(new String[]{"Content-Type", "application/json"});
+			HttpResponse httpRes = HttpClientHelper.doHttp(ConfigReader.getConfig("chroneAgentPayUrl"),
+					HttpClientHelper.POST,headers, "UTF-8", JSON.toJSONString(map), "180000");
+			logger.info("--------------->agentPayByHuifu recv:"+httpRes.getRspStr());
+			if (StringUtils.isNotEmpty(httpRes.getRspStr())) {
+				return JSON.parseObject(httpRes.getRspStr(), new TypeReference<HashMap<String, String>>() {
+				});
+			}
+		} catch (Exception e) {
+			LogWriter.error("请求完美代付接口失败");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static void main(String[] args) {
-		System.out.println(queryBalance(ConfigReader.getConfig("chroneAgentPayOrgId"), ConfigReader.getConfig("chroneAgentPayPriKey")));
+		System.out.println(queryBalance(ConfigReader.getConfig("chronePayOrgId"), ConfigReader.getConfig("chronePayPriKey")));
 	}
 }

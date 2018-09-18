@@ -143,7 +143,7 @@
 				<tr>
 					<td class="width90"><span><span style="color:red;">*</span>面值(元)：</span></td>
 					<td><span>
-						<input name="amount" id="amount" maxlength="15" style="width: 180px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; "
+						<input name="amountStr" id="amount" maxlength="15" style="width: 180px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; "
 						 onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 						 onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 						 onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
@@ -154,7 +154,7 @@
 					<td><span>
 						<input type="radio" name="limitAmountType" value="0" checked="checked"/>不限制&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="radio" name="limitAmountType" value="1"/>满
-						<input type="text" name="limitAmount" id="limitAmount" readonly="readonly" style="width: 60px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; " onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
+						<input type="text" name="limitAmountStr" id="limitAmount" readonly="readonly" style="width: 60px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; " onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 						 		onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 								onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"/>
 						 元可使用

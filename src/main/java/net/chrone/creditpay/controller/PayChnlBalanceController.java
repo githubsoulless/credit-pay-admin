@@ -15,10 +15,8 @@ public class PayChnlBalanceController {
 
 	@RequestMapping("detail")
 	public String detail(Model model){
-		Map<String, String> agentPayMap = ChroneApi.queryBalance(ConfigReader.getConfig("chroneAgentPayOrgId"), ConfigReader.getConfig("chroneAgentPayPriKey"));
-		Map<String, String> fastPayMap = ChroneApi.queryBalance(ConfigReader.getConfig("chroneFastPayOrgId"), ConfigReader.getConfig("chroneFastPayPriKey"));
+		Map<String, String> agentPayMap = ChroneApi.queryBalance(ConfigReader.getConfig("chronePayOrgId"), ConfigReader.getConfig("chronePayPriKey"));
 		model.addAttribute("agentPayMap", agentPayMap);
-		model.addAttribute("fastPayMap", fastPayMap);
 		return "chnlQueryBalance/detail";
 	}
 	

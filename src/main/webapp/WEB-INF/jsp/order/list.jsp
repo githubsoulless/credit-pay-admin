@@ -165,7 +165,12 @@ table.table1 tr th{
 										<th>所属任务ID</th>
 										<th>订单类型</th>
 										<th>订单金额</th>
+										<th>平台服务费</th>
 										<th>通道手续费</th>
+										<th>总利润</th>
+										<th>用户利润</th>
+										<th>代理利润</th>
+										<th>平台利润</th>
 										<th>卡号</th>
 										<th>持卡人姓名</th>
 										<th>订单状态</th>
@@ -193,7 +198,12 @@ table.table1 tr th{
 												<c:if test="${l.orderTp==2 }">提现</c:if>
 											</td>
 											<td ><chrone:fen2Yuan amt="${l.amount}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.platFee}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.fee}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.platFee-l.fee}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.userProfits}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.agentProfits}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.platFee-l.fee-l.userProfits-l.agentProfits}"/> </td>
 											<td><chrone:HiddenStr head="4" srcStr="${l.cardNo}" footer="4"/> </td>
 											<td >${l.cardName}</td>
 											<td >
@@ -214,8 +224,13 @@ table.table1 tr th{
 										<td colspan="3" align="left">查询结果：${page.rowTotal }条</td>
 										<td colspan="3" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.sumamt }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumPlatFee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee }"/></td>
-										<td colspan="10" align="right"></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumPlatFee-countMap.sumfee }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumUserProfits }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumAgentProfits }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumPlatFee-countMap.sumfee-countMap.sumUserProfits-countMap.sumAgentProfits }"/></td>
+										<td colspan="15" align="right"></td>
 									</tr>
 								</tbody>
 							</table>

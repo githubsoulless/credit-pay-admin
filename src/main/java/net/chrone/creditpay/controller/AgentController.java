@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
@@ -48,6 +49,8 @@ public class AgentController {
 	private AgentUserService agentUserService;
 	@Autowired
 	private LogConstant logConstant;
+	
+	
 
 	@RequestMapping("list")
 	public String list(Agent agent, String start, Model model) {
@@ -196,4 +199,10 @@ public class AgentController {
 		model.addAttribute("agentInfo", agentInfo);
 		return "agent/subAgentList";
 	}
+	
+//	@RequestMapping("updateAllAgentUser")
+//	public @ResponseBody String updateAllAgentUser() {
+//		int count = agentService.updateAllAgentUser();
+//		return "success:"+count;
+//	}
 }

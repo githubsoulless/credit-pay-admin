@@ -474,6 +474,35 @@ public class Order extends ParentMode{
 	
 	private String chnlName;
 	private Integer settleType;
+	private int userProfits;
+	private int agentProfits;
+	private int platFee;
+	
+	
+	
+	public int getUserProfits() {
+		return userProfits;
+	}
+
+	public void setUserProfits(int userProfits) {
+		this.userProfits = userProfits;
+	}
+
+	public int getAgentProfits() {
+		return agentProfits;
+	}
+
+	public void setAgentProfits(int agentProfits) {
+		this.agentProfits = agentProfits;
+	}
+
+	public int getPlatFee() {
+		return platFee;
+	}
+
+	public void setPlatFee(int platFee) {
+		this.platFee = platFee;
+	}
 
 	public String getStartAmtStr() {
 		return startAmtStr;
