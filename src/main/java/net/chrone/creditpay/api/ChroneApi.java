@@ -120,7 +120,7 @@ public class ChroneApi {
 		map.put("reserved2", order.getFee()+"");//代付手续费
 		map.put("orgPayforSsn", order.getOrderNo());
 		map.put("accountName", order.getCardName());
-		map.put("destAmount", (order.getAmount() - order.getFee()) + "");
+		map.put("destAmount", order.getAmount() + "");
 		map.put("cardNo", order.getCardNo());
 		map.put("certNo", "11111111111111111");
 		map.put("pmsBankCd", order.getBankNo());
