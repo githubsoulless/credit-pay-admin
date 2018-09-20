@@ -19,7 +19,7 @@
              <property name="rootInterface" value="net.chrone.creditpay.mapper.ParentMapper"/>
         </javaClientGenerator> 
 
-	<table schema=""  tableName="t_app_user" domainObjectName="AppUser"   enableSelectByExample="true"
+	<table schema=""  tableName="t_credit_root_bank" domainObjectName="CreditRootBank"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />
