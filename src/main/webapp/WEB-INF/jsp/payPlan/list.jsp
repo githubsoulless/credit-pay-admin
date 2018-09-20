@@ -142,6 +142,7 @@ table.table1 tr th{
 										<th>服务费</th>
 										<th>代付费</th>
 										<th>优惠金额</th>
+										<th>已使用优惠金额</th>
 										<th>任务天数</th>
 										<th>计划状态</th>
 										<th>计划创建时间</th>
@@ -173,6 +174,9 @@ table.table1 tr th{
 											<td ><chrone:fen2Yuan amt="${l.fee}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.dfFee}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.fee-l.payAmt}"/> </td>
+											<td >
+<%-- 												<fmt:formatNumber var="tempAmt" value="${(l.fee-l.payAmt)*(l.successXfCount/l.xfNum)}" pattern="#"/> --%>
+												<chrone:fen2Yuan amt="${l.usePreAmt}"/>
 											<td >${l.planDtNum}</td>
 											<td >
 												<c:if test="${l.status==0 }">进行中</c:if>
@@ -193,6 +197,7 @@ table.table1 tr th{
 										<td><chrone:fen2Yuan amt="${countMap.sumFee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumDfFee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumPayAmt }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumUsePreAmt }"/></td>
 										<td colspan="6" align="right"></td>
 									</tr>
 								</tbody>

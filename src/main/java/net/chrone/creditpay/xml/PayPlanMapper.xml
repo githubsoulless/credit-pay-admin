@@ -570,11 +570,20 @@
   	</where>
   </sql>
    <select id="getPayPlanByPageCount" parameterType="net.chrone.creditpay.model.PayPlan" resultType="map">
-  	select count(1) as count,sum(plan_amt) as sumPlanAmt,sum(fee) as sumFee,sum(fee-pay_amt) sumPayAmt,sum(df_fee) as sumDfFee from t_pay_plan t 
+  	select 
+  	count(1) as count,
+  	sum(plan_amt) as sumPlanAmt,
+  	sum(fee) as sumFee,
+  	sum(fee-pay_amt) sumPayAmt,
+  	sum(df_fee) as sumDfFee,
+  	round(sum(fee-pay_amt)*(sum((select count(1) from t_pay_plan_task b where b.plan_id=t.plan_id and status=2 and type=0 ))/sum(xf_num))) as sumUsePreAmt 
+  	 from t_pay_plan t 
   	<include refid="where_page" />
   </select>
   <select id="getPayPlanByPage" parameterType="net.chrone.creditpay.model.PayPlan" resultMap="BaseResultMap">
- 	 select a.* from (
+ 	 select a.*,
+ 	 round((a.fee-a.pay_amt)*(a.successXfCount/a.xf_num)) as usePreAmt 
+ 	  from (
   	select t.*,
   	(select count(1) from t_pay_plan_task b where b.plan_id=t.plan_id and status=2 and type=0 ) as successXfCount,
 	(select count(1) from t_pay_plan_task b where b.plan_id=t.plan_id and status=2 and type=1 ) as successPayCount

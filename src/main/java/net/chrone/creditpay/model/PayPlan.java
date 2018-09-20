@@ -516,6 +516,17 @@ public class PayPlan extends ParentMode{
 
     private int successXfCount;
     private int successPayCount;
+    private int usePreAmt;//已使用优惠金额
+    
+    
+
+	public int getUsePreAmt() {
+		return usePreAmt;
+	}
+
+	public void setUsePreAmt(int usePreAmt) {
+		this.usePreAmt = usePreAmt;
+	}
 
 	public int getSuccessXfCount() {
 		return successXfCount;
