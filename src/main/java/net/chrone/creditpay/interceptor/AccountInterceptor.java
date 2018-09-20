@@ -43,7 +43,7 @@ public class AccountInterceptor extends HandlerInterceptorAdapter  {
         String url=request.getServletPath().substring(1);    
         System.out.println("url:"+url);
         
-        if ("".equals(url)||url.startsWith("api")){//默认权限
+        if ("".equals(url)||url.startsWith("download")){//默认权限
         	return true;  
 		}
         
@@ -100,11 +100,10 @@ public class AccountInterceptor extends HandlerInterceptorAdapter  {
     	list.add("operationLog/detail");
     	list.add("mobileVersion/toAdd");
     	list.add("mobileVersion/toUpdate");
+    	list.add("shareImg/toUpload");
     	list.add("appUser/getUsersForMsg");
     	list.add("appUser/img");
     	list.add("taskStatistics/realTimeTask");
-    	//hui fu
-    	list.add("huifu/bindCashCard");
     	return list;
     }
     
