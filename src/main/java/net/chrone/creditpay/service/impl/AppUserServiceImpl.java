@@ -98,7 +98,7 @@ public class AppUserServiceImpl implements AppUserService {
 	public Map<String, Object> levelDistribution() {
 		Map<String, Object> retMap = new HashMap<>();
 		List<Map<String, Object>> listMap = appUserMapper.levelDistribution();
-		int totalCount = appUserMapper.countByExample(null);
+		long totalCount = appUserMapper.countByExample(null);
 		NumberFormat numberFormat = NumberFormat.getInstance(); 
 		numberFormat.setMaximumFractionDigits(2);
 		for(Map<String, Object> map : listMap) {
