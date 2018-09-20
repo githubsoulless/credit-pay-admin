@@ -200,9 +200,9 @@ public class AgentController {
 		return "agent/subAgentList";
 	}
 	
-//	@RequestMapping("updateAllAgentUser")
-//	public @ResponseBody String updateAllAgentUser() {
-//		int count = agentService.updateAllAgentUser();
-//		return "success:"+count;
-//	}
+	@RequestMapping("updateAllAgentUser")
+	public @ResponseBody String updateAllAgentUser() {
+		int count = agentService.updateAllAgentUser();
+		return "success:"+count;
+	}
 }
