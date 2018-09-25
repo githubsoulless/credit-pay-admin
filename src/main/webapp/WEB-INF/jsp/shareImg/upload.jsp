@@ -26,7 +26,6 @@
 })();
 	var api = frameElement.api, W = api.opener, D = W.document; // api.opener 为载加lhgdialog.min.js文件的页面的window对象
 	function cancelVal() {
-		alert("cancelVal")
 		api.close();
 	}
 	function subForm() {

@@ -119,7 +119,7 @@ table.table1 tr td{
 table.table1 tr th{
 	white-space:nowrap;
 }
-.imgs-container{width:200px;height:266px;float: left;border:1px solid #e2e2e2;margin-left:10px;margin-bottom:10px;overflow: hidden;text-align: center;position: relative}
+.imgs-container{width:200px;float: left;border:1px solid #e2e2e2;margin-left:10px;margin-bottom:10px;overflow: hidden;text-align: center;position: relative}
 .imgs-container img{width:200px;}
 .gray { 
     -webkit-filter: grayscale(100%);
