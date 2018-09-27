@@ -166,13 +166,13 @@ function upType(){
 					<td class="width90"><span style="color:red;">*</span><span> 通道费率：</span></td>
 					<td><span>
 						<c:if test="${payChannel.feeType == 0 }">
-							<input name="feeRate" id="feeRate" value="<fmt:formatNumber value="${payChannel.feeRate*100 }" type="currency" pattern="0.00"/>" maxlength="15" style="width: 80px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; " type="text" width="90px;"
+							<input readonly="readonly" name="feeRate" id="feeRate" value="<fmt:formatNumber value="${payChannel.feeRate*100 }" type="currency" pattern="0.00"/>" maxlength="15" style="width: 80px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; background: #f5f5f5" type="text" width="90px;"
 							 	onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 						 		onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 								 onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
 						</c:if>
 						<c:if test="${payChannel.feeType == 1 }">
-							<input name="feeRate" id="feeRate" value="<fmt:formatNumber value="${payChannel.feeRate/100 }" type="currency" pattern="0.00"/>" type="text" maxlength="15" style="width: 80px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px; " width="80%" 
+							<input readonly="readonly" name="feeRate" id="feeRate" value="<fmt:formatNumber value="${payChannel.feeRate/100 }" type="currency" pattern="0.00"/>" type="text" maxlength="15" style="width: 80px;height: 28px;line-height: 28px;border: 1px solid #a9a9a9;padding-left: 5px;background: #f5f5f5 " width="80%" 
 								onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 						 		onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 								 onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
@@ -207,7 +207,7 @@ function upType(){
 							</select>
 						</span></td>
 						<td class="width90"><span style="color:red;">*</span><span>单笔结算：</span></td>
-						<td><span><input name="payFeeRate" id="payFeeRate" value="<fmt:formatNumber value="${payChannel.payFeeRate/100 }" type="currency" pattern="0.00"/>" maxlength="15" class="ipt" value="0.00" 
+						<td><span><input readonly="readonly" name="payFeeRate" id="payFeeRate" value="<fmt:formatNumber value="${payChannel.payFeeRate/100 }" type="currency" pattern="0.00"/>" maxlength="15" class="ipt" style="background:#f5f5f5" value="0.00" 
 										onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 							 			onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 							 			onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"/>
