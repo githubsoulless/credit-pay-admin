@@ -531,5 +531,24 @@ public class Coupon extends ParentMode {
 	public void setLevelId(Integer levelId) {
 		this.levelId = levelId;
 	}
+	private String limitAmountStr;
+	private String amountStr;
+
+	public String getLimitAmountStr() {
+		return limitAmountStr;
+	}
+
+	public void setLimitAmountStr(String limitAmountStr) {
+		this.limitAmountStr = limitAmountStr;
+	}
+
+	public String getAmountStr() {
+		return amountStr;
+	}
+
+	public void setAmountStr(String amountStr) {
+		this.amountStr = amountStr;
+	}
+	
 
 }

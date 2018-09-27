@@ -147,6 +147,7 @@ function upType(){
 						<c:if test="${payChannel.chnlType == 3 }">钱包提现</c:if>
 						<c:if test="${payChannel.chnlType == 4 }">快捷消费</c:if>
 						<c:if test="${payChannel.chnlType == 5 }">快捷消费出款</c:if>
+						<c:if test="${payChannel.chnlType == 6 }">服务费支付</c:if>
 						<input name="chnlType" id="chnlType" value="${payChannel.chnlType }" type="hidden" class="ipt"/>
 					</span></td>
 					<td class="width90"><span style="color:red;">*</span><span>通道权重：</span></td>

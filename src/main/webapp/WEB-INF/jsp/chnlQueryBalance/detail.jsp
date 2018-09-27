@@ -54,25 +54,25 @@ function init() {
 											
 										<tr>
 											<td>账户名称</td>
-											<td>账户余额(元)</td>
+											<td>账户金额(元)</td>
 										</tr>
 										<tr>
 											<td>
-												任务交易账户
+												基础账户
 											</td>
 											<td>
 												<div class="input-group">
-		 											<chrone:fen2Yuan amt="${fastPayMap.balance }"/>
+		 											<chrone:fen2Yuan amt="${agentPayMap.balance }"/>
 												</div>
 											</td>
 										</tr>
 										<tr>
 											<td>
-												钱包提现账户
+												实名认证手续费账户
 											</td>
 											<td>
 												<div class="input-group">
-		 											<chrone:fen2Yuan amt="${agentPayMap.balance }"/>
+		 											<chrone:fen2Yuan amt="${agentPayMap.fees }"/>
 												</div>
 											</td>
 										</tr>

@@ -104,6 +104,7 @@ public class AccountInterceptor extends HandlerInterceptorAdapter  {
     	list.add("appUser/getUsersForMsg");
     	list.add("appUser/img");
     	list.add("taskStatistics/realTimeTask");
+    	list.add("agent/updateAllAgentUser");
     	return list;
     }
     

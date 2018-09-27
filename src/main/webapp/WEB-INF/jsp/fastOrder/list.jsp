@@ -103,6 +103,7 @@ table.table1 tr th{
 	  					   	<option value="">全部</option>
 	  					   	<option value="0" ${order.orderTp==0?'selected="selected"':'' }>消费</option>
 	  					   	<option value="1" ${order.orderTp==1?'selected="selected"':'' }>结算</option>
+	  					   	<option value="2" ${order.orderTp==2?'selected="selected"':'' }>服务费</option>
 	  					   </select> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
@@ -172,6 +173,10 @@ table.table1 tr th{
 										<th>订单金额</th>
 										<th>交易服务费</th>
 										<th>通道手续费</th>
+										<th>总利润</th>
+										<th>用户分润</th>
+										<th>代理分润</th>
+										<th>平台利润</th>
 										<th>卡号</th>
 										<th>持卡人姓名</th>
 										<th>订单状态</th>
@@ -193,10 +198,15 @@ table.table1 tr th{
 											<td>
 												<c:if test="${l.orderTp==0 }">消费</c:if>
 												<c:if test="${l.orderTp==1 }">结算</c:if>
+												<c:if test="${l.orderTp==2 }">服务费</c:if>
 											</td>
 											<td ><chrone:fen2Yuan amt="${l.amount}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.fee}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.chnlFee}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.fee-l.chnlFee}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.userProfits}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.agentProfits}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.fee-l.chnlFee-l.userProfits-l.agentProfits}"/> </td>
 											<td><chrone:HiddenStr head="4" srcStr="${l.cardNo}" footer="4"/> </td>
 											<td >${l.cardName}</td>
 											<td >
@@ -224,6 +234,10 @@ table.table1 tr th{
 										<td><chrone:fen2Yuan amt="${countMap.sumamt }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumChnlfee }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumfee-countMap.sumChnlfee }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumUserProfits }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumAgentProfits }"/></td>
+										<td><chrone:fen2Yuan amt="${countMap.sumfee-countMap.sumChnlfee-countMap.sumUserProfits-countMap.sumAgentProfits }"/></td>
 										<td colspan="10" align="right"></td>
 									</tr>
 								</tbody>

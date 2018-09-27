@@ -1,5 +1,6 @@
 package net.chrone.creditpay.service.impl;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +25,7 @@ import net.chrone.creditpay.model.CouponDetail;
 import net.chrone.creditpay.model.CouponLevel;
 import net.chrone.creditpay.model.CouponLevelExample;
 import net.chrone.creditpay.service.CouponService;
+import net.chrone.creditpay.taglibs.Fen2YuanTag;
 import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.IdGen;
 
@@ -59,9 +61,9 @@ public class CouponServiceImpl implements CouponService {
 		if (0 == coupon.getLimitAmountType()) {
 			coupon.setLimitAmount(0);
 		} else {
-			coupon.setLimitAmount(coupon.getLimitAmount() * 100);
+			coupon.setLimitAmount(new BigDecimal(coupon.getLimitAmountStr()).multiply(new BigDecimal(100)).intValue());
 		}
-		coupon.setAmount(coupon.getAmount() * 100);
+		coupon.setAmount(new BigDecimal(coupon.getAmountStr()).multiply(new BigDecimal(100)).intValue());
 		if (0 == coupon.getLotteryType()) {
 			coupon.setProbabilityWinning(0.0);
 		} else {

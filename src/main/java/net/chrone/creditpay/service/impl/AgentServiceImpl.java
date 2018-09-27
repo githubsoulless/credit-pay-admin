@@ -148,8 +148,13 @@ public class AgentServiceImpl implements AgentService {
             	}
             }
             idMap.put("ids", tempList);
-            userIdList = appUserMapper.getAppUserByParentIdList(idMap);
-            allIdList.addAll(userIdList);
+            if(tempList.size()>0) {
+            	userIdList = appUserMapper.getAppUserByParentIdList(idMap);
+            	allIdList.addAll(userIdList);
+            }else {
+            	userIdList = new ArrayList<>();
+            }
+
         }
         return allIdList;
 	}
@@ -180,6 +185,24 @@ public class AgentServiceImpl implements AgentService {
 			return null;
 		}
 		return list.get(0);
+	}
+
+	@Override
+	public int updateAllAgentUser() {
+		List<Agent> agentList = getAgentAll();
+		int count=0;
+		for(Agent agent:agentList) {
+			// 更新当前绑定的用户所有下属用户agent_id字段
+			List<String> userIds = getUserIdsByParentId(agent.getUserId());
+			if (userIds.size() > 0) {
+				AppUser appUser = new AppUser();
+				appUser.setAgentId(agent.getAgentId());
+				AppUserExample appUserExample = new AppUserExample();
+				appUserExample.createCriteria().andUserIdIn(getUserIdsByParentId(agent.getUserId()));
+				count+=appUserMapper.updateByExampleSelective(appUser, appUserExample);
+			}
+		}
+		return count;
 	}
 
 }

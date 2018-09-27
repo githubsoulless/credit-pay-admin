@@ -64,7 +64,7 @@ public class SmsMessageServiceImpl implements SmsMessageService {
 			example.createCriteria().andLevelIdIn(smsMessage.getLevelIds());
 			List<AppUser> appusers = appUserMapper.selectByExample(example);
 			for (AppUser appuser : appusers) {
-				mobileNums.add(appuser.getUserId());
+				mobileNums.add(appuser.getLoginId());
 			}
 
 			for (Integer level : smsMessage.getLevelIds()) {
@@ -87,7 +87,7 @@ public class SmsMessageServiceImpl implements SmsMessageService {
 			example.createCriteria().andAgentIdEqualTo(smsMessage.getAgentId());
 			List<AppUser> appusers = appUserMapper.selectByExample(example);
 			for (AppUser appuser : appusers) {
-				mobileNums.add(appuser.getUserId());
+				mobileNums.add(appuser.getLoginId());
 			}
 		}
 		smsMessage.setSmsCount(Long.valueOf(mobileNums.size()));

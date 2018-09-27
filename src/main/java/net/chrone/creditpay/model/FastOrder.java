@@ -581,6 +581,26 @@ public class FastOrder extends ParentMode{
 	
 	private String channel;
 	private String paySmsCode;
+	private int userProfits;
+	private int agentProfits;
+	
+	
+
+	public int getUserProfits() {
+		return userProfits;
+	}
+
+	public void setUserProfits(int userProfits) {
+		this.userProfits = userProfits;
+	}
+
+	public int getAgentProfits() {
+		return agentProfits;
+	}
+
+	public void setAgentProfits(int agentProfits) {
+		this.agentProfits = agentProfits;
+	}
 
 	public String getChannel() {
 		return channel;

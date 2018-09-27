@@ -30,14 +30,14 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 		Map<String, String> resultMap = new HashMap<String, String>();
 		logger.info("找到通道:"+code);
 		if(CHRONE.equals(code)){
-			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chroneFastTxPayOrgId"), 
-					ConfigReader.getConfig("chroneFastTxPayPriKey"));
+			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
+					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
 		}if(REAPALFAST.equals(code)){
-			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chroneFastTxPayOrgId"), 
-					ConfigReader.getConfig("chroneFastTxPayPriKey"));
+			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
+					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
@@ -45,8 +45,10 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			throw new CHException("500","YT快捷不支持重新代付操作...");
 			
 		}else if(HUIFU.equals(code)) {
-			Map<String, String> resMap = ChroneApi.agentPayByHuifu(order, cardExtService,ConfigReader.getConfig("chroneFastTxPayOrgId"), 
-					ConfigReader.getConfig("chroneFastTxPayPriKey"));
+
+			Map<String, String> resMap = ChroneApi.agentPayByHuifu(order, cardExtService,ConfigReader.getConfig("chronePayOrgId"), 
+					ConfigReader.getConfig("chronePayPriKey"));
+
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}

@@ -26,6 +26,10 @@
     <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="chnl_id" jdbcType="VARCHAR" property="chnlId" />
+    <result column="chnlName" jdbcType="VARCHAR" property="chnlName" />
+    <result column="userProfits" jdbcType="INTEGER" property="userProfits" />
+    <result column="agentProfits" jdbcType="INTEGER" property="agentProfits" />
+    <result column="platFee" jdbcType="INTEGER" property="platFee" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -558,12 +562,38 @@
   	</where>
   </sql>
    <select id="getOrderByPageCount" parameterType="net.chrone.creditpay.model.Order" resultType="map">
-  	select count(1) as count,sum(amount)as sumamt, sum(fee) as sumfee from t_order t left join t_pay_channel b on t.chnl_id=b.id
+  	select 
+  		count(1) as count,
+  		sum(t.amount)as sumamt, 
+  		sum(t.fee) as sumfee ,
+  		sum(case 
+  		when t.order_tp=0 then p.fee
+		when t.order_tp=1 then (select CAST(df_fee/pay_num  AS SIGNED integer)  from t_pay_plan where plan_id=t.plan_id)
+		when t.order_tp=2 then (select fee from t_tx_record where record_id=t.busi_order_no)
+		end
+	  	 )as sumPlatFee,
+	  	sum(p.user_profits) as sumUserProfits,
+	  	sum(p.agent_profits) as sumAgentProfits 
+  		from t_order t 
+  		left join t_pay_channel b on t.chnl_id=b.id 
+  		left join t_pay_profits p on p.plan_id=t.plan_id and p.task_id=t.task_id
   	<include refid="where_page" />
   </select>
   <select id="getOrderByPage" parameterType="net.chrone.creditpay.model.Order" resultMap="BaseResultMap">
  	 select a.* from (
-  	select t.*,b.name as chnlName from t_order t left join t_pay_channel b on t.chnl_id=b.id
+  	select t.*,
+  	b.name as chnlName, 
+  	(case 
+  		when t.order_tp=0 then p.fee
+		when t.order_tp=1 then (select df_fee/pay_num from t_pay_plan where plan_id=t.plan_id)
+		when t.order_tp=2 then (select fee from t_tx_record where record_id=t.busi_order_no)
+		end
+  	 )as platFee,
+  	p.user_profits as userProfits,
+  	p.agent_profits as agentProfits 
+  	from t_order t 
+  	left join t_pay_channel b on t.chnl_id=b.id 
+  	left join t_pay_profits p on p.plan_id=t.plan_id and p.task_id=t.task_id
   	<include refid="where_page" />
   	order by t.create_time desc
   	)a limit  #{startRow} , #{pageSize}
