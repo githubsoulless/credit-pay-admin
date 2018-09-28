@@ -106,6 +106,7 @@ table.table1 tr th{
 	  					   	<option value="1" ${payPlan.status==1?'selected="selected"':'' }>执行失败</option>
 	  					   	<option value="2" ${payPlan.status==2?'selected="selected"':'' }>已完成</option>
 	  					   	<option value="3" ${payPlan.status==3?'selected="selected"':'' }>已终止</option>
+	  					   	<option value="4" ${payPlan.status==4?'selected="selected"':'' }>待处理</option>
 	  					   </select> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
@@ -183,6 +184,7 @@ table.table1 tr th{
 												<c:if test="${l.status==1 }">执行失败</c:if>
 												<c:if test="${l.status==2 }">已完成</c:if>
 												<c:if test="${l.status==3 }">已终止</c:if>
+												<c:if test="${l.status==4 }">待处理</c:if>
 											</td>
 											<td><fmt:formatDate value="${l.rowCrtTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td >${l.successXfCount}/${l.xfNum }</td>

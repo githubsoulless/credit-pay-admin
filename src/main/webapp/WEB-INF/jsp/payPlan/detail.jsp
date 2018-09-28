@@ -77,6 +77,7 @@ function cancelVal() {
 						<c:if test="${payPlan.status==1 }">执行失败</c:if>
 						<c:if test="${payPlan.status==2 }">已完成</c:if>
 						<c:if test="${payPlan.status==3 }">已终止</c:if>
+						<c:if test="${payPlan.status==4 }">处理中</c:if>
 					</td>
 				</tr>
 				<tr>
