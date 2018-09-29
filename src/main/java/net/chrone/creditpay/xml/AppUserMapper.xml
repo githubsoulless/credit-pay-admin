@@ -652,6 +652,9 @@
   		<if test="userId !=null and userId !=''">
   			and t.user_id=#{userId}
 	  	</if>
+  		<if test="loginId !=null and loginId !=''">
+  			and t.login_id=#{loginId}
+	  	</if>
   		<if test="accountName !=null and accountName !=''">
   			and t.account_name=#{accountName}
 	  	</if>

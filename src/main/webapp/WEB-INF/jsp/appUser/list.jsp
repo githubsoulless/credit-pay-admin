@@ -104,6 +104,10 @@ function changeAgent(val) {
 						<input  class="input-sm" type="text" id="userId"  name="userId" maxlength="15"  value="${appuser.userId}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label" for="userId">登录账号：</label>
+						<input  class="input-sm" type="text" id="loginId"  name="loginId" maxlength="15"  value="${appuser.loginId}" /> 
+					</div>
+					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="userId">真实姓名：</label>
 						<input  class="input-sm" type="text" id="accountName"  name="accountName" maxlength="15"  value="${appuser.accountName}" /> 
 					</div>
@@ -179,7 +183,8 @@ function changeAgent(val) {
 								<thead>
 									<tr>
 										<th>序号</th>
-										<th>注册账号</th>
+										<th>用户账号</th>
+										<th>登录账号</th>
 										<th>真实姓名</th>
 										<th>昵称</th>
 										<th>等级</th>
@@ -202,6 +207,7 @@ function changeAgent(val) {
 										<tr>
 											<td>${i.index+1}</td>
 											<td>${l.userId}</td>
+											<td>${l.loginId}</td>
 											<td >${l.accountName}</td>
 											<td >${l.merName}</td>
 											<td >
@@ -255,7 +261,7 @@ function changeAgent(val) {
 										</tr>
 									</c:forEach>
 									<tr>
-										<td colspan="16" align="left">查询结果：${page.rowTotal }</td>
+										<td colspan="17" align="left">查询结果：${page.rowTotal }</td>
 									</tr>
 								</tbody>
 							</table>
@@ -272,6 +278,7 @@ function changeAgent(val) {
 <form id="pageForm" action="${ctx }/appUser/list"  method="post" >
 	<input type="hidden"  name="start" id="start"></input>
 	<input type="hidden"  name="userId" value="${appuser.userId}"></input>
+	<input type="hidden"  name="loginId" value="${appuser.loginId}"></input>
 	<input type="hidden"  name="accountName" value="${appuser.accountName}"></input>
 	<input type="hidden"  name="levelId" value="${appuser.levelId}"></input>
 	<input type="hidden"  name="status" value="${appuser.status}"></input>
