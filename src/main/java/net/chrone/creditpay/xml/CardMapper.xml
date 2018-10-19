@@ -510,6 +510,7 @@
   	from t_card_inf t 
   	<include refid="where_page" />
   	order by t.row_crt_ts desc
-  	)a limit  #{startRow} , #{pageSize}
+  	limit  #{startRow} , #{pageSize}
+  	)a 
   </select>
 </mapper>
