@@ -50,7 +50,7 @@ public class UserStatisticsController {
 		if(StringUtils.isEmpty(type) || "1".equals(type)){
 			type = "1";
 			Map<String, Object> map = appUserService.levelDistribution();
-			int totalCount = (int) map.get("totalCount");
+			int totalCount = Integer.valueOf(map.get("totalCount")+"");
 			list = (List<Map<String, Object>>) map.get("levelDis");
 			model.addAttribute("list", list);
 			model.addAttribute("totalCount", totalCount);
