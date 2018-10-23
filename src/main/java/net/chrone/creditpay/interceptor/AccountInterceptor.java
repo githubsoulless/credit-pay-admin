@@ -99,6 +99,7 @@ public class AccountInterceptor extends HandlerInterceptorAdapter  {
     	list.add("mgrRole/check_roleNm");
     	list.add("operationLog/detail");
     	list.add("mobileVersion/toAdd");
+    	list.add("fastOrder/toAdd");
     	list.add("mobileVersion/toUpdate");
     	list.add("shareImg/toUpload");
     	list.add("appUser/getUsersForMsg");

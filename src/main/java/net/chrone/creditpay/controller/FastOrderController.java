@@ -60,35 +60,15 @@ public class FastOrderController {
 		return "fastOrder/list";
 	}
 	
-	
 	/**
-	 * 交易置为成功
+	 * 重发代付
 	 * @return
 	 * @throws Exception 
 	 */
-//	@RequestMapping("updateState")
-//	public void updateState(HttpServletRequest request,HttpServletResponse response,String orderNo) throws Exception{
-//		String message="";
-//		try {
-//			if(StringUtils.isEmpty(orderNo)){
-//				throw new CHException("参数异常");
-//			}
-//			orderService.updateState(orderNo,3,2);
-//			message="success";
-//		} catch (CHException e) {
-//			message=e.getErrInfo();
-//			LogWriter.error("====>"+e.getErrInfo());
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			message="系统异常";
-//			e.printStackTrace();
-//		} finally{
-//			LogWriter.error("============>"+message);
-//			OutputStream out =response.getOutputStream();
-//			out.write(message.getBytes("UTF-8"));
-//			out.flush();
-//		}
-//	}
+	@RequestMapping("toAdd")
+	public String toAdd(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		return "fastOrder/agentpayManual";
+	}
 	
 	/**
 	 * 重发代付
@@ -122,5 +102,74 @@ public class FastOrderController {
 			out.flush();
 		}
 	}
-
+	
+	/**
+	 * 手动代付
+	 * @param request
+	 * @param response
+	 * @param order
+	 * @throws Exception
+	 */
+	@RequestMapping("agentpayManual")
+	public String agentpayManual(HttpServletRequest request,HttpServletResponse response,FastOrder order,Model model) throws Exception{
+		String message="success";
+		try {
+			validate(order);
+			orderService.handleAgentPayManual(order);
+			model.addAttribute("message", message);
+			
+		} catch (CHException e) {
+			message=e.getErrInfo();
+			LogWriter.error("====>"+e.getErrInfo());
+			e.printStackTrace();
+		} catch (Exception e) {
+			message="系统异常";
+			e.printStackTrace();
+		} 
+		
+		return "fastOrder/agentpayManual";
+	}
+	
+	/**
+	 * 手动代付
+	 * @param request
+	 * @param response
+	 * @param order
+	 * @throws Exception
+	 */
+	@RequestMapping("calcFee")
+	public void calcFee(HttpServletRequest request,HttpServletResponse response,FastOrder order) throws Exception{
+		String message="";
+		try {
+			validate(order);
+			int[] fee = orderService.queryFee(order);
+			message = fee[0]+","+fee[1]+","+fee[2]+","+fee[3];
+		} catch (CHException e) {
+			message=e.getErrInfo();
+			LogWriter.error("====>"+e.getErrInfo());
+			e.printStackTrace();
+		} catch (Exception e) {
+			message="系统异常";
+			e.printStackTrace();
+		} finally{
+			LogWriter.error("============>"+message);
+			OutputStream out =response.getOutputStream();
+			out.write(message.getBytes("UTF-8"));
+			out.flush();
+		}
+	}
+	
+	
+	private void validate(FastOrder order) {
+		
+		if(StringUtils.isEmpty(order.getUserId())) {
+			throw new CHException("500","参数错误userId");
+		}
+		if(order.getAmount() ==0) {
+			throw new CHException("500","参数错误amount");
+		}
+		if(StringUtils.isEmpty(order.getChannel())) {
+			throw new CHException("500","参数错误channel");
+		}
+	}
 }

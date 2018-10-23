@@ -101,10 +101,24 @@ public class RoleController {
 	@RequestMapping("add")
 	public String add(HttpServletRequest request,String type,String roleNm,String menuIds,Model model){
 		String message="";
+		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+		
 		try {
 			if("toAdd".equals(type)){
 				List<MenuInf> menuList = menuInfService.getMenuAll();
-				model.addAttribute("menuList", menuList);
+				
+				List<MenuInf> finalMenuList = new ArrayList<>();
+				List<RoleMenu> curRoleMenuList = roleInfService.getRoleMenuByRoleId(userInfSeesion.getRoleId());
+				for(MenuInf menuInf:menuList) {
+					for(RoleMenu roleMenu : curRoleMenuList ) {
+						if(menuInf.getMenuId().equals(roleMenu.getMenuId())) {
+							finalMenuList.add(menuInf);
+							break;
+						}
+					}
+				}
+				
+				model.addAttribute("menuList", finalMenuList);
 			}else{
 				if(StringUtils.isEmpty(type)
 					||StringUtils.isEmpty(roleNm)
@@ -112,7 +126,7 @@ public class RoleController {
 				 ){
 					throw new CHException("参数为空");
 				}
-				MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+				
 				RoleInf roleInf = new RoleInf();
 				String roleId = seqService.updateAndGetSequence(SeqServiceImpl.T_ROLE_INF, 9);
 				roleInf.setRoleNm(roleNm);
@@ -159,6 +173,8 @@ public class RoleController {
 	@RequestMapping("update")
 	public String update(HttpServletRequest request,String type,String roleId,String menuIds,Model model){
 		String message="系统异常";
+		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+		
 		try {
 			if(StringUtils.isEmpty(type)||StringUtils.isEmpty(roleId)){
 				throw new CHException("参数异常");
@@ -170,8 +186,18 @@ public class RoleController {
 				}
 				List<MenuInf> menuList = menuInfService.getMenuAll();
 				List<RoleMenu> roleMenuList = roleInfService.getRoleMenuByRoleId(roleId);
+				List<RoleMenu> curRoleMenuList = roleInfService.getRoleMenuByRoleId(userInfSeesion.getRoleId());
+				List<MenuInf> finalMenuList = new ArrayList<>();
+				for(MenuInf menuInf:menuList) {
+					for(RoleMenu roleMenu : curRoleMenuList ) {
+						if(menuInf.getMenuId().equals(roleMenu.getMenuId())) {
+							finalMenuList.add(menuInf);
+							break;
+						}
+					}
+				}
 				model.addAttribute("roleInf", roleInf);
-				model.addAttribute("menuList", menuList);
+				model.addAttribute("menuList", finalMenuList);
 				model.addAttribute("roleMenuList", roleMenuList);
 				message="success";
 			}else{
@@ -180,7 +206,6 @@ public class RoleController {
 						throw new CHException("参数为空");
 					}
 				List<RoleMenu> roleMenus = new ArrayList<RoleMenu>();
-				MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
 				RoleInf roleInf = new RoleInf();
 				roleInf.setRoleId(roleId);
 				roleInf.setRecUpdUsr(userInfSeesion.getLoginId());
