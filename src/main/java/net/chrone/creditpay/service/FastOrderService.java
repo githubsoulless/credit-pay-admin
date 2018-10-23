@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.chrone.creditpay.model.FastOrder;
+import net.chrone.creditpay.model.Order;
 
 public interface FastOrderService {
 
@@ -25,5 +26,21 @@ public interface FastOrderService {
 	 * @return
 	 */
 	int reSendPay(String orderNo);
+	/**
+	 * 
+	 * @param order
+	 */
+	void handleAgentPayManual(FastOrder order);
+	/**
+	 * 
+	 * @param fastOrder
+	 * @return
+	 * int[0] 用户费用
+	 * int[1] 通道费用
+	 * int[2] 用户快捷利润
+	 * int[3] 用户实际输入代付金额
+	 */
+	 int[] queryFee(FastOrder fastOrder);
+	
 
 }

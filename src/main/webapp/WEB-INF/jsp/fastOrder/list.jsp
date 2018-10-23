@@ -70,6 +70,24 @@ function updateState(orderNo){
         }
    });
 }
+
+function agentpay(){
+	var url = "url:${ctx }/fastOrder/toAdd";
+	$.dialog({content:url ,
+		        title:'手动代付',
+		        lock: true,
+				background: '#FFF', /* 背景色 默认的遮罩背景色为:#DCE2F1浅蓝护眼色 */
+				max: false,
+				height:300,
+				width:700,
+				min: false,
+				opacity: 0.5,	/* 透明度 */
+				close: function(){
+					addClose();
+				}
+	});
+}
+
 </script>
 <style type="text/css">
 table.table1{
@@ -148,7 +166,13 @@ table.table1 tr th{
 					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
+						
+						<chrone:isAuth authCode="120000103">
+							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="agentpay()">手动代付</button>
+						</chrone:isAuth>
+						
 					</div>
+	
 				</form>
 			</div>
 		</div>

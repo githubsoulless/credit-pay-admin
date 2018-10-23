@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import net.chrone.creditpay.model.AgentFeeRateExample;
 import net.chrone.creditpay.model.Level;
 import net.chrone.creditpay.model.LevelFeeRate;
 import net.chrone.creditpay.model.LevelFeeRateDTO;
+import net.chrone.creditpay.model.AgentFeeRateExample.Criteria;
 import net.chrone.creditpay.service.AgentFeeRateService;
 
 @Service
@@ -26,6 +28,28 @@ public class AgentFeeRateServiceImpl implements AgentFeeRateService {
 	@Autowired
 	private AgentFeeRateMapper agentFeeRateMapper;
 
+	@Override
+	public LevelFeeRate agentFeeRate(AgentFeeRate agentFeeRate) {
+
+		AgentFeeRateExample agentFeeRateExample = new AgentFeeRateExample();
+		Criteria criteria = agentFeeRateExample.createCriteria();
+		criteria.andLevelIdEqualTo(agentFeeRate.getLevelId());
+		
+		if(StringUtils.isNotEmpty(agentFeeRate.getPayChnlCode())) {
+			criteria.andPayChnlCodeEqualTo(agentFeeRate.getPayChnlCode());	
+		}else {
+			criteria.andPayChnlCodeNotEqualTo("");	
+		}
+		
+		List<AgentFeeRate> levelFeeRates = agentFeeRateMapper.selectByExample(agentFeeRateExample);
+		if(levelFeeRates.isEmpty() || levelFeeRates.size() == 0) {
+			return null;
+		}
+		agentFeeRate = levelFeeRates.get(0);
+		String json = JSON.toJSONString(agentFeeRate);
+		return JSON.parseObject(json, LevelFeeRate.class);
+	}
+	
 	@Override
 	public List<AgentFeeRate> listLevelFeeRate(int levelId) {
 		AgentFeeRateExample agentFeeRateExample = new AgentFeeRateExample();
