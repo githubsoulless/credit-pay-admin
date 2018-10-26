@@ -208,6 +208,7 @@ table.table1 tr th{
 										<th>支付时间</th>
 										<th>关联订单号</th>
 										<th>交易通道</th>
+										<th>描述</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -243,6 +244,7 @@ table.table1 tr th{
 											<td><fmt:formatDate value="${l.payTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td>${l.settleOrderNo}</td>
 											<td>${l.chnlName}</td>
+											<td>${l.memo}</td>
 											<td>
 												<c:if test="${l.paySt==3 && l.orderTp==1 }">
 													<chrone:isAuth authCode="120000101">

@@ -27,6 +27,7 @@
     <result column="chnlName" jdbcType="VARCHAR" property="chnlName" />
     <result column="userProfits" jdbcType="INTEGER" property="userProfits" />
     <result column="agentProfits" jdbcType="INTEGER" property="agentProfits" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
