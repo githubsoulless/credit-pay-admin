@@ -582,10 +582,10 @@
   			and t.status=#{status}
 	  	</if>
   		<if test="startDate !=null and startDate !=''">
-  			and TO_DAYS(t.plan_dt) &gt;= TO_DAYS(#{startDate})
+  			and t.plan_dt &gt;= #{startDate}
 	  	</if>
   		<if test="endDate !=null and endDate !=''">
-  			and TO_DAYS(t.plan_dt) &lt;= TO_DAYS(#{endDate})
+  			and t.plan_dt &lt;= #{endDate}
 	  	</if>
   		<if test="cardId !=null and cardId !=''">
   			and t.card_id=#{cardId}

@@ -91,21 +91,29 @@ function changeDateType(){
 								</thead>
 
 								<tbody>
+									<c:set value="0" var="sumNewCount"/>
+									<c:set value="0" var="sumFinishCount"/>
+									<c:set value="0" var="sumStopCount"/>
+									<c:set value="0" var="sumFailCount"/>
 									<c:forEach items="${list }" varStatus="i" var="l">
 										<tr>
 											<td>${l.days}</td>
-											<td >${l.newCount}</td>
-											<td >${l.finishCount}</td>
-											<td >${l.stopCount}</td>
-											<td >${l.failCount}</td>
+											<td >${empty l.newCount ?0:l.newCount}</td>
+											<td >${empty l.finishCount?0:l.finishCount}</td>
+											<td >${empty l.stopCount?0:l.stopCount}</td>
+											<td >${empty l.failCount?0:l.failCount}</td>
+											<c:set value="${sumNewCount+l.newCount }" var="sumNewCount"/>
+											<c:set value="${sumFinishCount+l.finishCount }" var="sumFinishCount"/>
+											<c:set value="${sumStopCount+ l.stopCount}" var="sumStopCount"/>
+											<c:set value="${sumFailCount+l.failCount}" var="sumFailCount"/>
 										</tr>
 									</c:forEach>
 									<tr>
 										<td>合计：</td>
-										<td>${countMap.sumNewCount }</td>
-										<td>${countMap.sumFinishCount }</td>
-										<td>${countMap.sumStopCount }</td>
-										<td>${countMap.sumFailCount }</td>
+										<td>${sumNewCount }</td>
+										<td>${sumFinishCount }</td>
+										<td>${sumStopCount }</td>
+										<td>${sumFailCount }</td>
 									</tr>
 								</tbody>
 							</table>

@@ -46,6 +46,8 @@ public class OrderController {
 		if (StringUtils.isEmpty(order.getEndDate())) {
 			order.setEndDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
 		}
+		order.setStartDate(order.getStartDate().replaceAll("-",""));
+		order.setEndDate(order.getEndDate().replaceAll("-",""));
 		Map<String, Object> countMap = orderService.getOrderByPageCount(order);
 		int rowTotal = Integer.valueOf(countMap.get("count") + "");
 		List<Order> list = new ArrayList<Order>();

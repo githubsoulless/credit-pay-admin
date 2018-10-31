@@ -23,6 +23,8 @@ public class PayPlanDCStatisticsDTO extends ParentMode{
 	private int refund_dffee;//代付费退款
 	private int xf_chnl_amt;//消费成本
 	private int df_chnl_amt;//代付成本
+	private String startOrderDate;
+	private String endOrderDate;
 	
 	public String transPlan_amt(){
 		return Fen2YuanTag.formatAmt(plan_amt+"");
@@ -159,6 +161,18 @@ public class PayPlanDCStatisticsDTO extends ParentMode{
 	}
 	public void setDf_chnl_amt(Integer df_chnl_amt) {
 		this.df_chnl_amt = df_chnl_amt;
+	}
+	public String getStartOrderDate() {
+		return startOrderDate;
+	}
+	public void setStartOrderDate(String startOrderDate) {
+		this.startOrderDate = startOrderDate;
+	}
+	public String getEndOrderDate() {
+		return endOrderDate;
+	}
+	public void setEndOrderDate(String endOrderDate) {
+		this.endOrderDate = endOrderDate;
 	}
 	
 	

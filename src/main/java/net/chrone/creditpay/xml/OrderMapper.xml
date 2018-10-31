@@ -535,11 +535,17 @@
   		<if test="paySt !=null">
   			and t.pay_st=#{paySt}
 	  	</if>
-	  	<if test="startTime !=null">
-	  		and t.create_time &gt;=#{startTime}
+<!-- 	  	<if test="startTime !=null"> -->
+<!-- 	  		and t.create_time &gt;=#{startTime} -->
+<!-- 	  	</if> -->
+<!-- 	  	<if test="endTime !=null"> -->
+<!-- 	  		and t.create_time &lt;=#{endTime} -->
+<!-- 	  	</if> -->
+	  	<if test="startDate !=null and startDate !=''">
+	  		and t.order_dt &gt;= #{startDate}
 	  	</if>
-	  	<if test="endTime !=null">
-	  		and t.create_time &lt;=#{endTime}
+	  	<if test="endDate !=null and endDate !=''">
+	  		and t.order_dt &lt;= #{endDate}
 	  	</if>
 	  	<if test="cardNo !=null and cardNo !=''">
 	  		and t.card_no =#{cardNo}

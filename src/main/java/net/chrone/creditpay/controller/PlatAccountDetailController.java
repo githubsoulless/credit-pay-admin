@@ -40,7 +40,8 @@ public class PlatAccountDetailController {
 		String platOwnerId = PropertiseUtil.getDataFromPropertiseFile("pay", "PLAT_OWNER_ID");
 		accountDetail.setOwnerId(platOwnerId);
 		if (StringUtils.isEmpty(accountDetail.getStartDate())) {
-			accountDetail.setStartDate(DateUtils.formatDate(DateUtils.getAnyDayByNo(new Date(), -6), "yyyy-MM-dd"));
+//			accountDetail.setStartDate(DateUtils.formatDate(DateUtils.getAnyDayByNo(new Date(), -6), "yyyy-MM-dd"));
+			accountDetail.setStartDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
 		}
 		if (StringUtils.isEmpty(accountDetail.getEndDate())) {
 			accountDetail.setEndDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));

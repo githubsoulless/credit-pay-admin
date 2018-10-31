@@ -1,6 +1,7 @@
 package net.chrone.creditpay.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import net.chrone.creditpay.model.PayPlanTask;
 import net.chrone.creditpay.service.PayPlanService;
 import net.chrone.creditpay.service.PayPlanTaskService;
 import net.chrone.creditpay.util.Constants;
+import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.MyPage;
 
 /**
@@ -38,6 +40,12 @@ public class PayPlanController {
 	public String list(PayPlan payPlan,String start,Model model){
 		int starIndex = StringUtils.isEmpty(start)?0:Integer.valueOf(start);
 		payPlan.setStartRow(starIndex);
+		if (StringUtils.isEmpty(payPlan.getStartDate())) {
+			payPlan.setStartDate(DateUtils.formatDate(DateUtils.getAnyDayByNo(new Date(),-30), "yyyy-MM-dd"));
+		}
+		if (StringUtils.isEmpty(payPlan.getEndDate())) {
+			payPlan.setEndDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
+		}
 		Map<String,Object> countMap = payPlanService.getPayPlanByPageCount(payPlan);
 		int rowTotal= Integer.valueOf(countMap.get("count")+"");
 		List<PayPlan>  list =new ArrayList<PayPlan>();

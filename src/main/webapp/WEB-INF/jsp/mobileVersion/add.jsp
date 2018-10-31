@@ -119,7 +119,7 @@
 					<td class="width90"><span>版本描述：</span></td>
 					<td colspan="3">
 						<span>
-							<textarea rows="7" cols="50" maxlength="50" style="font-size: 13px;" name="versionDesc" placeholder="选填，50字以内"></textarea>
+							<textarea rows="7" cols="50" maxlength="120" style="font-size: 13px;" name="versionDesc" placeholder="选填，120字以内"></textarea>
 						</span>
 					</td>
 				</tr>

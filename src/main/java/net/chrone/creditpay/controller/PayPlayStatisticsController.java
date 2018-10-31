@@ -50,9 +50,9 @@ public class PayPlayStatisticsController {
 			payPlan.setEndDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
 		}
 		List<Map<String, Object>> list = payPlanService.listPayPlayStatistics(payPlan);
-		Map<String, Object> countMap = payPlanService.countPayPlayStatistics(payPlan);
+//		Map<String, Object> countMap = payPlanService.countPayPlayStatistics(payPlan);
 		model.addAttribute("list", list);
-		model.addAttribute("countMap", countMap);
+//		model.addAttribute("countMap", countMap);
 		model.addAttribute("payPlan", payPlan);
 		model.addAttribute("dateType", dateType);
 		model.addAttribute("flag", flag);

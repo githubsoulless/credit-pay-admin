@@ -1,7 +1,9 @@
 package net.chrone.creditpay.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,15 @@ public class PayPlanDCStatisticsController {
 		}
 		if(StringUtils.isEmpty(dcStatisticsDTO.getEndDate())){
 			dcStatisticsDTO.setEndDate(DateUtils.getCurrentDate("yyyy-MM-dd"));
+		}
+		dcStatisticsDTO.setStartOrderDate(dcStatisticsDTO.getStartDate().replaceAll("-",""));
+		dcStatisticsDTO.setEndOrderDate(dcStatisticsDTO.getEndDate().replaceAll("-",""));
+		try {
+			String endOrderDate = DateUtils.formatDate(DateUtils.addTime(DateUtils.parseDate(dcStatisticsDTO.getEndOrderDate(),
+					"yyyyMMdd"), Calendar.DAY_OF_MONTH, 15), "yyyyMMdd");
+			dcStatisticsDTO.setEndOrderDate(endOrderDate);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		Map<String,Object> countMap = payPlanService.countPayPlayDCStatistics(dcStatisticsDTO);
 		int rowTotal = Integer.valueOf(countMap.get("pageCount")+"");
@@ -109,8 +120,5 @@ public class PayPlanDCStatisticsController {
 		
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(DateUtils.formatDate(DateUtils.getLastDays(7), "yyyy-MM-dd"));
-	}
 
 }

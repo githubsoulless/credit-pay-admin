@@ -55,22 +55,30 @@ public class PayPlanServiceImpl implements PayPlanService {
 		c.setTime(payPlan.getEndTime());
 		while (DateUtils.compareDate(payPlan.getStartTime(), c.getTime()) < 1) {
 			boolean isTrue = false;
+			Map<String, Object> m = new HashMap<String, Object>();
 			for (Map<String,Object> map : list) {
 				if(DateUtils.formatDate(c.getTime(), "yyyy-MM-dd").equals(map.get("days"))){
+					m.put("days", DateUtils.formatDate(c.getTime(), "yyyy-MM-dd"));
+					if("0".equals(map.get("STATUS")+"")) {
+						m.put("newCount", map.get("count"));
+					}else if("1".equals(map.get("STATUS")+"")) {
+						m.put("failCount", map.get("count"));
+					}else if("2".equals(map.get("STATUS")+"")) {
+						m.put("finishCount", map.get("count"));
+					}else if("3".equals(map.get("STATUS")+"")) {
+						m.put("stopCount", map.get("count"));
+					}
 					isTrue = true;
-					listPayPlayStatistics.add(map);
-					break;
 				}
 			}
 			if(isTrue == false){
-				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("days", DateUtils.formatDate(c.getTime(), "yyyy-MM-dd"));
 				m.put("newCount", 0);
 				m.put("failCount", 0);
 				m.put("finishCount", 0);
 				m.put("stopCount", 0);
-				listPayPlayStatistics.add(m);
 			}
+			listPayPlayStatistics.add(m);
 			c.add(Calendar.DAY_OF_WEEK, -1);
 		}
 		

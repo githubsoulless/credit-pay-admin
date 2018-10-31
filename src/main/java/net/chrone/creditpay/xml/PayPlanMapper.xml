@@ -615,13 +615,13 @@
   </sql>
   
   <select id="listPayPlayStatistics" resultType="map">
-  	select DATE_FORMAT(a.row_crt_ts,'%Y-%m-%d') as days,(select count(1) from t_pay_plan b where DATE_FORMAT(b.row_crt_ts,'%Y-%m-%d') = days) as newCount,
-	(select count(1) from t_pay_plan b where DATE_FORMAT(b.row_crt_ts,'%Y-%m-%d') = days and status=1) as failCount,
-	(select count(1) from t_pay_plan b where DATE_FORMAT(b.row_crt_ts,'%Y-%m-%d') = days and status=2) as finishCount,
-	(select count(1) from t_pay_plan b where DATE_FORMAT(b.row_crt_ts,'%Y-%m-%d') = days and status=3) as stopCount
+  	select 
+	DATE_FORMAT(a.row_crt_ts,'%Y-%m-%d') as days,
+	status as status,
+	count(1) as count 
 	from t_pay_plan a 
 	<include refid="where_statistics_crt" />
-	group by days order by days desc
+	 group by days,status order by days desc
   </select>
   
   <select id="countPayPlayStatistics" resultType="map">
@@ -673,8 +673,8 @@
 			p.pay_amt,
 			(select case when sum(amount) is null then 0 else  sum(amount) end  from t_pay_profits_detail where plan_id=p.plan_id and profits_user_id !='13888888888' and agent_id='') as user_profits,
 			(select case when sum(amount) is null then 0 else  sum(amount) end  from t_pay_profits_detail where plan_id=p.plan_id and agent_id !='' and profits_user_id !='13888888888') as agent_profits,
-			 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and  memo=CONCAT('服务费退款,计划ID:',p.plan_id)) as refund_fee,
-			 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and  memo=CONCAT('代付费退款,计划ID:',p.plan_id)) as refund_dffee,
+			 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and account_log_id=p.plan_id and  memo=CONCAT('服务费退款,计划ID:',p.plan_id)) as refund_fee,
+			 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and account_log_id=p.plan_id and  memo=CONCAT('代付费退款,计划ID:',p.plan_id)) as refund_dffee,
 			b.xf_chnl_amt,
 			b.df_chnl_amt
 			from t_pay_plan p 
@@ -683,7 +683,10 @@
 			plan_id,
 			sum(case when order_tp=0 then fee else 0 end) xf_chnl_amt, 
 			sum(case when order_tp=1 then fee else 0 end) df_chnl_amt
-			from t_order where plan_id !='' and order_tp in(0,1) and pay_st=2 group by plan_id) b on p.plan_id=b.plan_id
+			from t_order where plan_id !='' and order_tp in(0,1) and pay_st=2
+			and order_dt &gt;= #{startOrderDate}
+			and order_dt &lt;= #{endOrderDate}
+			 group by plan_id) b on p.plan_id=b.plan_id
 			<include refid="PayPlayDCStatistics_where"/>
 			) c
   </select>
@@ -700,8 +703,8 @@
 	p.pay_amt,
 	(select case when sum(amount) is null then 0 else  sum(amount) end  from t_pay_profits_detail where plan_id=p.plan_id and profits_user_id !='13888888888' and agent_id='') as user_profits,
 	(select case when sum(amount) is null then 0 else  sum(amount) end  from t_pay_profits_detail where plan_id=p.plan_id and agent_id !='' and profits_user_id !='13888888888') as agent_profits,
-	 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and  memo=CONCAT('服务费退款,计划ID:',p.plan_id)) as refund_fee,
-	 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and  memo=CONCAT('代付费退款,计划ID:',p.plan_id)) as refund_dffee,
+	 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and account_log_id=p.plan_id and  memo=CONCAT('服务费退款,计划ID:',p.plan_id)) as refund_fee,
+	 (select case when sum(aval_debit) is null then 0 else  sum(aval_debit) end  from t_account_detail where trans_type=3 and account_log_id=p.plan_id and  memo=CONCAT('代付费退款,计划ID:',p.plan_id)) as refund_dffee,
 	b.xf_chnl_amt,
 	b.df_chnl_amt
 	from t_pay_plan p 
@@ -710,7 +713,13 @@
 	plan_id,
 	sum(case when order_tp=0 then fee else 0 end) xf_chnl_amt, 
 	sum(case when order_tp=1 then fee else 0 end) df_chnl_amt
-	from t_order where plan_id !='' and order_tp in(0,1) and pay_st=2 group by plan_id) b on p.plan_id=b.plan_id
+	from t_order where 
+	plan_id !='' 
+	and order_tp in(0,1) 
+	and pay_st=2 
+	and order_dt &gt;= #{startOrderDate}
+	and order_dt &lt;= #{endOrderDate}
+	group by plan_id) b on p.plan_id=b.plan_id
   <include refid="PayPlayDCStatistics_where"/>
   order by p.row_crt_ts desc
   	) d limit  #{startRow} , #{pageSize} 

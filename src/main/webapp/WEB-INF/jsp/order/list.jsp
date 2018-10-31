@@ -103,8 +103,8 @@ table.table1 tr th{
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="startDate">订单生成时间：</label>
-						<input  class="Wdate input-sm" style="height: 30px" type="text" id="startDate"  name="startDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'});"  value="${order.startDate}"  />&nbsp;- 
-						<input  class="Wdate input-sm" style="height: 30px" type="text" id="endDate"  name="endDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'});"  value="${order.endDate}"  /> 
+						<input  class="Wdate input-sm" style="height: 30px" type="text" id="startDate"  name="startDate"  onclick="WdatePicker({dateFmt:'yyyyMMdd',maxDate:'#F{$dp.$D(\'endDate\')}'});"  value="${order.startDate}"  />&nbsp;- 
+						<input  class="Wdate input-sm" style="height: 30px" type="text" id="endDate"  name="endDate"  onclick="WdatePicker({dateFmt:'yyyyMMdd',minDate:'#F{$dp.$D(\'startDate\')}'});"  value="${order.endDate}"  /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="cardId">卡编号：</label>
