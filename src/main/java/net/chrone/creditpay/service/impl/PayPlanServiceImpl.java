@@ -9,7 +9,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.chrone.creditpay.mapper.CreditRootBankMapper;
 import net.chrone.creditpay.mapper.PayPlanMapper;
+import net.chrone.creditpay.model.CreditRootBank;
 import net.chrone.creditpay.model.PayPlan;
 import net.chrone.creditpay.model.PayPlanDCStatisticsDTO;
 import net.chrone.creditpay.model.RootBank;
@@ -23,7 +25,7 @@ public class PayPlanServiceImpl implements PayPlanService {
 	@Autowired
 	private PayPlanMapper payPlanMapper;
 	@Autowired
-	private RootBankService rootBankService;
+	private CreditRootBankMapper creditRootBankMapper;
 
 	@Override
 	public Map<String,Object> getPayPlanByPageCount(PayPlan payPlan) {
@@ -34,7 +36,7 @@ public class PayPlanServiceImpl implements PayPlanService {
 	public List<PayPlan> getPayPlanByPage(PayPlan payPlan) {
 		List<PayPlan> list = payPlanMapper.getPayPlanByPage(payPlan);
 		for(PayPlan p:list){
-			RootBank rootBank = rootBankService.getRootBankByBankNo(p.getBankNo());
+			 CreditRootBank rootBank = creditRootBankMapper.selectByPrimaryKey(p.getBankNo());
 			if(rootBank!=null){
 				p.setBankName(rootBank.getBankNm());
 			}
