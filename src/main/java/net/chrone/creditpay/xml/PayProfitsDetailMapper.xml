@@ -539,7 +539,7 @@
 	
 	<select id="listAgentUpProfits" parameterType="net.chrone.creditpay.model.AgentProfitVO" resultMap="AgentProfitResultMap">
 		select a.* from (
-			select a.agent_id,a.agent_name,b.level,2 as profits_type,a.amount as profits_amount,c.task_id,
+			select a.agent_id,a.agent_name,b.level,2 as profits_type,a.amount as profits_amount,'' as task_id,
 			a.order_no,c.amount,a.profits_user_id as user_id,d.account_name,a.row_crt_ts 
 			from t_up_profits_detail a 
 			left join t_up_profits c on a.profits_id = c.profits_id
@@ -578,6 +578,14 @@
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
 			<include refid="where_page_up"/>
+			union all 
+			select a.agent_id,a.agent_name,b.level,3 as profits_type,a.amount as profits_amount,'' as task_id,
+			a.order_no as order_no,c.amt as amount,a.profits_user_id as user_id,d.account_name,
+			a.row_crt_ts from t_fast_profits_detail a 
+			left join t_fast_profits c on a.profits_id = c.profits_id
+			left join t_agent_inf b on a.agent_id=b.agent_id
+			left join t_app_user d on a.profits_user_id = d.user_id
+			<include refid="where_page_fast"/>
 		 )a order by a.row_crt_ts desc
 		)a limit #{startRow} , #{pageSize}
 	</select>
@@ -599,6 +607,14 @@
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
 			<include refid="where_page_up"/>
+			union all 
+			select a.agent_id,a.agent_name,b.level,3 as profits_type,a.amount as profits_amount,
+			a.order_no as order_no,c.amt as amount,a.profits_user_id as user_id,d.account_name,
+			a.row_crt_ts from t_fast_profits_detail a 
+			left join t_fast_profits c on a.profits_id = c.profits_id
+			left join t_agent_inf b on a.agent_id=b.agent_id
+			left join t_app_user d on a.profits_user_id = d.user_id
+			<include refid="where_page_fast"/>
 		)a
 	</select>
 	<select id="listAgentFastProfits" parameterType="net.chrone.creditpay.model.AgentProfitVO" resultMap="AgentProfitResultMap">
