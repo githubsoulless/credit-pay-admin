@@ -119,6 +119,7 @@ function queryFee(){
 						<select  name="channel" id="channel" >
 							<option value="reapalfast">融宝快捷</option>
 							<option value="huifu">汇付</option>
+							<option value="yspay">银盛</option>
 						</select>
 					</span></td>
 				</tr>	

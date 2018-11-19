@@ -616,8 +616,17 @@ public class FastOrder extends ParentMode{
 	private String paySmsCode;
 	private int userProfits;
 	private int agentProfits;
+	private String userCertNo;
 	
 	
+
+	public String getUserCertNo() {
+		return userCertNo;
+	}
+
+	public void setUserCertNo(String userCertNo) {
+		this.userCertNo = userCertNo;
+	}
 
 	public int getUserProfits() {
 		return userProfits;

@@ -51,6 +51,7 @@ public class FastOrderServieImpl implements FastOrderService {
 	private AgentService agentService;
 	@Autowired
 	private AgentFeeRateService agentFeeRateService;
+	
 
 	private final static Logger log = Logger.getLogger(FastOrderServieImpl.class);
 	@Override
@@ -86,6 +87,7 @@ public class FastOrderServieImpl implements FastOrderService {
 		updFastOrder.setPaySt(4);
 		fastOrderMapper.updateByPrimaryKeySelective(updFastOrder);
 		
+		AppUser appUser = appUserService.getAppUserByUserId(fastOrder.getUserId());
 		//生成一笔新的代付记录
 		FastOrder agentPayOrder = new FastOrder();
 		String agentPayOrderNo = new Date().getTime() + seqService.updateAndGetSequence(SeqServiceImpl.T_FAST_ORDER, 8);
@@ -105,6 +107,7 @@ public class FastOrderServieImpl implements FastOrderService {
 		agentPayOrder.setCreateTime(new Date());
 		agentPayOrder.setUserId(fastOrder.getUserId());
 		agentPayOrder.setFee(fastOrder.getFee());
+		agentPayOrder.setUserCertNo(appUser.getCertNo());
 		
 		PayChannel payChannel = payChannelMapper.selectByPrimaryKey(fastOrder.getChnlId());
 		if(null == payChannel) {
@@ -227,6 +230,7 @@ public class FastOrderServieImpl implements FastOrderService {
 		}
 		order.setFee(payFee);
 		
+		
 		String agentPayOrderNo = new Date().getTime() + seqService.updateAndGetSequence(SeqServiceImpl.T_FAST_ORDER, 8);
 		FastOrder agentPayOrder = new FastOrder();
 		agentPayOrder.setOrderNo(agentPayOrderNo);
@@ -246,6 +250,7 @@ public class FastOrderServieImpl implements FastOrderService {
 		agentPayOrder.setCreateTime(new Date());
 		agentPayOrder.setUserId(order.getUserId());
 		agentPayOrder.setFee(order.getFee());
+		agentPayOrder.setUserCertNo(appUser.getCertNo());
 		
 		return agentPayOrder;
 		

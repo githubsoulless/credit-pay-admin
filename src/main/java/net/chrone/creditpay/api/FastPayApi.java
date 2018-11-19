@@ -17,7 +17,8 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String HUAPAY="huapay";//融信优贝
 	public final static String REAPALFAST="reapalfast";//融宝
 	public final static String YITONG="yitong";//易通
-	public final static String HUIFU="huifu";//易通
+	public final static String HUIFU="huifu";//汇富
+	public final static String YSPAY="yspay";//银盛
 	
 	
 	/**
@@ -53,7 +54,16 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 				resultMap.put("status", "1");//成功
 			}
 			
-		}else{
+		}else if(YSPAY.equals(code)) {
+
+			Map<String, String> resMap = ChroneApi.agentPayByHuifu(order, cardExtService,ConfigReader.getConfig("chronePayOrgId"), 
+					ConfigReader.getConfig("chronePayPriKey"));
+			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+				resultMap.put("status", "1");//成功
+			}
+		}
+		
+		else{
 			logger.error("fastPay_df 未找到通道");
 		}
 		return resultMap;
