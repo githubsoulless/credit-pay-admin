@@ -128,7 +128,8 @@ table.table1 tr th{
 						<label class="control-label padding-left" for="orderTp">订单状态：</label>
 						<select id="paySt" name="paySt" class="input-sm">
 	  					   	<option value="">全部</option>
-	  					   	<option value="1" ${order.paySt==1?'selected="selected"':'' }>待支付</option>
+	  					   	<option value="0" ${order.paySt==0?'selected="selected"':'' }>待支付</option>
+	  					   	<option value="1" ${order.paySt==1?'selected="selected"':'' }>处理中</option>
 	  					   	<option value="2" ${order.paySt==2?'selected="selected"':'' }>支付成功</option>
 	  					   	<option value="3" ${order.paySt==3?'selected="selected"':'' }>支付失败</option>
 	  					   	<option value="4" ${order.paySt==4?'selected="selected"':'' }>已重发</option>
@@ -235,7 +236,8 @@ table.table1 tr th{
 											<td><chrone:HiddenStr head="4" srcStr="${l.cardNo}" footer="4"/> </td>
 											<td >${l.cardName}</td>
 											<td >
-												<c:if test="${l.paySt==1 }">待支付</c:if>
+												<c:if test="${l.paySt==0 }">待支付</c:if>
+												<c:if test="${l.paySt==1 }">处理中</c:if>
 												<c:if test="${l.paySt==2 }">支付成功</c:if>
 												<c:if test="${l.paySt==3 }">支付失败</c:if>
 												<c:if test="${l.paySt==4 }">已重发</c:if>
