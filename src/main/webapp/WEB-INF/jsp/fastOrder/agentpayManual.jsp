@@ -120,6 +120,7 @@ function queryFee(){
 							<option value="reapalfast">融宝快捷</option>
 							<option value="huifu">汇付</option>
 							<option value="yspay">银盛</option>
+							<option value="yakupay">雅酷</option>
 						</select>
 					</span></td>
 				</tr>	

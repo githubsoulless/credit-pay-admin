@@ -224,6 +224,41 @@ public class ChroneApi {
 		return null;
 	}
 	
+	public static Map<String, String> agentPayByYakuPay(FastOrder order,String orgId, String privateKey) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("orgId", orgId);
+		map.put("reserved1", ConfigReader.getConfig("chronePayOrgId"));//代付orgid
+		map.put("reserved2", order.getFee()+"");//代付手续费
+		map.put("orgPayforSsn", order.getOrderNo());
+		map.put("accountName", order.getCardName());
+		map.put("mobile", order.getUserId());
+		map.put("destAmount", order.getAmount() +"");
+		map.put("cardNo", order.getCardNo());
+		map.put("certNo",order.getUserCertNo() );
+		map.put("pmsBankCd", order.getBankNo());
+		map.put("payChannelId", order.getChannel());
+		
+		
+		String plainText = SignatureUtil.hex(map);
+		map.put("signature", MyRSAUtils.sign(privateKey, plainText, MyRSAUtils.MD5_SIGN_ALGORITHM));
+		try {
+			List<String[]> headers = new ArrayList<>();
+			headers.add(new String[]{"Content-Type", "application/json"});
+			HttpResponse httpRes = HttpClientHelper.doHttp(ConfigReader.getConfig("chroneAgentPayUrl"),
+					HttpClientHelper.POST,headers, "UTF-8", JSON.toJSONString(map), "180000");
+			logger.info("--------------->agentPayByYakuPay recv:"+httpRes.getRspStr());
+			if (StringUtils.isNotEmpty(httpRes.getRspStr())) {
+				return JSON.parseObject(httpRes.getRspStr(), new TypeReference<HashMap<String, String>>() {
+				});
+			}
+		} catch (Exception e) {
+			LogWriter.error("请求完美代付接口失败");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	
 	public static void main(String[] args) {
