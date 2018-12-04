@@ -57,7 +57,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			
 		}else if(YSPAY.equals(code)) {
 
-			Map<String, String> resMap = ChroneApi.agentPayByHuifu(order, cardExtService,ConfigReader.getConfig("chronePayOrgId"), 
+			Map<String, String> resMap = ChroneApi.agentPayByYspay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
