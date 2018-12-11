@@ -28,6 +28,8 @@
     <result column="userProfits" jdbcType="INTEGER" property="userProfits" />
     <result column="agentProfits" jdbcType="INTEGER" property="agentProfits" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -516,6 +518,9 @@
 	  	<if test="chnlId !=null and chnlId !=''">
 	  		and t.chnl_id =#{chnlId}
 	  	</if>
+	  	<if test="agentId != null and agentId !=''">
+	  		and ag.agent_id = #{agentId}
+	  	</if>
   	</where>
   </sql>
    <select id="getOrderByPageCount" parameterType="net.chrone.creditpay.model.FastOrder" resultType="map">
@@ -527,17 +532,21 @@
   	from t_fast_order t 
   	left join t_pay_channel b on t.chnl_id=b.id
   	left join t_fast_profits p on p.order_no=t.order_no
+  	left join t_agent_inf ag on ag.user_id=t.user_id 
   	<include refid="where_page" />
   </select>
   <select id="getOrderByPage" parameterType="net.chrone.creditpay.model.FastOrder" resultMap="BaseResultMap">
  	 select a.* from (
   	select t.*,
+  	ag.agent_id,
+  	ag.agent_name,
   	b.name as chnlName,
   	p.user_profits as  userProfits,
   	p.agent_profits as agentProfits 
   	from t_fast_order t 
   	left join t_pay_channel b on t.chnl_id=b.id 
   	left join t_fast_profits p on p.order_no=t.order_no
+  	left join t_agent_inf ag on ag.user_id=t.user_id 
   	<include refid="where_page" />
   	order by t.create_time desc,t.order_no desc
   	)a limit  #{startRow} , #{pageSize}

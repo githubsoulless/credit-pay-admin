@@ -30,6 +30,8 @@
     <result column="userProfits" jdbcType="INTEGER" property="userProfits" />
     <result column="agentProfits" jdbcType="INTEGER" property="agentProfits" />
     <result column="platFee" jdbcType="INTEGER" property="platFee" />
+    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -565,6 +567,9 @@
 	  	<if test="settleType != null">
 	  		and b.settle_type = #{settleType}
 	  	</if>
+	  	<if test="agentId != null and agentId !=''">
+	  		and ag.agent_id = #{agentId}
+	  	</if>
   	</where>
   </sql>
    <select id="getOrderByPageCount" parameterType="net.chrone.creditpay.model.Order" resultType="map">
@@ -583,11 +588,14 @@
   		from t_order t 
   		left join t_pay_channel b on t.chnl_id=b.id 
   		left join t_pay_profits p on p.plan_id=t.plan_id and p.task_id=t.task_id
+  		left join t_agent_inf ag on ag.user_id=t.user_id 
   	<include refid="where_page" />
   </select>
   <select id="getOrderByPage" parameterType="net.chrone.creditpay.model.Order" resultMap="BaseResultMap">
  	 select a.* from (
   	select t.*,
+  	ag.agent_id,
+  	ag.agent_name,
   	b.name as chnlName, 
   	(case 
   		when t.order_tp=0 then p.fee
@@ -600,6 +608,7 @@
   	from t_order t 
   	left join t_pay_channel b on t.chnl_id=b.id 
   	left join t_pay_profits p on p.plan_id=t.plan_id and p.task_id=t.task_id
+  	left join t_agent_inf ag on ag.user_id=t.user_id 
   	<include refid="where_page" />
   	order by t.create_time desc
   	)a limit  #{startRow} , #{pageSize}
