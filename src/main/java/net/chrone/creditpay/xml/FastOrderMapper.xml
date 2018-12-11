@@ -532,7 +532,8 @@
   	from t_fast_order t 
   	left join t_pay_channel b on t.chnl_id=b.id
   	left join t_fast_profits p on p.order_no=t.order_no
-  	left join t_agent_inf ag on ag.user_id=t.user_id 
+  	left join t_app_user au on au.user_id=t.user_id 
+  	left join t_agent_inf ag on ag.agent_id=au.agent_id 
   	<include refid="where_page" />
   </select>
   <select id="getOrderByPage" parameterType="net.chrone.creditpay.model.FastOrder" resultMap="BaseResultMap">
@@ -546,7 +547,8 @@
   	from t_fast_order t 
   	left join t_pay_channel b on t.chnl_id=b.id 
   	left join t_fast_profits p on p.order_no=t.order_no
-  	left join t_agent_inf ag on ag.user_id=t.user_id 
+  	left join t_app_user au on au.user_id=t.user_id 
+  	left join t_agent_inf ag on ag.agent_id=au.agent_id 
   	<include refid="where_page" />
   	order by t.create_time desc,t.order_no desc
   	)a limit  #{startRow} , #{pageSize}

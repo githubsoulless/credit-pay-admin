@@ -588,7 +588,8 @@
   		from t_order t 
   		left join t_pay_channel b on t.chnl_id=b.id 
   		left join t_pay_profits p on p.plan_id=t.plan_id and p.task_id=t.task_id
-  		left join t_agent_inf ag on ag.user_id=t.user_id 
+  		left join t_app_user au on au.user_id=t.user_id 
+  		left join t_agent_inf ag on ag.agent_id=au.agent_id 
   	<include refid="where_page" />
   </select>
   <select id="getOrderByPage" parameterType="net.chrone.creditpay.model.Order" resultMap="BaseResultMap">
@@ -608,7 +609,8 @@
   	from t_order t 
   	left join t_pay_channel b on t.chnl_id=b.id 
   	left join t_pay_profits p on p.plan_id=t.plan_id and p.task_id=t.task_id
-  	left join t_agent_inf ag on ag.user_id=t.user_id 
+  	left join t_app_user au on au.user_id=t.user_id 
+  	left join t_agent_inf ag on ag.agent_id=au.agent_id 
   	<include refid="where_page" />
   	order by t.create_time desc
   	)a limit  #{startRow} , #{pageSize}
