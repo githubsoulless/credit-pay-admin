@@ -105,6 +105,7 @@ function cancelVal() {
 							<td>交易金额</td>
 							<td>任务流水号</td>
 							<td>预计执行日期</td>
+							<td>预计执行时间</td>
 							<td>任务状态</td>
 							<td>消费行业</td>
 							<!-- <td>消费城市</td> -->
@@ -121,6 +122,7 @@ function cancelVal() {
 								<td><chrone:fen2Yuan amt="${p.amount }"/></td>
 								<td>${p.taskId }</td>
 								<td>${p.planDt }</td>
+								<td>${p.executeTime }</td>
 								<td>
 									<c:if test="${p.status==0 }">进行中</c:if>
 									<c:if test="${p.status==1 }">执行失败</c:if>
