@@ -604,6 +604,13 @@ public class FastOrder extends ParentMode{
         this.memo = memo == null ? null : memo.trim();
     }
     
+	private String transMessage;
+	private Integer payFee;
+	private Integer chnlPayFee;
+	private String reserve1;
+	private String reserve2;
+	
+	
     
     private String chnlName;
     
@@ -620,8 +627,48 @@ public class FastOrder extends ParentMode{
 	
 	private String agentId;
 	private String agentName;
+
 	
-	
+
+	public Integer getChnlPayFee() {
+		return chnlPayFee;
+	}
+
+	public void setChnlPayFee(Integer chnlPayFee) {
+		this.chnlPayFee = chnlPayFee;
+	}
+
+	public String getReserve1() {
+		return reserve1;
+	}
+
+	public void setReserve1(String reserve1) {
+		this.reserve1 = reserve1;
+	}
+
+	public String getReserve2() {
+		return reserve2;
+	}
+
+	public void setReserve2(String reserve2) {
+		this.reserve2 = reserve2;
+	}
+
+	public Integer getPayFee() {
+		return payFee;
+	}
+
+	public void setPayFee(Integer payFee) {
+		this.payFee = payFee;
+	}
+
+	public String getTransMessage() {
+		return transMessage;
+	}
+
+	public void setTransMessage(String transMessage) {
+		this.transMessage = transMessage;
+	}
 
 	public String getAgentId() {
 		return agentId;
