@@ -97,6 +97,21 @@ public class AppUserController {
 		try {
 			if ("update".equals(type)) {
 				MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+				AppUser descAppUser = appUserService.getAppUserByUserId(appuser.getUserId());
+				if(!descAppUser.getLoginId().equals(appuser.getLoginId())) {//更改了登录信息
+					AppUser loginAppUser = appUserService.getAppUserByLoginId(appuser.getLoginId());
+					if(loginAppUser!=null) {
+						message = "登录ID已被占用";
+						model.addAttribute("message", message);
+						return "appUser/update";
+					}
+					AppUser userIdAppUser = appUserService.getAppUserByUserId(appuser.getLoginId());
+					if(userIdAppUser!=null) {
+						message = "登录ID已被占用";
+						model.addAttribute("message", message);
+						return "appUser/update";
+					}
+				}
 				writeLog(appuser, request);
 				appuser.setRecUpdTs(new Date());
 				appuser.setRecUpdUsr(userInfSeesion.getLoginId());

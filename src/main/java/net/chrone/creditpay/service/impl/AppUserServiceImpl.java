@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.mapper.AppUserMapper;
 import net.chrone.creditpay.model.AppUser;
+import net.chrone.creditpay.model.AppUserExample;
 import net.chrone.creditpay.service.AppUserService;
 import net.chrone.creditpay.util.DateUtils;
 
@@ -34,6 +35,15 @@ public class AppUserServiceImpl implements AppUserService {
 	@Override
 	public AppUser getAppUserByUserId(String userId) {
 		return appUserMapper.selectByPrimaryKey(userId);
+	}
+	
+	@Override
+	public AppUser getAppUserByLoginId(String loginId) {
+		AppUserExample example = new AppUserExample();
+		AppUserExample.Criteria criteria = example.createCriteria();
+		criteria.andLoginIdEqualTo(loginId);
+		List<AppUser> list = appUserMapper.selectByExample(example);
+		return list!=null&&list.size()>0?list.get(0):null;
 	}
 
 	@Override

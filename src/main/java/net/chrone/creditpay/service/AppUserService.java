@@ -29,4 +29,6 @@ public interface AppUserService {
 	
 	List<Map<String, Object>> listIncreasingForMap(AppUser appUser);
 
+	AppUser getAppUserByLoginId(String loginId);
+
 }

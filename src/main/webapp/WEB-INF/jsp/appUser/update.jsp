@@ -35,12 +35,12 @@ function cancelVal() {
 	api.close();
 }
 function subForm(){
-	/* if($("#accountName").val()==""){
-		alert("真实姓名不能为空");
-		$("#accountName").focus();
+	if($("#loginId").val()==""){
+		alert("登录账户不能为空");
+		$("#loginId").focus();
 		return;
 	}
-	if($("#certNo").val()==""){
+	/* if($("#certNo").val()==""){
 		alert("身份证不能为空");
 		$("#certNo").focus();
 		return;
@@ -99,8 +99,8 @@ function init(){
 					<td><fmt:formatDate value="${appuser.rowCrtTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				</tr>
 				<tr>
-					<td class="width90"><span>昵称：</span></td>
-					<td><span>${appuser.merName }</span></td>
+					<td class="width90"><span>登录账户：</span></td>
+					<td><span><input  class="ipt" type="text" id="loginId" name="loginId" maxlength="15"  value="${appuser.loginId}" /></span></td>
 					<td class="width90"><span>真实姓名：</span></td>
 					<td><span><input  class="ipt" type="text" id="accountName" readonly="readonly" name="accountName" maxlength="15"  value="${appuser.accountName}" />
 					</span></td>

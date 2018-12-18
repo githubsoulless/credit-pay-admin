@@ -10,7 +10,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.chrone.creditpay.mapper.CreditRootBankMapper;
 import net.chrone.creditpay.mapper.PayPlanTaskMapper;
+import net.chrone.creditpay.model.CreditRootBank;
 import net.chrone.creditpay.model.PayPlanTask;
 import net.chrone.creditpay.model.PayPlanTaskExample;
 import net.chrone.creditpay.model.RootBank;
@@ -22,7 +24,7 @@ public class PayPlanTaskServiceImpl implements PayPlanTaskService {
 	@Autowired
 	private PayPlanTaskMapper payPlanTaskMapper;
 	@Autowired
-	private RootBankService rootBankService;
+	private CreditRootBankMapper creditRootBankMapper;
 
 	@Override
 	public List<PayPlanTask> getPayPlanTaskListByPlanId(String planId) {
@@ -41,7 +43,7 @@ public class PayPlanTaskServiceImpl implements PayPlanTaskService {
 	public List<PayPlanTask> getPayPlanTaskByPage(PayPlanTask payPlanTask) {
 		List<PayPlanTask> list = payPlanTaskMapper.getPayPlanTaskByPage(payPlanTask);
 		for(PayPlanTask p:list){
-			RootBank rootBank = rootBankService.getRootBankByBankNo(p.getBankNo());
+			CreditRootBank rootBank = creditRootBankMapper.selectByPrimaryKey(p.getBankNo());
 			if(rootBank!=null){
 				p.setBankName(rootBank.getBankNm());
 			}
