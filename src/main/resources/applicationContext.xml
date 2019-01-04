@@ -35,8 +35,8 @@
 	    <property name="testWhileIdle" value= "true"/>
 	    <property name="validationQuery" value="select now() " /> 
        <property name="initialSize" value="10" /><!-- 初始化连接数 -->
-       <property name="maxActive" value="30" /><!-- 最大活动连接数 -->
-       <property name="maxIdle" value="30" /><!-- 最大空闲连接数 -->
+       <property name="maxActive" value="60" /><!-- 最大活动连接数 -->
+       <property name="maxIdle" value="60" /><!-- 最大空闲连接数 -->
        <property name="minIdle" value="10" /><!-- 最小空闲连接数 -->
        <property name="maxWait" value="10000" /><!-- 连接池数量不够时等待新的可用连接池的时间(ms) -->
        <property name="defaultAutoCommit" value="true"/>
