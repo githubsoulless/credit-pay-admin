@@ -116,8 +116,6 @@ public class FastOrderController {
 		try {
 			validate(order);
 			orderService.handleAgentPayManual(order);
-			model.addAttribute("message", message);
-			
 		} catch (CHException e) {
 			message=e.getErrInfo();
 			LogWriter.error("====>"+e.getErrInfo());
@@ -126,7 +124,7 @@ public class FastOrderController {
 			message="系统异常";
 			e.printStackTrace();
 		} 
-		
+		model.addAttribute("message", message);
 		return "fastOrder/agentpayManual";
 	}
 	

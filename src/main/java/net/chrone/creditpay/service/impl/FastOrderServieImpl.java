@@ -173,13 +173,9 @@ public class FastOrderServieImpl implements FastOrderService {
 		
 		FastOrder fastOrder = assembleFastOrder(order);
 		Map<String, String> resultMap = new HashMap<>();
-		try {
-			resultMap = FastPayApi.fastPay_df(fastOrder, cardExtService,fastOrder.getChannel());
-		} catch (Exception e) {
-			order.setPaySt(3);
-			fastOrderMapper.insertSelective(order);
-			e.printStackTrace();
-		}
+		
+		resultMap = FastPayApi.fastPay_df(fastOrder, cardExtService,fastOrder.getChannel());
+		
 		if(!"1".equals(resultMap.get("status"))){//消费成功
 			order.setPaySt(3);
 		}
