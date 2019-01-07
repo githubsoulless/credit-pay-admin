@@ -1,15 +1,18 @@
 package net.chrone.creditpay.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.api.FastPayApi;
+import net.chrone.creditpay.mapper.AgentMapper;
 import net.chrone.creditpay.mapper.FastOrderMapper;
 import net.chrone.creditpay.mapper.PayChannelMapper;
 import net.chrone.creditpay.model.Agent;
@@ -51,16 +54,26 @@ public class FastOrderServieImpl implements FastOrderService {
 	private AgentService agentService;
 	@Autowired
 	private AgentFeeRateService agentFeeRateService;
+	@Autowired
+	private AgentMapper agentMapper;
 	
 
 	private final static Logger log = Logger.getLogger(FastOrderServieImpl.class);
 	@Override
 	public Map<String, Object> getOrderByPageCount(FastOrder order) {
+		if(StringUtils.isNotEmpty(order.getAgentId())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(order.getAgentId());
+			order.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
 		return fastOrderMapper.getOrderByPageCount(order);
 	}
 
 	@Override
 	public List<FastOrder> getOrderByPage(FastOrder order) {
+		if(StringUtils.isNotEmpty(order.getAgentId())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(order.getAgentId());
+			order.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
 		return fastOrderMapper.getOrderByPage(order);
 	}
 

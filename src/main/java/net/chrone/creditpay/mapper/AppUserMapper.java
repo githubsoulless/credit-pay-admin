@@ -93,5 +93,9 @@ public interface AppUserMapper extends ParentMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> listIncreasing(AppUser appUser);
+
+	int countSubAppUser(AppUser appUser);
+
+	List<AppUser> listSubAppUser(AppUser appUser);
 	
 }

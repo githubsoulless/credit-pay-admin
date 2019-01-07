@@ -668,7 +668,27 @@ public class AppUser extends ParentMode{
 	
 	private List<String> ids;
 	
+	private String pid;
 	
+	
+	private List<String> agentIds;
+	
+
+	public List<String> getAgentIds() {
+		return agentIds;
+	}
+
+	public void setAgentIds(List<String> agentIds) {
+		this.agentIds = agentIds;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
 
 	public String getAgentId1() {
 		return agentId1;

@@ -22,5 +22,5 @@ public interface AgentService {
 	Agent getAgentByUserId(String userId);
 
 	int updateAllAgentUser();
-	
+
 }

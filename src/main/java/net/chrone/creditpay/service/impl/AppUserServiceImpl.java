@@ -2,14 +2,17 @@ package net.chrone.creditpay.service.impl;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.chrone.creditpay.mapper.AgentMapper;
 import net.chrone.creditpay.mapper.AppUserMapper;
 import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.AppUserExample;
@@ -21,14 +24,24 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Autowired
 	private AppUserMapper appUserMapper;
+	@Autowired
+	private AgentMapper agentMapper;
 
 	@Override
 	public int getAppUserByPageCount(AppUser appuser) {
+		if(StringUtils.isNotEmpty(appuser.getAgentId1())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(appuser.getAgentId1());
+			appuser.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
 		return appUserMapper.getAppUserByPageCount(appuser);
 	}
 
 	@Override
 	public List<AppUser> getAppUserByPage(AppUser appuser) {
+		if(StringUtils.isNotEmpty(appuser.getAgentId1())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(appuser.getAgentId1());
+			appuser.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
 		return appUserMapper.getAppUserByPage(appuser);
 	}
 
@@ -53,50 +66,20 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public int countSubAppUser(AppUser appUser) {
-		List<String> userIdList = new ArrayList<String>();
-		List<String> allIdList = new ArrayList<String>();
-		Map<String, Object> idMap = new HashMap<String, Object>();
-		List<String> ids = new ArrayList<String>();
-		ids.add(appUser.getParentUserId());
-		idMap.put("ids", ids);
-		userIdList = appUserMapper.getAppUserByParentIdList(idMap);
-		allIdList.addAll(userIdList);
-        while (!userIdList.isEmpty()) {
-            idMap.clear();
-            idMap.put("ids", userIdList);
-            userIdList = appUserMapper.getAppUserByParentIdList(idMap);
-            allIdList.addAll(userIdList);
-        }
-        if(!allIdList.isEmpty()){
-            appUser.setIds(allIdList);
-            appUser.setParentUserId("");
-        }
-		return this.getAppUserByPageCount(appUser);
+		if(StringUtils.isNotEmpty(appUser.getAgentId1())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(appUser.getAgentId1());
+			appUser.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
+		return appUserMapper.countSubAppUser(appUser);
 	}
 
 	@Override
 	public List<AppUser> listSubAppUser(AppUser appUser) {
-		appUser.setIds(null);
-		List<String> userIdList = new ArrayList<String>();
-		List<String> allIdList = new ArrayList<String>();
-		Map<String, Object> idMap = new HashMap<String, Object>();
-		List<String> ids = new ArrayList<String>();
-		ids.add(appUser.getParentUserId());
-		idMap.put("ids", ids);
-		userIdList = appUserMapper.getAppUserByParentIdList(idMap);
-		allIdList.addAll(userIdList);
-        while (!userIdList.isEmpty()) {
-            idMap.clear();
-            idMap.put("ids", userIdList);
-            userIdList = appUserMapper.getAppUserByParentIdList(idMap);
-            allIdList.addAll(userIdList);
-        }
-        if(!allIdList.isEmpty()){
-            appUser.setIds(allIdList);
-            appUser.setParentUserId("");
-        }
-        
-		return this.getAppUserByPage(appUser);
+		if(StringUtils.isNotEmpty(appUser.getAgentId1())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(appUser.getAgentId1());
+			appUser.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
+		return appUserMapper.listSubAppUser(appUser);
 	}
 
 	@Override
@@ -183,6 +166,11 @@ public class AppUserServiceImpl implements AppUserService {
 			c.add(Calendar.DAY_OF_WEEK, 1);
 		}
 		return listIncreasing;
+	}
+
+	@Override
+	public List<AppUser> getAppUserAll() {
+		return appUserMapper.selectByExample(null);
 	}
 	
 }
