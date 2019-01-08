@@ -72,6 +72,7 @@
 							<option value="4" <c:if test="${payChannel.chnlType == 4 }">selected="selected"</c:if>>快捷消费</option>
 							<option value="5" <c:if test="${payChannel.chnlType == 5 }">selected="selected"</c:if>>快捷消费出款</option>
 							<option value="6" <c:if test="${payChannel.chnlType == 6 }">selected="selected"</c:if>>服务费支付</option>
+							<option value="7" <c:if test="${payChannel.chnlType == 7 }">selected="selected"</c:if>>扫码支付</option>
 						</select>
 					</span></td>
 					<td class="width90"><span style="color:red;">*</span><span>通道权重：</span></td>

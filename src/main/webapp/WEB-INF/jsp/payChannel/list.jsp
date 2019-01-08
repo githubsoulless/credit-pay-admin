@@ -169,6 +169,7 @@ table.table1 tr th{
 	  					   	<option value="4" ${payChannel.chnlType==4?'selected="selected"':'' }>快捷消费</option>
 	  					   	<option value="5" ${payChannel.chnlType==5?'selected="selected"':'' }>快捷消费出款</option>
 	  					   	<option value="6" ${payChannel.chnlType==6?'selected="selected"':'' }>服务费支付</option>
+	  					   	<option value="7" ${payChannel.chnlType==7?'selected="selected"':'' }>扫码支付</option>
 	  					</select>
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
@@ -239,6 +240,7 @@ table.table1 tr th{
 												<c:if test="${l.chnlType==4 }">快捷消费</c:if>
 												<c:if test="${l.chnlType==5 }">快捷消费出款</c:if>
 												<c:if test="${l.chnlType==6 }">服务费支付</c:if>
+												<c:if test="${l.chnlType==7 }">扫码支付</c:if>
 											</td>
 											<td>
 												<c:if test="${l.chnlType!=2 }">
