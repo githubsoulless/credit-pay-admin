@@ -210,10 +210,10 @@ public class AppUserController {
 		appuser.setStartRow(starIndex);
 		String userId = appuser.getParentUserId();
 		List<AppUser> list = new ArrayList<AppUser>();
-		
+		appuser.setPid(userId);
+		appuser.setParentUserId(null);
 		int rowTotal = appUserService.countSubAppUser(appuser);
 		if (rowTotal > 0) {
-			appuser.setParentUserId(userId);
 			list = appUserService.listSubAppUser(appuser);
 		}
 

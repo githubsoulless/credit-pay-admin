@@ -674,13 +674,19 @@
 	  		and t.row_crt_ts &lt;=#{endTime}
 	  	</if>
 	  	<if test="agentId1 !=null and agentId1 !=''">
-  			and FIND_IN_SET(t.agent_id,getSUBAgentId(#{agentId1}))&gt;0
+			and t.agent_id in 
+	 		<foreach close=")" collection="agentIds" index="index" item="item" open="(" separator=",">  
+			  #{item}  
+			 </foreach> 
 	  	</if>
 	  	<if test="agentId4 !=null and agentId4 !=''"> 
   			and t.agent_id=#{agentId4}
 	  	</if>
 	  	<if test="parentUserId != null and parentUserId!=''">
 	  		and t.parent_user_id = #{parentUserId}
+	  	</if>
+	  	<if test="pid != null and pid != ''">
+	  		and ut.user_id = #{pid}
 	  	</if>
 	  	<if test="ids !=null">
 	  	 	and t.user_id in
@@ -697,8 +703,8 @@
   <select id="getAppUserByPage" parameterType="net.chrone.creditpay.model.AppUser" resultMap="BaseResultMap">
  	 select a.* from (
   	select t.*,
-  	(select count(1) from t_app_user where parent_user_id=t.user_id ) as directCount,
-  	getSubUserCount(user_id) as subUserCount,
+  	(select count(1) from t_user_tree where user_id=t.user_id and type=0 ) as directCount,
+  	(select count(1) from t_user_tree where user_id=t.user_id) as subUserCount,
   	(select count(1) from t_card_inf where user_id=t.user_id and status=0 ) as cardNum
   	 from t_app_user t 
   	<include refid="where_page" />
@@ -738,5 +744,22 @@
   	</if>
   	group by days order by days desc
   </select>
-  
+  <select id="countSubAppUser" parameterType="net.chrone.creditpay.model.AppUser" resultType="int">
+  	select count(1) from t_app_user t 
+  	left join t_user_tree ut on t.user_id=ut.low_user_id
+  	<include refid="where_page" />
+  </select>
+  <select id="listSubAppUser" parameterType="net.chrone.creditpay.model.AppUser" resultMap="BaseResultMap">
+ 	 select a.* from (
+  	select t.*,
+  	(select count(1) from t_user_tree where user_id=t.user_id and type=0 ) as directCount,
+  	(select count(1) from t_user_tree where user_id=t.user_id) as subUserCount,
+  	(select count(1) from t_card_inf where user_id=t.user_id and status=0 ) as cardNum
+  	 from t_app_user t 
+  	 left join t_user_tree ut on t.user_id=ut.low_user_id
+  	<include refid="where_page" />
+  	order by t.row_crt_ts desc
+  	limit  #{startRow} , #{pageSize}
+  	)a 
+  </select>
 </mapper>

@@ -19,8 +19,8 @@
              <property name="rootInterface" value="net.chrone.creditpay.mapper.ParentMapper"/>
         </javaClientGenerator> 
 
-
-	
+ 
+	 
 <!-- 	<table schema=""  tableName="t_account" domainObjectName="Account"   enableSelectByExample="true" -->
 <!-- 			enableDeleteByExample="true" enableCountByExample="true" -->
 <!-- 			enableUpdateByExample="true"> -->
@@ -159,7 +159,7 @@
 			<property name="useActualColumnNames" value="false" />
 	</table>  -->
 	
-	<table schema=""  tableName="t_pay_plan_task" domainObjectName="PayPlanTask"   enableSelectByExample="true"
+	<table schema=""  tableName="t_user_tree" domainObjectName="UserTree"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />

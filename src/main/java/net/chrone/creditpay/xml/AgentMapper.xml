@@ -481,4 +481,7 @@
   	order by t.row_crt_ts desc
   	)a limit  #{startRow} , #{pageSize}
   </select>
+  <select id="getSUBAgentIdByAgentId" parameterType="string" resultType="string">
+  select getSUBAgentId(#{agentId}) from dual;
+  </select>
 </mapper>

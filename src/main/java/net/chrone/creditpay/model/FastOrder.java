@@ -2,6 +2,7 @@ package net.chrone.creditpay.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -628,7 +629,15 @@ public class FastOrder extends ParentMode{
 	private String agentId;
 	private String agentName;
 
+	private List<String> agentIds;
 	
+	public List<String> getAgentIds() {
+		return agentIds;
+	}
+
+	public void setAgentIds(List<String> agentIds) {
+		this.agentIds = agentIds;
+	}
 
 	public Integer getChnlPayFee() {
 		return chnlPayFee;

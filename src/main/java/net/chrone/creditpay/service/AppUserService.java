@@ -31,4 +31,6 @@ public interface AppUserService {
 
 	AppUser getAppUserByLoginId(String loginId);
 
+	List<AppUser> getAppUserAll();
+
 }
