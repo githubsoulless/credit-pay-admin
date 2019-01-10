@@ -198,7 +198,7 @@ function upType(){
 						</c:if>
 					</span></td>
 				</tr>
-				<c:if test="${payChannel.chnlType == 4}">
+				<c:if test="${payChannel.chnlType == 4 || payChannel.chnlType == 7}">
 					<tr class="fast_settle">
 						<td class="width90"><span style="color:red;">*</span><span> 快捷积分：</span></td>
 						<td><span>
