@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,13 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import net.chrone.creditpay.mapper.AppUserMapper;
 import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.MgrUser;
+import net.chrone.creditpay.model.UserTree;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AppUserService;
 import net.chrone.creditpay.service.LevelService;
 import net.chrone.creditpay.service.PmsBankInfService;
+import net.chrone.creditpay.service.UserTreeService;
 import net.chrone.creditpay.service.impl.LogConstant;
 import net.chrone.creditpay.util.Constants;
 import net.chrone.creditpay.util.MyPage;
@@ -54,6 +59,10 @@ public class AppUserController {
 	private PmsBankInfService pmsBankInfService;
 	@Autowired
 	private LogConstant logConstant;
+	@Autowired
+	private UserTreeService userTreeService;
+	@Autowired
+	private AppUserMapper appUserMapper;
 
 	@RequestMapping("list")
 	public String list(AppUser appuser, String start, Model model) {
@@ -285,6 +294,81 @@ public class AppUserController {
 		appUsers = appUserService.getUserLikeUserId(userId);
 		return appUsers;
 	}
+	
+	/**
+	 * 生成用户关系
+	 */
+	@RequestMapping("genUserTree")
+	public void genUserTree() {
+		List<AppUser> list = appUserService.getAppUserAll();
+		for(AppUser user:list) {
+			List<UserTree> treeList = new ArrayList<>();
+			List<String> zjuserList = getZJUserIdsBypUserId(user.getUserId());
+			for(String zuser:zjuserList) {
+				UserTree tree = new UserTree();
+				tree.setUserId(user.getUserId());
+				tree.setLowUserId(zuser);
+				tree.setType(0);//直接
+				treeList.add(tree);
+			}
+			if(!treeList.isEmpty()) {
+				userTreeService.batchAdd(treeList);
+				treeList = new ArrayList<>();
+			}
+			List<String> jjuserList = getJJUserIdsBypUserId(user.getUserId());
+			for(String zuser:jjuserList) {
+				UserTree tree = new UserTree();
+				tree.setUserId(user.getUserId());
+				tree.setLowUserId(zuser);
+				tree.setType(1);//间接
+				treeList.add(tree);
+			}
+			if(!treeList.isEmpty()) {
+				userTreeService.batchAdd(treeList);
+				treeList = new ArrayList<>();
+			}
+		}
+	}
+	
+	/**
+	 * 直推
+	 * @param userId
+	 * @return
+	 */
+	private List<String> getZJUserIdsBypUserId(String userId) {
+		List<String> userIdList = new ArrayList<String>();
+		List<String> allIdList = new ArrayList<String>();
+		Map<String, Object> idMap = new HashMap<String, Object>();
+		List<String> ids = new ArrayList<String>();
+		ids.add(userId);
+		idMap.put("ids", ids);
+		userIdList = appUserMapper.getAppUserByParentIdList(idMap);
+		allIdList.addAll(userIdList);
+		return allIdList;
+	}
+	
+	/**
+	 * 间接
+	 * @param userId
+	 * @return
+	 */
+	private List<String> getJJUserIdsBypUserId(String userId) {
+		List<String> userIdList = new ArrayList<String>();
+		List<String> allIdList = new ArrayList<String>();
+		Map<String, Object> idMap = new HashMap<String, Object>();
+		List<String> ids = new ArrayList<String>();
+		ids.add(userId);
+		idMap.put("ids", ids);
+		userIdList = appUserMapper.getAppUserByParentIdList(idMap);
+        while (!userIdList.isEmpty()) {
+            idMap.clear();
+            idMap.put("ids", userIdList);
+            userIdList = appUserMapper.getAppUserByParentIdList(idMap);
+            allIdList.addAll(userIdList);
+        }
+        return allIdList;
+	}
+	
 	
 
 }
