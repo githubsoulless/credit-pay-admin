@@ -272,7 +272,7 @@ function upType(){
 					<td colspan="4">
 						<div style="width:120px;float:left">
 							<span style="color:red;">*</span>支持银行&限额<br>[默认无限制]:
-							<a href="#" onclick="add_bank_rule()" style="color:#990000">增加</a>
+							<a href="javascript:void(0)" onclick="add_bank_rule()" style="color:#990000">增加</a>
 						</div>
 						<div style="width:550px;float:left" id="bank_rule_content">
 							
@@ -311,7 +311,7 @@ function upType(){
 								dom+='<option value="403">邮政储蓄银行</option>';
 								dom+='</select>';
 								dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:50px;" id="'+input_id+'"/>元';
-								dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
+								dom+='<a href="javascript:void(0)" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
 								dom+='</div>';
 							
 							$("#bank_rule_content").append(dom);
@@ -344,8 +344,8 @@ function upType(){
 						dom+='<option value="310">浦发银行</option>';
 						dom+='<option value="403">邮政储蓄银行</option>';
 						dom+='</select>';
-						dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:70px;"/>';
-						dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
+						dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:50px;"/>元';
+						dom+='<a href="javascript:void(0)" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
 						dom+='</div>';
 						$("#bank_rule_content").append(dom);
 						
