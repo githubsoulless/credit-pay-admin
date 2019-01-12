@@ -78,7 +78,6 @@ public class PayChannelController {
 					return "payChannel/add";
 				}
 				payChannel.setId(new IdGen().nextId());
-				payChannel.setReserved("");
 				payChannel.setCreated(new Date());
 				payChannel.setCreatedUser(userInfSeesion.getLoginId());
 				payChannel.setStatus(1);

@@ -339,6 +339,12 @@ function upChnlType(){
 					</span></td>
 				</tr>
 				<tr>
+					<td class="width90"><span style="color:red;"></span><span>保留字段1：</span></td>
+					<td><span><input name="reserved" id="reserved" value="" maxlength="100" class="ipt" /></span></td>
+					<td class="width90"></td>
+					<td></td>
+				</tr>
+				<tr>
 					<td colspan="4">
 							<span style="color:red;">*</span>通道描述:
 							<textarea rows="5" cols="77" title="通道描述信息" name="chnlDesc" style="float: right"></textarea>							
