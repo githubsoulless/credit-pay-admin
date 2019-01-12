@@ -282,6 +282,7 @@ function upType(){
 				<script>
 				$(function(){
 					init_bank_rule();
+					
 				})
 				function init_bank_rule(){
 					var server_data = '${payChannel.chnlRisk}';
@@ -289,8 +290,8 @@ function upType(){
 					 if(server_obj != null){
 						for(var i=0;i<server_obj.length;i++){
 							
-							var id = new Date().getTime()+Math.floor(Math.random()*10);
-							var input_id = new Date().getTime()+Math.floor(Math.random()*10)+"_input";
+							var id = guid();
+							var input_id = guid()+"_input";
 							var dom = '<div style="float:left;margin-left:10px;" >';
 								dom+='<select style="float:left;display: block;width:150px;" id='+id+' name="supBank">';
 								dom+='<option value="102">工商银行</option>';
@@ -310,7 +311,7 @@ function upType(){
 								dom+='<option value="403">邮政储蓄银行</option>';
 								dom+='</select>';
 								dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:50px;" id="'+input_id+'"/>元';
-								dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule('+id+')">删除</a>';
+								dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
 								dom+='</div>';
 							
 							$("#bank_rule_content").append(dom);
@@ -324,7 +325,7 @@ function upType(){
 				}
 				
 				function add_bank_rule(){
-					var id = new Date().getTime();
+					var id =  guid();
 					var dom = '<div style="float:left;margin-left:10px;" >';
 						dom+='<select style="float:left;display: block;width:150px;" id='+id+' name="supBank">';
 						dom+='<option value="102">工商银行</option>';
@@ -344,7 +345,7 @@ function upType(){
 						dom+='<option value="403">邮政储蓄银行</option>';
 						dom+='</select>';
 						dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:70px;"/>';
-						dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule('+id+')">删除</a>';
+						dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
 						dom+='</div>';
 						$("#bank_rule_content").append(dom);
 						
@@ -365,6 +366,12 @@ function upType(){
 					$("#"+id).parent().remove();
 					
 				}
+				function guid() {
+					  function S4() {
+					    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+					  }
+					  return (S4()+S4()+""+S4()+""+S4()+""+S4()+""+S4()+S4()+S4());
+					}
 				</script>
 				
 				<tr class="textcenter">

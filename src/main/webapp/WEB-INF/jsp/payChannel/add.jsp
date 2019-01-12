@@ -377,7 +377,7 @@ function upChnlType(){
 						dom+='<option value="403">邮政储蓄银行</option>';
 						dom+='</select>';
 						dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:50px;"/>元';
-						dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule('+id+')">删除</a>';
+						dom+='<a href="#" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
 						dom+='</div>';
 						$("#bank_rule_content").append(dom);
 						

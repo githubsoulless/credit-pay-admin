@@ -159,6 +159,75 @@
 						</span></td>
 					</c:if>
 				</tr>
+					<tr>
+					<td colspan="4">
+							<div style="float:left;margin-left:20px;"><span style="color:red;">*</span>通道描述:</div>
+							<textarea rows="5" cols="77" title="通道描述信息" name="chnlDesc" style="float: right;margin-right:30px;">${ payChannel.chnlDesc}</textarea>							
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<div style="width:120px;float:left">
+							<span style="color:red;">*</span>支持银行&限额<br>[默认无限制]:
+							<a href="#" onclick="add_bank_rule()" style="color:#990000">增加</a>
+						</div>
+						<div style="width:550px;float:left" id="bank_rule_content">
+							
+						</div>
+					</td>
+				</tr>
+				<script>
+				$(function(){
+					init_bank_rule();
+					
+				})
+				function init_bank_rule(){
+					var server_data = '${payChannel.chnlRisk}';
+					var server_obj = $.parseJSON(server_data);
+					 if(server_obj != null){
+						for(var i=0;i<server_obj.length;i++){
+							
+							var id = guid();
+							var input_id = guid()+"_input";
+							var dom = '<div style="float:left;margin-left:10px;" >';
+								dom+='<select style="float:left;display: block;width:150px;" id='+id+' name="supBank" disabled="disabled">';
+								dom+='<option value="102">工商银行</option>';
+								dom+='<option value="103">农业银行</option>';
+								dom+='<option value="104">中国银行</option>';
+								dom+='<option value="105">建设银行</option>';
+								dom+='<option value="301">交通银行</option>';
+								dom+='<option value="302">中信银行</option>';
+								dom+='<option value="303">光大银行</option>';
+								dom+='<option value="304">华夏银行</option>';
+								dom+='<option value="305">民生银行</option>';
+								dom+='<option value="306">广发银行</option>';
+								dom+='<option value="307">平安银行</option>';
+								dom+='<option value="308">招商银行</option>';
+								dom+='<option value="309">兴业银行</option>';
+								dom+='<option value="310">浦发银行</option>';
+								dom+='<option value="403">邮政储蓄银行</option>';
+								dom+='</select>';
+								dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:50px;" id="'+input_id+'"/>元';
+								dom+='</div>';
+							
+							$("#bank_rule_content").append(dom);
+							Object.keys(server_obj[i]).forEach(function(key){
+								$("#"+id+" option[value='"+key+"']").attr("selected",true)
+								$("#"+input_id+"").val(server_obj[i][key]);
+							});
+							
+						}
+					}
+				}
+				
+				
+				function guid() {
+					  function S4() {
+					    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+					  }
+					  return (S4()+S4()+""+S4()+""+S4()+""+S4()+""+S4()+S4()+S4());
+					}
+				</script>
 
 			</table>
 		</div>
