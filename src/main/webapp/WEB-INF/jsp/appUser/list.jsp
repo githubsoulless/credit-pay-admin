@@ -177,7 +177,7 @@ function changeAgent(val) {
 
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="table-responsive">
+						<div class="table-responsive" style="overflow: auto;">
 							<table id="sample-table-1"
 								class="table1 table table-striped table-bordered table-hover">
 								<thead>
