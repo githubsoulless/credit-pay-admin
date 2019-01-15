@@ -34,6 +34,19 @@ function fastSearch(){
 	document.getElementById("searchForm").submit();
 }
 
+function exportExcel(){
+	
+	
+	if(!confirm("是否导出记录到Excel?")){
+		return;
+	}
+	var from=document.getElementById("searchForm");
+	from.action='${ctx}/accountDetail/exportExcel';
+	from.submit();
+	from.action='${ctx}/accountDetail/list';
+	
+}
+
 function addClose(){
 	if(document.getElementById("closeTp").value=="1"){
 		document.getElementById("searchForm").submit();
@@ -96,6 +109,9 @@ function addClose(){
 					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
+						<chrone:isAuth authCode="400000101">
+							&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="exportExcel()">导出</button>
+						</chrone:isAuth>
 					</div>
 				</form>
 			</div>

@@ -895,7 +895,45 @@ public class AccountDetail extends ParentMode {
 
 	private String userId; // 用户账号
 	private String accountName; // 真实姓名
+	private String formatTransType;
+	private String formatBalanceType;
+	private String formatChangeAmt;
+	private String formatAvailable;
+	
 
+
+	public String getFormatChangeAmt() {
+		return formatChangeAmt;
+	}
+
+	public void setFormatChangeAmt(String formatChangeAmt) {
+		this.formatChangeAmt = formatChangeAmt;
+	}
+
+	public String getFormatAvailable() {
+		return formatAvailable;
+	}
+
+	public void setFormatAvailable(String formatAvailable) {
+		this.formatAvailable = formatAvailable;
+	}
+
+	public String getFormatTransType() {
+		return formatTransType;
+	}
+
+	public void setFormatTransType(String formatTransType) {
+		this.formatTransType = formatTransType;
+	}
+
+	public String getFormatBalanceType() {
+		return formatBalanceType;
+	}
+
+	public void setFormatBalanceType(String formatBalanceType) {
+		this.formatBalanceType = formatBalanceType;
+	}
+	
 	public String getUserId() {
 		return userId;
 	}

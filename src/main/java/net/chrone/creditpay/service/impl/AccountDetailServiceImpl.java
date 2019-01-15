@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.mapper.AccountDetailMapper;
 import net.chrone.creditpay.model.AccountDetail;
+import net.chrone.creditpay.model.AccountDetailExample;
 import net.chrone.creditpay.service.AccountDetailService;
 
 /**
