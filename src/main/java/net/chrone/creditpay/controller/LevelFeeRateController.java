@@ -99,7 +99,7 @@ public class LevelFeeRateController {
 	@RequestMapping("update")
 	public String update(LevelFeeRateDTO levelFeeRateDTO, String type, Model model, HttpServletRequest request) {
 		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
-//		writeLog(request, level);
+		System.out.println("LevelFeeRateDTO:"+JSON.toJSONString(levelFeeRateDTO));
 		String message = "";
 		try {
 			if("update".equals(type)) {

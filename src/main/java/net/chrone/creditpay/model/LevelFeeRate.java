@@ -485,4 +485,8 @@ public class LevelFeeRate {
 
 	private BigDecimal upperlimitFj;
     private BigDecimal payFeeFj;
+    @Override
+    public String toString() {
+    	return "payChnlCode:["+payChnlCode+"]";
+    }
 }

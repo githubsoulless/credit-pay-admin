@@ -67,7 +67,8 @@ public class AgentFeeRateServiceImpl implements AgentFeeRateService {
 	public void updateLevelFeeRate(LevelFeeRateDTO levelFeeRateDTO) throws Exception {
 		Level level = levelFeeRateDTO.getLevel();
 		for(LevelFeeRate levelFeeRate : levelFeeRateDTO.getLevelFeeRates()) {
-			
+			if(levelFeeRate.getId() == null)//jsp是通过数组索引传递过来,有些索引是没有值的
+				continue;
 			String json = JSON.toJSONString(levelFeeRate);
 			AgentFeeRate agentFeeRate = JSON.parseObject(json, AgentFeeRate.class);
 			if(null != level.getFeeRate())
