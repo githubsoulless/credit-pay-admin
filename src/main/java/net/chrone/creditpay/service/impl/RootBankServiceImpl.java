@@ -1,5 +1,7 @@
 package net.chrone.creditpay.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 
 import net.chrone.creditpay.mapper.RootBankMapper;
 import net.chrone.creditpay.model.RootBank;
+import net.chrone.creditpay.model.RootBankExample;
 import net.chrone.creditpay.service.RootBankService;
 import net.chrone.creditpay.util.RedisClient;
 
@@ -29,6 +32,16 @@ public class RootBankServiceImpl implements RootBankService {
 		RootBank rootBank = rootBankMapper.selectByPrimaryKey(bankNo);
 		RedisClient.set(key, JSON.toJSONString(rootBank));
 		return rootBank;
+	}
+	
+	@Override
+	public List<RootBank> queryRootBankList() {
+		
+		RootBankExample rootBankExample = new RootBankExample();
+		RootBankExample.Criteria criteria = rootBankExample.createCriteria();
+		rootBankExample.setOrderByClause("bank_no asc");
+		
+		return rootBankMapper.selectByExample(rootBankExample);
 	}
 
 }
