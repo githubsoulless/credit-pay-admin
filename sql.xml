@@ -159,7 +159,7 @@
 			<property name="useActualColumnNames" value="false" />
 	</table>  -->
 	
-	<table schema=""  tableName="t_user_tree" domainObjectName="UserTree"   enableSelectByExample="true"
+	<table schema=""  tableName="t_root_bank" domainObjectName="RootBank"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />

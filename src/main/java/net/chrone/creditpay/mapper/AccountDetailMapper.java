@@ -100,4 +100,5 @@ public interface AccountDetailMapper extends ParentMapper {
     Map<String,Object> countAccountDetail(AccountDetail accountDetail);
 
 	List<AccountDetail> listAccountDetailPage(AccountDetail accountDetail);
+	
 }

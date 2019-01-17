@@ -139,6 +139,8 @@ public class MessageServiceImpl implements MessageService {
 			                jPushClient);
 			        if (pushToios == -1) {
 			            logger.info("自定义推送通知失败！");
+			        }else {
+			        	logger.info("极光推送消费["+message.getContent()+"],推送成功!");
 			        }
 				}
 			});

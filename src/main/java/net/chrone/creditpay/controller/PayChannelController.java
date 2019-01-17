@@ -4,16 +4,21 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.Validate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
 
 import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.PayChannel;
@@ -73,12 +78,25 @@ public class PayChannelController {
 					return "payChannel/add";
 				}
 				payChannel.setId(new IdGen().nextId());
-				payChannel.setChnlDesc("");
-				payChannel.setReserved("");
 				payChannel.setCreated(new Date());
 				payChannel.setCreatedUser(userInfSeesion.getLoginId());
 				payChannel.setStatus(1);
 				payChannel.setModifiedUser(userInfSeesion.getLoginId());
+				
+				String[] supBanks = request.getParameterValues("supBank");
+				String[] supBankLimit = request.getParameterValues("supBankLimit");
+				List<Map<String, String>> chnlRisk = new ArrayList<>();
+				if(supBanks != null && supBankLimit != null) {
+					for(int i=0;i<supBanks.length;i++) {
+						Map<String, String> map = new HashMap<>();
+						map.put(supBanks[i],supBankLimit[i]);
+						chnlRisk.add(map);
+					}
+				}
+				if(chnlRisk.size()>0) {
+					payChannel.setChnlRisk(JSON.toJSONString(chnlRisk));
+				}
+				
 				payChannelService.savePayChannel(payChannel);
 				logConstant.createTweblog(userInfSeesion.getLoginId(), "新增通道，通道代码="+payChannel.getCode()+"，通道名称="+payChannel.getName(), 6, request);
 				message = "success";
@@ -130,6 +148,21 @@ public class PayChannelController {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+				
+				String[] supBanks = request.getParameterValues("supBank");
+				String[] supBankLimit = request.getParameterValues("supBankLimit");
+				List<Map<String, String>> chnlRisk = new ArrayList<>();
+				if(supBanks != null && supBankLimit != null) {
+					for(int i=0;i<supBanks.length;i++) {
+						Map<String, String> map = new HashMap<>();
+						map.put(supBanks[i],supBankLimit[i]);
+						chnlRisk.add(map);
+					}
+				}
+				if(chnlRisk.size()>0) {
+					payChannel.setChnlRisk(JSON.toJSONString(chnlRisk));
+				}
+				
 				payChannelService.updatePayChannel(payChannel);
 				logConstant.createTweblog(userInfSeesion.getLoginId(), "修改通道，通道代码="+payChannel.getCode()+"，通道名称="+payChannel.getName(), 6, request);
 				message = "success";

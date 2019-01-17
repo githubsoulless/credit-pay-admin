@@ -89,7 +89,7 @@ public class ExcelUtil {
 							.toString()));
 				} else if (returnType.indexOf("date") != -1) {
 					cell.setCellType(Cell.CELL_TYPE_STRING);
-					cell.setCellValue(value == null ? null : (Date) value);
+					cell.setCellValue(value == null ? null : DateUtils.formatDate((Date)value, "yyyy-MM-dd HH:mm:ss"));
 				} else {
 					cell.setCellType(Cell.CELL_TYPE_STRING);
 					cell.setCellValue(value == null ? "" : value.toString());
@@ -162,7 +162,7 @@ public class ExcelUtil {
 							.toString()));
 				} else if (returnType.indexOf("date") != -1) {
 					cell.setCellType(Cell.CELL_TYPE_STRING);
-					cell.setCellValue(value == null ? null : (Date) value);
+					cell.setCellValue(value == null ? null : DateUtils.formatDate((Date)value, "yyyy-MM-dd HH:mm:ss"));
 				} else {
 					cell.setCellType(Cell.CELL_TYPE_STRING);
 					cell.setCellValue(value == null ? "" : value.toString());
