@@ -637,7 +637,7 @@
 				and a.book_dt &gt;=#{startDateStr}
 			</if>
 			<if test="endDateStr !=null and endDateStr !=''">
-				and a.book_dt &lt;=#{endDateStr}
+				and a.book_dt &lt;=#{endDateStr} 
 			</if>
 		</where>
 	</sql>
