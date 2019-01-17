@@ -895,6 +895,27 @@ public class AccountDetail extends ParentMode {
 
 	private String userId; // 用户账号
 	private String accountName; // 真实姓名
+	
+	private String startDateStr;
+	private String endDateStr;
+	
+	
+
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
+	}
+
+	public String getEndDateStr() {
+		return endDateStr;
+	}
+
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
 
 	public String getUserId() {
 		return userId;
