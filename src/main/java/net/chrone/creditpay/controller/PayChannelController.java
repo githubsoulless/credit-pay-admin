@@ -141,9 +141,14 @@ public class PayChannelController {
 				try {
 					if(StringUtils.isEmpty(payChannel.getStartDate())) {
 						payChannel.setStartTime(DateUtils.parseDate("00:00:00", "HH:mm:ss"));
+					}else {
+						payChannel.setStartTime(DateUtils.parseDate(payChannel.getStartDate(), "HH:mm:ss"));
 					}
+					
 					if(StringUtils.isEmpty(payChannel.getEndDate())){
 						payChannel.setEndTime(DateUtils.parseDate("23:59:59", "HH:mm:ss"));
+					}else {
+						payChannel.setEndTime(DateUtils.parseDate(payChannel.getEndDate(), "HH:mm:ss"));
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
