@@ -345,11 +345,13 @@ function upType(){
 						dom+='<option value="304">华夏银行</option>';
 						dom+='<option value="305">民生银行</option>';
 						dom+='<option value="306">广发银行</option>';
-						dom+='<option value="307">平安银行</option>';
 						dom+='<option value="308">招商银行</option>';
 						dom+='<option value="309">兴业银行</option>';
 						dom+='<option value="310">浦发银行</option>';
 						dom+='<option value="403">邮政储蓄银行</option>';
+						dom+='<option value="404">北京银行</option>';
+						dom+='<option value="405">上海银行</option>';
+						dom+='<option value="510">平安银行</option>';
 						dom+='</select>';
 						dom+='<input type="text" class="ipt" name="supBankLimit"  style="vertical-align: top;float:left;width:50px;"/>元';
 						dom+='<a href="javascript:void(0)" style="width:30px;height:30px;display: inline-block;text-align: center;line-height: 30px;" onclick="del_bank_rule(\''+id+'\')">删除</a>';
