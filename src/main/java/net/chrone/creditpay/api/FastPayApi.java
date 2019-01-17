@@ -19,7 +19,9 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String YITONG="yitong";//易通
 	public final static String HUIFU="huifu";//汇富
 	public final static String YSPAY="yspay";//银盛
+	public final static String YSPAY2="yspay2";//银盛
 	public final static String YAKUPAY="yakupay";//银盛
+	public final static String YAKUPAY2="yakupay2";//银盛
 	
 	
 	/**
@@ -55,14 +57,14 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 				resultMap.put("status", "1");//成功
 			}
 			
-		}else if(YSPAY.equals(code)) {
+		}else if(YSPAY.equals(code) || YSPAY2.equals(code)) {
 
 			Map<String, String> resMap = ChroneApi.agentPayByYspay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
-		}else if(YAKUPAY.equals(code)) {
+		}else if(YAKUPAY.equals(code) || YAKUPAY2.equals(code)) {
 
 			Map<String, String> resMap = ChroneApi.agentPayByYakuPay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));

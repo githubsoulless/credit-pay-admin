@@ -91,7 +91,6 @@ public class LevelServiceImpl implements LevelService {
 		return levels;
 	}
 
-	@Transactional
 	@Override
 	public void updateLevelFeeRate(LevelFeeRateDTO levelFeeRateDTO) {
 		Level level = levelFeeRateDTO.getLevel();
@@ -99,7 +98,11 @@ public class LevelServiceImpl implements LevelService {
 		level.setRecUpdTs(new Date());
 		levelMapper.updateByPrimaryKeySelective(level);
 		for(LevelFeeRate levelFeeRate : levelFeeRateDTO.getLevelFeeRates()) {
-			levelFeeRate.setFeeRate(levelFeeRate.getFeeRate().divide(new BigDecimal(100)));
+			if(levelFeeRate.getId() == null)//jsp是通过数组索引传递过来,有些索引是没有值的
+				continue;
+			
+			if(levelFeeRate.getFeeRate() != null)
+				levelFeeRate.setFeeRate(levelFeeRate.getFeeRate().divide(new BigDecimal(100)));
 			if(null != levelFeeRate.getUpperlimitFj())//完美还款没有上限
 				levelFeeRate.setUpperlimit(levelFeeRate.getUpperlimitFj().multiply(new BigDecimal(100)).intValue());
 			levelFeeRate.setPayFee(levelFeeRate.getPayFeeFj().multiply(new BigDecimal(100)).intValue());
