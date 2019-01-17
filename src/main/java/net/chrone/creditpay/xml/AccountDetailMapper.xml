@@ -633,6 +633,12 @@
 			<if test="endTime !=null and endTime !=''">
 				and a.row_crt_ts &lt;=#{endTime}
 			</if>
+			<if test="startDateStr !=null and startDateStr !=''">
+				and a.book_dt &gt;=#{startDateStr}
+			</if>
+			<if test="endDateStr !=null and endDateStr !=''">
+				and a.book_dt &lt;=#{endDateStr} 
+			</if>
 		</where>
 	</sql>
 	<select id="countAccountDetail" parameterType="net.chrone.creditpay.model.AccountDetail" resultType="map">

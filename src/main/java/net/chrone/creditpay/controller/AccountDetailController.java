@@ -59,6 +59,8 @@ public class AccountDetailController {
 		if (StringUtils.isEmpty(accountDetail.getEndDate())) {
 			accountDetail.setEndDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
 		}
+		accountDetail.setStartDateStr(DateUtils.formatDate(accountDetail.getStartTime(), "yyyyMMdd"));
+		accountDetail.setEndDateStr(DateUtils.formatDate(accountDetail.getEndTime(), "yyyyMMdd"));
 		Map<String, Object> countMap = accountDetailService.countAccountDetail(accountDetail);
 		int rowTotal = Integer.valueOf(countMap.get("count") + "");
 		List<AccountDetail> list = new ArrayList<AccountDetail>();
