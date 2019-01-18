@@ -124,7 +124,7 @@ function addClose(){
 										<th>真实姓名</th>
 										<th>分润生成时间</th>
 									</tr>
-								</thead>
+								</thead> 
 
 								<tbody>
 									<c:forEach items="${list }" varStatus="i" var="l">
