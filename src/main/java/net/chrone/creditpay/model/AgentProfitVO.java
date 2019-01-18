@@ -15,6 +15,28 @@ public class AgentProfitVO extends ParentMode {
 	private String accountName;  //受益人真是姓名
 	private Date rowCrtTs;      //分润生成时间
 	private String taskId;
+	
+	private String srcUserId;
+	private String srcAccountName;
+	
+	
+	
+
+	public String getSrcUserId() {
+		return srcUserId;
+	}
+
+	public void setSrcUserId(String srcUserId) {
+		this.srcUserId = srcUserId;
+	}
+
+	public String getSrcAccountName() {
+		return srcAccountName;
+	}
+
+	public void setSrcAccountName(String srcAccountName) {
+		this.srcAccountName = srcAccountName;
+	}
 
 	public String getTaskId() {
 		return taskId;

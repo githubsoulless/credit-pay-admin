@@ -117,6 +117,8 @@ function addClose(){
 										<th>分润金额</th>
 										<th>关联订单号</th>
 										<th>任务流水号</th>
+										<th>交易用户账号</th>
+										<th>交易用户姓名</th>
 										<th>订单金额</th>
 										<th>受益人账号</th>
 										<th>真实姓名</th>
@@ -143,6 +145,8 @@ function addClose(){
 											<td><chrone:fen2Yuan amt="${l.profitsAmount }"/></td>
 											<td>${l.orderNo }</td>
 											<td>${l.taskId }</td>
+											<td>${l.srcUserId }</td>
+											<td>${l.srcAccountName }</td>
 											<td><chrone:fen2Yuan amt="${l.amount }"/></td>
 											<td>${l.userId }</td>
 											<td>${l.accountName }</td>
@@ -153,6 +157,8 @@ function addClose(){
 										<td colspan="2" align="right">查询结果${page.rowTotal }条</td>
 										<td colspan="3" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.assumProfitsAmount }"/></td>
+										<td></td>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumAmount }"/></td>

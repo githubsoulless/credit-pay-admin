@@ -452,6 +452,8 @@
 	    <result column="user_id" jdbcType="VARCHAR" property="userId" />
 	    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
 	    <result column="row_crt_ts" jdbcType="TIMESTAMP" property="rowCrtTs" />
+	    <result column="src_user_id" jdbcType="VARCHAR" property="srcUserId" />
+	    <result column="src_account_name" jdbcType="VARCHAR" property="srcAccountName" />
 	</resultMap>
 	
 	<sql id="where_page_pay">
@@ -518,10 +520,11 @@
 		select a.* from (
 			select a.agent_id,a.agent_name,b.level,1 as profits_type,a.amount as profits_amount,c.task_id,
 			a.plan_id as order_no,c.plan_amt as amount,a.profits_user_id as user_id,d.account_name,
-			a.row_crt_ts from t_pay_profits_detail a 
+			a.row_crt_ts,c.user_id as src_user_id,e.account_name as src_account_name from t_pay_profits_detail a 
 			left join t_pay_profits c on a.profits_id = c.profits_id
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
+			left join t_app_user e on c.user_id = e.user_id
 			<include refid="where_page_pay"/> order by a.row_crt_ts desc
 		)a limit #{startRow} , #{pageSize}
 	</select>
@@ -541,10 +544,12 @@
 		select a.* from (
 			select a.agent_id,a.agent_name,b.level,2 as profits_type,a.amount as profits_amount,'' as task_id,
 			a.order_no,c.amount,a.profits_user_id as user_id,d.account_name,a.row_crt_ts 
+			,c.user_id as src_user_id,e.account_name as src_account_name
 			from t_up_profits_detail a 
 			left join t_up_profits c on a.profits_id = c.profits_id
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
+			left join t_app_user e on c.user_id = e.user_id
 			<include refid="where_page_up"/> order by a.row_crt_ts desc
 		)a limit #{startRow} , #{pageSize}
 	</select>
@@ -565,26 +570,31 @@
 		  select a.* from(
 			select a.agent_id,a.agent_name,b.level,1 as profits_type,a.amount as profits_amount,c.task_id,
 			a.plan_id as order_no,c.plan_amt as amount,a.profits_user_id as user_id,d.account_name,
-			a.row_crt_ts from t_pay_profits_detail a 
+			a.row_crt_ts ,c.user_id as src_user_id,e.account_name as src_account_name from t_pay_profits_detail a 
 			left join t_pay_profits c on a.profits_id = c.profits_id
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
+			left join t_app_user e on c.user_id = e.user_id
 			<include refid="where_page_pay"/>
 			union all 
 			select a.agent_id,a.agent_name,b.level,2 as profits_type,a.amount as profits_amount,'' as task_id,
-			a.order_no,c.amount,a.profits_user_id as user_id,d.account_name,a.row_crt_ts 
+			a.order_no,c.amount,a.profits_user_id as user_id,d.account_name,a.row_crt_ts ,
+			c.user_id as src_user_id,e.account_name as src_account_name
 			from t_up_profits_detail a 
 			left join t_up_profits c on a.profits_id = c.profits_id
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
+			left join t_app_user e on c.user_id = e.user_id
 			<include refid="where_page_up"/>
 			union all 
 			select a.agent_id,a.agent_name,b.level,3 as profits_type,a.amount as profits_amount,'' as task_id,
 			a.order_no as order_no,c.amt as amount,a.profits_user_id as user_id,d.account_name,
-			a.row_crt_ts from t_fast_profits_detail a 
+			a.row_crt_ts,c.user_id as src_user_id,e.account_name as src_account_name 
+			from t_fast_profits_detail a 
 			left join t_fast_profits c on a.profits_id = c.profits_id
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
+			left join t_app_user e on c.user_id = e.user_id
 			<include refid="where_page_fast"/>
 		 )a order by a.row_crt_ts desc
 		)a limit #{startRow} , #{pageSize}
@@ -621,10 +631,11 @@
 		select a.* from (
 			select a.agent_id,a.agent_name,b.level,3 as profits_type,a.amount as profits_amount,'' as task_id,
 			a.order_no as order_no,c.amt as amount,a.profits_user_id as user_id,d.account_name,
-			a.row_crt_ts from t_fast_profits_detail a 
+			a.row_crt_ts,c.user_id as src_user_id,e.account_name as src_account_name from t_fast_profits_detail a 
 			left join t_fast_profits c on a.profits_id = c.profits_id
 			left join t_agent_inf b on a.agent_id=b.agent_id
 			left join t_app_user d on a.profits_user_id = d.user_id
+			left join t_app_user e on c.user_id = e.user_id
 			<include refid="where_page_fast"/> order by a.row_crt_ts desc
 		)a limit #{startRow} , #{pageSize}
 	</select>
