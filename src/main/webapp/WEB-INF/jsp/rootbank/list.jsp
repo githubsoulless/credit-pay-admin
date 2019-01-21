@@ -17,7 +17,7 @@
 <script type="text/javascript" src='<c:url value="/static/js/loading.js"/>' language="javascript"></script>
 <link href="${ctx }/static/css/page.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript"  src="${ctx }/static/js/My97DatePicker/WdatePicker.js"></script>
-<title>通道管理</title>
+<title>银行管理</title>
 <script language="javascript">
 (function() {
 	var _skin, _lhgcore;
@@ -70,7 +70,7 @@ table.table1 tr th{
 										<th width="50">序号</th>
 										<th width="80">银行代码</th>
 										<th width="100">&nbsp;银行名称</th>
-										<th>快捷通道最优排序&nbsp;&nbsp;&nbsp;<a href="#">添加</a></th>
+										<th>快捷通道最优排序</th>
 									</tr>
 								</thead>
 
@@ -79,31 +79,73 @@ table.table1 tr th{
 										<tr>
 											<td>${i.index+1}</td>
 											<td>${l.bankNo}</td>
-											<td>${l.bankNm}</td>
 											<td>
-												<div id="chnl_rule">
-													
-													
+												${l.bankNm}
+												<a href="javascript:void(0)" onclick="add_rule('${l.bankNo}')"  style="float:right;display:block;">添加</a>
+												<a href="javascript:void(0)" onclick="submit_rule('${l.bankNo}')"  style="float:right;display:block;">提交</a>
+											</td>
+											<td>
+												<div id="add_${l.bankNo}"  style="float: left;">
 												</div>
 											</td>
 										</tr>
 									</c:forEach>
 									
 									<script>
-										$(function(){
+										function add_rule(id){
 											var chnls = $.parseJSON('${chnls}');
 											var dom = '<div style="float: left;margin-left:10px;text-align: left">';
-												if(chnls != null && chnls.length>0){
-													
-													
+											if(chnls != null && chnls.length>0){
+												dom+='<select>'
+												for(var i=0;i<chnls.length;i++){
+													dom+='<option value="'+chnls[i].code+'">'+chnls[i].name+'</option>';														
 												}
+												dom+='</select>'
+											}
+											dom+= '<br>';
+											dom+= '<a href="javascript:void(0)" onclick="up_rule(this)">上移</a>&nbsp;';
+											dom+= '<a href="#">下移</a>&nbsp;';
+											dom+= '<a href="#">删除</a>&nbsp;';
+											dom+= '</div>';
+											$("#add_"+id).append(dom);
+										}
+										
+										function submit_rule(id){
+											var chnlRule = "";
+											$("#add_"+id).find("select").each(function(){
+												var opt = $(this).find("option:selected").val();
+												chnlRule = chnlRule+opt+",";
+											})
+											chnlRule = chnlRule.substr(0,chnlRule.length-1);
+											alert("chnlRule:"+chnlRule)
+											/* $.ajax({
+										        type: "POST",
+										        async:false,
+										        url: "${ctx }/rootbank/update",
+										        data:{"bankNo":bankNo,"chnlRule":chnlRule},
+										        success: function(msg){
+										        	if(msg != null){
+										        		var data = msg.split(",");
+										        		$("#plantFee").text("平台手续费:["+data[0]+"]分");
+										        		$("#chnlFee").text("通道手续费["+data[1]+"]分");
+										        		$("#profit").text("利润["+data[2]+"]分");
+										        		$("#actualAgentPay").text("应代付金额["+data[3]+"]分(包含代付费)");
+										        		
+										        		setTimeout(function(){
+										        			$("#amount").val(data[3])
+										        		},1000)
+										        	}
+										        }
+										   }); */
+										}
+										function up_rule(obj){
 											
-												dom+= '<select><option value="">A快捷通道</option></select><br>';
-												dom+= '<a href="#">上移</a>';
-												dom+= '<a href="#">下移</a>';
-												dom+= '<a href="#">删除</a>';
-												dom+= '</div>';
-										})
+											alert($(obj).parent().html());
+											
+											
+										}
+										
+										
 									</script>
 												
 								</tbody>
