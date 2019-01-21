@@ -121,6 +121,8 @@ function queryFee(){
 							<option value="huifu">汇付</option>
 							<option value="yspay">银盛</option>
 							<option value="yakupay">雅酷</option>
+							<option value="yspay2">银盛2</option>
+							<option value="yakupay2">雅酷2</option>
 						</select>
 					</span></td>
 				</tr>	
