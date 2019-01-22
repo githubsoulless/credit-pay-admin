@@ -24,6 +24,8 @@ import cn.jpush.api.push.model.notification.Notification;
 
 public class MsgPushUtil {
 	private static final Logger logger = Logger.getLogger(MsgPushUtil.class);
+	private static boolean online = StringUtils.isNotEmpty(ConfigReader.getConfig("pushIOSOnline"))?Boolean.valueOf(ConfigReader.getConfig("pushIOSOnline")):true;
+	
 	public static int pushAliasMsg(String alias, String msgContent, JPushClient jPushClient) {
 		if (StringUtils.isEmpty(alias)) {
 			logger.error("发送目标为空");
@@ -177,7 +179,7 @@ public class MsgPushUtil {
 	                        .build())
                      .setOptions(
                     		 Options.newBuilder()  
-		                     .setApnsProduction(true)  
+		                     .setApnsProduction(online)  
 		                     .build())
 	                .build();
 		}else if (StringUtils.isEmpty(alias) && (tags!=null && tags.size()>0)) {
@@ -201,7 +203,7 @@ public class MsgPushUtil {
 	    	                        .build())
 	    	                 .setOptions(
 	    	                		 Options.newBuilder()  
-	    	                		 .setApnsProduction(true)  
+	    	                		 .setApnsProduction(online)  
 	    	                		 .build())
 	    	                .build();
 		}else if (!StringUtils.isEmpty(alias) && (tags==null || tags.size()==0)) {
@@ -225,7 +227,7 @@ public class MsgPushUtil {
 	    	                        .build())
 	    	                 .setOptions(
 	    	                		 Options.newBuilder()  
-	    	                		 .setApnsProduction(true)  
+	    	                		 .setApnsProduction(online)  
 	    	                		 .build())
 	    	                .build();
 		}else {
@@ -250,7 +252,7 @@ public class MsgPushUtil {
 	    	                        .build())
 	    	                 .setOptions(
 	    	                		 Options.newBuilder()  
-	    	                		 .setApnsProduction(true)  
+	    	                		 .setApnsProduction(online)  
 	    	                		 .build())
 	    	                .build();
 		}
