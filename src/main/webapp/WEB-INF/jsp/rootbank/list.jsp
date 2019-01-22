@@ -112,7 +112,7 @@ table.table1 tr th{
 											if(rule_array.length >0){
 												//有几个规则则显示几个
 												for(var i=0;i<rule_array.length;i++){
-													var gen_id = new Date().getTime();
+													var gen_id = guid();
 													var dom = '<div style="float: left;margin-left:10px;text-align: left">';
 														dom+='<select id="'+gen_id+'">'
 														if(chnls != null && chnls.length>0){
@@ -138,7 +138,7 @@ table.table1 tr th{
 										}
 									
 										function add_rule(id){
-											var gen_id = new Date().getTime();
+											var gen_id = guid();
 											var chnls = $.parseJSON('${chnls}');
 											var dom = '<div style="float: left;margin-left:10px;text-align: left">';
 											if(chnls != null && chnls.length>0){
@@ -213,7 +213,12 @@ table.table1 tr th{
 											var current_obj = $(obj).parent();
 											$(current_obj).remove();
 										}
-										
+										function guid() {
+											  function S4() {
+											    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+											  }
+											  return (S4()+S4()+""+S4()+""+S4()+""+S4()+""+S4()+S4()+S4());
+											}
 									</script>
 								</tbody>
 							</table>
