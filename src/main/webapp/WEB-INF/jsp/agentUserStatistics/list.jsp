@@ -92,7 +92,7 @@ function addClose(){
 										<td></td>
 									</tr>
 								</tbody>
-							</table>
+							</table> 
 								<page:page name="page"  formId="pageForm"></page:page>
 						</div>
 						<!-- /.table-responsive -->
