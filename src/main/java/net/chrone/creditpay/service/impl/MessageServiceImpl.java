@@ -2,7 +2,9 @@ package net.chrone.creditpay.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -135,7 +137,10 @@ public class MessageServiceImpl implements MessageService {
 				public void run() {
 					userMessageMapper.insertSelective(userMessage);
 					JPushClient jPushClient = new JPushClient(ConfigReader.getConfig("pushMasterSecret"), ConfigReader.getConfig("pushAppKey"), 3);
-			        int pushToios = MsgPushUtil.pushAliasNotification(userMessage.getUserId(), message.getTitle(), null, message.getContent(),
+					Map<String, String> extra = new HashMap<>();
+					extra.put("msgType", "1");//notice
+					extra.put("msgId", userMessage.getMessageId());
+			        int pushToios = MsgPushUtil.pushAliasNotification(userMessage.getUserId(), message.getTitle(), extra, message.getContent(),
 			                jPushClient);
 			        if (pushToios == -1) {
 			            logger.info("自定义推送通知失败！");

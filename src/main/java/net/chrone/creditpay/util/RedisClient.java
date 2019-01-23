@@ -18,6 +18,7 @@ public class RedisClient {
 	public static final String CACHE_PREFIX_PMSBANKINF = "redis_prefix_pmsbankinf_";
 	public static final String CACHE_PREFIX_ROOTBANK = "redis_prefix_rootbank_";
 	public static final String CACHE_PREFIX_SYSPARAM = "redis_prefix_sysparam_";
+	public static final String CACHE_PREFIX_CREDITROOTBANK = "redis_prefix_creditrootbank_";
 	
 	
 	

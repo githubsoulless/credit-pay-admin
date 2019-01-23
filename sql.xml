@@ -159,7 +159,7 @@
 			<property name="useActualColumnNames" value="false" />
 	</table>  -->
 	
-	<table schema=""  tableName="t_root_bank" domainObjectName="RootBank"   enableSelectByExample="true"
+	<table schema=""  tableName="t_credit_root_bank" domainObjectName="CreditRootBank"   enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />
