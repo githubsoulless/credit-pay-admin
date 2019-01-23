@@ -56,4 +56,14 @@ public class AgentProfitServiceImpl implements AgentProfitService {
 		return payProfitsDetailMapper.countAgentFastProfits(agentProfitVO);
 	}
 
+	@Override
+	public List<AgentProfitVO> getAgentProfitsStatisticsByPage(AgentProfitVO agentProfitVO) {
+		return payProfitsDetailMapper.getAgentProfitsStatisticsByPage(agentProfitVO);
+	}
+
+	@Override
+	public int getAgentProfitsStatisticsCount(AgentProfitVO agentProfitVO) {
+		return payProfitsDetailMapper.getAgentProfitsStatisticsCount(agentProfitVO);
+	}
+
 }

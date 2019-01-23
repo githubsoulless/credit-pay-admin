@@ -454,6 +454,7 @@
 	    <result column="row_crt_ts" jdbcType="TIMESTAMP" property="rowCrtTs" />
 	    <result column="src_user_id" jdbcType="VARCHAR" property="srcUserId" />
 	    <result column="src_account_name" jdbcType="VARCHAR" property="srcAccountName" />
+	    <result column="row_num" jdbcType="VARCHAR" property="rowNum" />
 	</resultMap>
 	
 	<sql id="where_page_pay">
@@ -675,6 +676,72 @@
 				and a.row_crt_ts &lt;=#{endTime}
 			</if>
 			and a.profits_num > 3
+		</where>
+	</sql>
+	
+	<select id="getAgentProfitsStatisticsCount" parameterType="net.chrone.creditpay.model.AgentProfitVO" resultType="int">
+		select count(1) from (select count(1) from(
+			select a.agent_id,a.agent_name,sum(a.amount) as profits_amount
+				from t_agent_inf b
+				left join t_pay_profits_detail a  on a.agent_id=b.agent_id
+				left join t_pay_profits c on a.profits_id = c.profits_id
+				<include refid="agentProfitsStatistics_where"/>
+	      		GROUP BY a.agent_id,a.agent_name
+				union all 
+				select a.agent_id,a.agent_name,sum(a.amount) as profits_amount 
+				from  t_agent_inf b
+				left join t_up_profits_detail a  on a.agent_id=b.agent_id
+				left join t_up_profits c on a.profits_id = c.profits_id
+				<include refid="agentProfitsStatistics_where"/>
+	      		GROUP BY a.agent_id,a.agent_name
+				union all 
+				select a.agent_id,a.agent_name,a.amount as profits_amount
+				from  t_agent_inf b 
+				left join t_fast_profits_detail a on a.agent_id=b.agent_id
+				left join t_fast_profits c on a.profits_id = c.profits_id
+				<include refid="agentProfitsStatistics_where"/>
+	     		GROUP BY a.agent_id,a.agent_name
+			 )a group by a.agent_id,a.agent_name
+		)b
+	</select>
+	<select id="getAgentProfitsStatisticsByPage" parameterType="net.chrone.creditpay.model.AgentProfitVO" resultMap="AgentProfitResultMap">
+	select * from (
+		select @r:=@r+1 as row_num ,b.* from (select a.agent_id,a.agent_name,sum(a.profits_amount) as profits_amount from(
+				select a.agent_id,a.agent_name,sum(a.amount) as profits_amount
+					from t_agent_inf b
+					left join t_pay_profits_detail a  on a.agent_id=b.agent_id
+					left join t_pay_profits c on a.profits_id = c.profits_id
+					<include refid="agentProfitsStatistics_where"/>
+		      		GROUP BY a.agent_id,a.agent_name
+					union all 
+					select a.agent_id,a.agent_name,sum(a.amount) as profits_amount 
+					from  t_agent_inf b
+					left join t_up_profits_detail a  on a.agent_id=b.agent_id
+					left join t_up_profits c on a.profits_id = c.profits_id
+					<include refid="agentProfitsStatistics_where"/>
+		      		GROUP BY a.agent_id,a.agent_name
+					union all 
+					select a.agent_id,a.agent_name,a.amount as profits_amount
+					from  t_agent_inf b 
+					left join t_fast_profits_detail a on a.agent_id=b.agent_id
+					left join t_fast_profits c on a.profits_id = c.profits_id
+					<include refid="agentProfitsStatistics_where"/>
+		      		GROUP BY a.agent_id,a.agent_name
+				 )a group by a.agent_id,a.agent_name ORDER BY profits_amount desc
+		) b ,(select @r:=0) r ) c limit #{startRow} , #{pageSize}
+	</select>
+	<sql id="agentProfitsStatistics_where">
+	<where>
+	    and a.agent_id!='' 
+		<if test="startDate !=null and startDate !='' ">
+		and a.profits_dt &gt;=#{startDate}
+		</if>
+		<if test="endDate !=null and endDate !='' ">
+		and a.profits_dt &lt;=#{endDate}
+		</if>
+		<if test="agentId !=null and agentId !='' ">
+		and b.agent_id =#{agentId}
+		</if>
 		</where>
 	</sql>
 </mapper>

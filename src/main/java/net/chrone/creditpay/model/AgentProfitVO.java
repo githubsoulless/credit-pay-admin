@@ -19,8 +19,18 @@ public class AgentProfitVO extends ParentMode {
 	private String srcUserId;
 	private String srcAccountName;
 	
+	private String rowNum;
 	
 	
+	
+
+	public String getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(String rowNum) {
+		this.rowNum = rowNum;
+	}
 
 	public String getSrcUserId() {
 		return srcUserId;

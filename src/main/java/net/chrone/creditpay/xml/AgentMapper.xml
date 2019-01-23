@@ -24,6 +24,8 @@
     <result column="rec_upd_ts" jdbcType="TIMESTAMP" property="recUpdTs" />
     <result column="account_name" jdbcType="VARCHAR" property="accountName" />
     <result column="subAgentCount" jdbcType="INTEGER" property="subAgentCount" />
+    <result column="subUserCount" jdbcType="INTEGER" property="subUserCount" />
+    <result column="row_num" jdbcType="INTEGER" property="rowNum" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -469,7 +471,7 @@
 	  	</if>
   	</where>
   </sql>
-   <select id="getAgentByPageCount" parameterType="net.chrone.creditpay.model.Card" resultType="int">
+  <select id="getAgentByPageCount" parameterType="net.chrone.creditpay.model.Card" resultType="int">
   	select count(1) from t_agent_inf t 
   	<include refid="where_page" />
   </select>
@@ -483,5 +485,18 @@
   </select>
   <select id="getSUBAgentIdByAgentId" parameterType="string" resultType="string">
   select getSUBAgentId(#{agentId}) from dual;
+  </select>
+  
+  <select id="getAgentUserStatisticsCount" parameterType="net.chrone.creditpay.model.Agent" resultType="int">
+  	select count(1) from t_agent_inf t 
+  	<include refid="where_page" />
+  </select>
+  <select id="getAgentUserStatisticsByPage" parameterType="net.chrone.creditpay.model.Agent" resultMap="BaseResultMap">
+ 	 select * from (
+ 	 select @r:=@r+1 as row_num ,a.* from (
+  	select t.agent_id,t.agent_name,(select count(1) from t_app_user where agent_id=t.agent_id) as subUserCount from t_agent_inf t 
+  	<include refid="where_page" />
+  	order by subUserCount desc
+  	)a,(select @r:=0) r ) b limit  #{startRow} , #{pageSize}
   </select>
 </mapper>

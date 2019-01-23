@@ -91,5 +91,11 @@ public interface PayProfitsDetailMapper extends ParentMapper {
     List<AgentProfitVO> listAgentFastProfits(AgentProfitVO agentProfitVO);
     
     Map<String, Object> countAgentFastProfits(AgentProfitVO agentProfitVO);
+
+	int getAgentProfitsStatistics(AgentProfitVO agentProfitVO);
+
+	List<AgentProfitVO> getAgentProfitsStatisticsByPage(AgentProfitVO agentProfitVO);
+
+	int getAgentProfitsStatisticsCount(AgentProfitVO agentProfitVO);
     
 }

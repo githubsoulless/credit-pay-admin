@@ -18,6 +18,7 @@ import net.chrone.creditpay.mapper.AppUserMapper;
 import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AgentExample;
 import net.chrone.creditpay.model.AgentMenu;
+import net.chrone.creditpay.model.AgentProfitVO;
 import net.chrone.creditpay.model.AgentRole;
 import net.chrone.creditpay.model.AgentRoleMenu;
 import net.chrone.creditpay.model.AgentUser;
@@ -203,6 +204,18 @@ public class AgentServiceImpl implements AgentService {
 			}
 		}
 		return count;
+	}
+
+
+	@Override
+	public int getAgentUserStatisticsCount(Agent agent) {
+		return agentMapper.getAgentUserStatisticsCount(agent);
+	}
+
+
+	@Override
+	public List<Agent> getAgentUserStatisticsByPage(Agent agent) {
+		return agentMapper.getAgentUserStatisticsByPage(agent);
 	}
 
 }

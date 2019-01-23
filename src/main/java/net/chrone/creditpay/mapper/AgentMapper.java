@@ -3,6 +3,8 @@ package net.chrone.creditpay.mapper;
 import java.util.List;
 import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AgentExample;
+import net.chrone.creditpay.model.AgentProfitVO;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AgentMapper extends ParentMapper {
@@ -99,4 +101,8 @@ public interface AgentMapper extends ParentMapper {
 	List<Agent> getAgentByPage(Agent agent);
 	
 	String getSUBAgentIdByAgentId(String agentId);
+
+	int getAgentUserStatisticsCount(Agent agent);
+
+	List<Agent> getAgentUserStatisticsByPage(Agent agent);
 }

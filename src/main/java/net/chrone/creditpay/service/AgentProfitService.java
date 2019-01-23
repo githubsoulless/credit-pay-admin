@@ -51,4 +51,8 @@ public interface AgentProfitService {
 
 	Map<String, Object> countAgentFastProfits(AgentProfitVO agentProfitVO);
 
+	List<AgentProfitVO> getAgentProfitsStatisticsByPage(AgentProfitVO agentProfitVO);
+
+	int getAgentProfitsStatisticsCount(AgentProfitVO agentProfitVO);
+
 }

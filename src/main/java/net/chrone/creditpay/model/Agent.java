@@ -560,5 +560,29 @@ public class Agent extends ParentMode{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	private int subUserCount;
+	
+	private int rowNum;
+	
+	
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
+	public int getSubUserCount() {
+		return subUserCount;
+	}
+
+	public void setSubUserCount(int subUserCount) {
+		this.subUserCount = subUserCount;
+	}
+	
+	
     
 }

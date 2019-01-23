@@ -3,6 +3,7 @@ package net.chrone.creditpay.service;
 import java.util.List;
 
 import net.chrone.creditpay.model.Agent;
+import net.chrone.creditpay.model.AgentProfitVO;
 
 public interface AgentService {
 	List<Agent> getAgentAll();
@@ -22,5 +23,9 @@ public interface AgentService {
 	Agent getAgentByUserId(String userId);
 
 	int updateAllAgentUser();
+
+	int getAgentUserStatisticsCount(Agent agent);
+
+	List<Agent> getAgentUserStatisticsByPage(Agent agent);
 
 }
