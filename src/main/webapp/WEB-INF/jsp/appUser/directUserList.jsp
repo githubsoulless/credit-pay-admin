@@ -179,7 +179,7 @@ function changeAgent(type,val) {
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="agentId">所属直接代理ID：</label>
-						<input  class="input-sm" type="text" id="agentId"  name="agentId" maxlength="15" value="${appuser.agentId}" /> 
+						<input  class="input-sm" type="text" id="agentId4"  name="agentId4" maxlength="15" value="${appuser.agentId4}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label padding-left" for="certStatus">实名认证：</label>
@@ -296,6 +296,7 @@ function changeAgent(type,val) {
 	<input type="hidden"  name="agentId1" value="${appuser.agentId1}"></input>
 	<input type="hidden"  name="agentId2" value="${appuser.agentId2}"></input>
 	<input type="hidden"  name="agentId3" value="${appuser.agentId3}"></input>
+	<input type="hidden"  name="agentId4" value="${appuser.agentId4}"></input>
 	<input type="hidden"  name="certStatus" value="${appuser.certStatus}"></input>
 </form>
 <input type="hidden"  id="closeTp"/>
