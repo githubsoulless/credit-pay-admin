@@ -695,7 +695,7 @@
 				<include refid="agentProfitsStatistics_where"/>
 	      		GROUP BY a.agent_id,a.agent_name
 				union all 
-				select a.agent_id,a.agent_name,a.amount as profits_amount
+				select a.agent_id,a.agent_name,sum(a.amount) as profits_amount
 				from  t_agent_inf b 
 				left join t_fast_profits_detail a on a.agent_id=b.agent_id
 				left join t_fast_profits c on a.profits_id = c.profits_id
@@ -721,7 +721,7 @@
 					<include refid="agentProfitsStatistics_where"/>
 		      		GROUP BY a.agent_id,a.agent_name
 					union all 
-					select a.agent_id,a.agent_name,a.amount as profits_amount
+					select a.agent_id,a.agent_name,sum(a.amount) as profits_amount
 					from  t_agent_inf b 
 					left join t_fast_profits_detail a on a.agent_id=b.agent_id
 					left join t_fast_profits c on a.profits_id = c.profits_id
