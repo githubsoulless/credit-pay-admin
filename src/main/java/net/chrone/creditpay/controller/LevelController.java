@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
 
+import net.chrone.creditpay.model.AgentLevel;
 import net.chrone.creditpay.model.Level;
 import net.chrone.creditpay.model.LevelDTO;
 import net.chrone.creditpay.model.MgrUser;
+import net.chrone.creditpay.service.AgentLevelService;
 import net.chrone.creditpay.service.LevelService;
 import net.chrone.creditpay.service.impl.LogConstant;
 import net.chrone.creditpay.util.Constants;
@@ -35,11 +37,15 @@ public class LevelController {
 	private LevelService levelService;
 	@Autowired
 	private LogConstant logConstant;
-
+	@Autowired
+	private AgentLevelService agentLevelService;
+	
 	@RequestMapping("list")
 	public String list(Model model) {
 		List<Level> list = levelService.listLevel();
+		List<AgentLevel> agentLevelList = agentLevelService.getAgentLevelAll();
 		model.addAttribute("list", list);
+		model.addAttribute("agentLevelList", agentLevelList);
 		return "level/list";
 	}
 
@@ -47,9 +53,11 @@ public class LevelController {
 	public String update(LevelDTO levelDTO, Model model, HttpServletRequest request) {
 		writeLog(request, levelDTO);
 		levelService.updateLevels(levelDTO.getLevels());
-		
+		agentLevelService.updateLevels(levelDTO.getAgentLevels());
 		List<Level> list = levelService.listLevel();
+		List<AgentLevel> agentLevelList = agentLevelService.getAgentLevelAll();
 		model.addAttribute("list", list);
+		model.addAttribute("agentLevelList", agentLevelList);
 		model.addAttribute("message", "success");
 		return "level/list";
 	}
