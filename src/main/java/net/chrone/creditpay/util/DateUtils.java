@@ -300,6 +300,26 @@ public class DateUtils {
 		}
 		return date1.compareTo(date2);
 	}
+	
+	/**
+	 * 比较两个时间,若两个时间相等则返回 0 若 date1小于date2则返回-1  若 date1大于date2则返回1
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public int compareDate1(Date date1,Date date2) {
+		
+		String date1Str = formatDate(date1, "yyyy-MM-dd HH:mm:ss");
+		String date2Str = formatDate(date2, "yyyy-MM-dd HH:mm:ss");
+		
+		if(date1Str.compareTo(date2Str) < 0) {//注册时间小于当前时间
+			return -1;
+		}else if(date1Str.compareTo(date2Str) > 0) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
     
     public static void main(String[] args) {
     	try {

@@ -687,6 +687,13 @@ public class PayChannel extends ParentMode{
 	private double maxAmountDou;
 	private double daySumAmtDou;
 	private BigDecimal upperlimitDou;
+	@Override
+	public String toString() {
+		return "PayChannel [code=" + code + ", name=" + name + ", chnlType=" + chnlType + ", settleType=" + settleType
+				+ ", status=" + status + ", feeType=" + feeType + ", feeRate=" + feeRate + ", payFeeType=" + payFeeType
+				+ ", payFeeRate=" + payFeeRate + ", chnlDesc=" + chnlDesc + ", reserved=" + reserved + ", integralType="
+				+ integralType + "]";
+	}
 	
 	
 

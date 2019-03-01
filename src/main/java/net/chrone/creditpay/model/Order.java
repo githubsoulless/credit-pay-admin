@@ -482,9 +482,110 @@ public class Order extends ParentMode{
 	private String agentName;
 	
 	
+	//fileds design for export excel begin
+	private String orderTpFormat;
+	private String amountFormat;
+	private String platFeeFormat;
+	private String feeFormat;
+	private String plantProfitFormat;
+	private String userProfitFormat;
+	private String agentProfitFormat;
+	private String cardFormat;
+	private String payStFormat;
+	private String totalProfitFormat;
+	//fileds design for export excel end
+	
 	
 	public String getAgentName() {
 		return agentName;
+	}
+
+	public String getPlatFeeFormat() {
+		return platFeeFormat;
+	}
+
+	public void setPlatFeeFormat(String platFeeFormat) {
+		this.platFeeFormat = platFeeFormat;
+	}
+
+	public String getOrderTpFormat() {
+		return orderTpFormat;
+	}
+
+	public void setOrderTpFormat(String orderTpFormat) {
+		this.orderTpFormat = orderTpFormat;
+	}
+
+	public String getAmountFormat() {
+		return amountFormat;
+	}
+
+	public void setAmountFormat(String amountFormat) {
+		this.amountFormat = amountFormat;
+	}
+
+	public String getPlantProfitFormat() {
+		return plantProfitFormat;
+	}
+
+	public void setPlantProfitFormat(String plantProfitFormat) {
+		this.plantProfitFormat = plantProfitFormat;
+	}
+
+	public String getFeeFormat() {
+		return feeFormat;
+	}
+
+	public void setFeeFormat(String feeFormat) {
+		this.feeFormat = feeFormat;
+	}
+
+	public String getUserProfitFormat() {
+		return userProfitFormat;
+	}
+
+	public void setUserProfitFormat(String userProfitFormat) {
+		this.userProfitFormat = userProfitFormat;
+	}
+
+	public String getAgentProfitFormat() {
+		return agentProfitFormat;
+	}
+
+	public void setAgentProfitFormat(String agentProfitFormat) {
+		this.agentProfitFormat = agentProfitFormat;
+	}
+
+	public String getCardFormat() {
+		return cardFormat;
+	}
+
+	public void setCardFormat(String cardFormat) {
+		this.cardFormat = cardFormat;
+	}
+
+	public String getPayStFormat() {
+		return payStFormat;
+	}
+
+	public void setPayStFormat(String payStFormat) {
+		this.payStFormat = payStFormat;
+	}
+
+	public String getTotalProfitFormat() {
+		return totalProfitFormat;
+	}
+
+	public void setTotalProfitFormat(String totalProfitFormat) {
+		this.totalProfitFormat = totalProfitFormat;
+	}
+
+	public void setStartAmt(Integer startAmt) {
+		this.startAmt = startAmt;
+	}
+
+	public void setEndAmt(Integer endAmt) {
+		this.endAmt = endAmt;
 	}
 
 	public void setAgentName(String agentName) {

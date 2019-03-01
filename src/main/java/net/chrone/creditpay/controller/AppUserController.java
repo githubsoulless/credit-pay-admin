@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,6 +26,7 @@ import com.alibaba.fastjson.JSON;
 import net.chrone.creditpay.mapper.AppUserMapper;
 import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AppUser;
+import net.chrone.creditpay.model.Level;
 import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.UserTree;
 import net.chrone.creditpay.service.AgentService;
@@ -34,6 +36,8 @@ import net.chrone.creditpay.service.PmsBankInfService;
 import net.chrone.creditpay.service.UserTreeService;
 import net.chrone.creditpay.service.impl.LogConstant;
 import net.chrone.creditpay.util.Constants;
+import net.chrone.creditpay.util.DateUtils;
+import net.chrone.creditpay.util.ExcelUtil;
 import net.chrone.creditpay.util.MyPage;
 
 
@@ -63,7 +67,7 @@ public class AppUserController {
 	private UserTreeService userTreeService;
 	@Autowired
 	private AppUserMapper appUserMapper;
-
+	private static Logger logger = Logger.getLogger(AppUserController.class);
 	@RequestMapping("list")
 	public String list(AppUser appuser, String start, Model model) {
 		int starIndex = StringUtils.isEmpty(start) ? 0 : Integer.valueOf(start);
@@ -330,6 +334,86 @@ public class AppUserController {
 		}
 	}
 	
+	
+
+	 /**
+    * 导出到excel -xls
+    * @param request
+    * @param response
+    * @param withdrawaLog
+    * @param model
+    */
+   @RequestMapping("/exportExcel")
+   public void exportExcel(HttpServletRequest request, HttpServletResponse response, AppUser appUser, Model model) {
+   		
+	   	long currentTimeMillis = System.currentTimeMillis();
+   		int rowTotal = appUserService.getAppUserByPageCount(appUser);
+		List list = new ArrayList();
+		 try {
+			
+           String[] titleNms = { "用户帐号","登录帐号", "真实姓名","昵称", "等级", "状态","实名认证", "注册时间", "最后登录时间", "信用卡数量","直接下级用户","所有下级用户","推荐人","所属直接代理","剩余体验计划次数"};
+           String[] columMethodNms = { "getUserId","getLoginId","getAccountName", "getMerName", "getLevelNameFormat", "getStatusFormat","getCertStatusFormat","getRowCrtTs","getLastLoginTs","getCardNum","getDirectCount","getSubUserCount","getParentUserId","getAgentNameFormat","getTyCount"};
+           Workbook workbook = ExcelUtil.createExcel(2007, "用户注册明细", titleNms, columMethodNms, list );
+           
+           int rowNum=Constants.MAX_EXPORT_NUM;
+           if(rowTotal>0){
+               for(int i=0;i<rowTotal;i+=rowNum){
+            	   appUser.setStartRow(i);
+            	   appUser.setPageSize(rowNum);
+                   list = appUserService.getAppUserByPage(appUser);
+                   formatList(list);
+                   workbook = ExcelUtil.addDataToExcel(workbook, "用户注册明细", titleNms, columMethodNms, list, i);
+               }
+           }
+           
+           String fileName = "用户注册明细"+DateUtils.formatDate(new Date(), "yyyyMMddHHmmss");
+   		ExcelUtil.workbook2InputStream(response, workbook, fileName, ".xlsx");
+   		long l = System.currentTimeMillis() - currentTimeMillis;
+   		 logger.info("-------------------------导出用时"+l+"毫秒");
+       } catch (Exception e) {
+       	e.printStackTrace();
+           logger.error("导出文件异常",e);
+       } 
+   }
+   
+	 private void formatList(List list) {
+			List<Level> levelList = levelService.getLevelAll();
+			List<Agent> agentList = agentService.getAgentAll();
+	    	List<AppUser> appUsers = (List<AppUser>)list;
+	    	if(list != null) {
+	    		for(AppUser appUser:appUsers) {
+	    		
+	    			for(Level level:levelList) {
+	    				if(appUser.getLevelId() ==  level.getLevelId()) {
+	    					appUser.setLevelNameFormat(level.getLevelName());
+	    					break;
+	    				}
+	    			}
+	    			for(Agent agent:agentList) {
+	    				if(appUser.getAgentId().equals(agent.getAgentId())) {
+	    					appUser.setAgentNameFormat(agent.getAgentName()+"("+agent.getAgentId()+")");
+	    					break;
+	    				}
+	    			}
+	    			if(appUser.getStatus() == 0) {
+	    				appUser.setStatusFormat("正常");
+	    			}
+	    			else if(appUser.getStatus() == 1) {
+	    				appUser.setStatusFormat("禁用");
+	    			}
+	    			
+	    			if(appUser.getCertStatus() == 0) {
+	    				appUser.setStatusFormat("未认证");
+	    			}else if(appUser.getCertStatus() == 1) {
+	    				appUser.setStatusFormat("己认证");
+	    			}else if(appUser.getCertStatus() == 2) {
+	    				appUser.setStatusFormat("认证失败");
+	    			}
+	    		}
+	    	}
+	    }
+	
+	
 	/**
 	 * 直推
 	 * @param userId
@@ -368,6 +452,8 @@ public class AppUserController {
         }
         return allIdList;
 	}
+	
+	
 	
 	
 

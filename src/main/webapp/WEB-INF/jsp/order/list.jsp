@@ -44,6 +44,15 @@ function addClose(){
 		document.getElementById("searchForm").submit();
 	}
 }
+function exportExcel(){
+	if(!confirm("是否导出记录到Excel?")){
+		return;
+	}
+	var from=document.getElementById("searchForm");
+	from.action='${ctx}/order/exportExcel';
+	from.submit();
+	from.action='${ctx}/order/list';
+}
 </script>
 <style type="text/css">
 table.table1{
@@ -145,7 +154,11 @@ table.table1 tr th{
 					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
+						<chrone:isAuth authCode="300000301">
+							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="exportExcel()">导出</button>
+						</chrone:isAuth>
 					</div>
+						
 				</form>
 			</div>
 		</div>

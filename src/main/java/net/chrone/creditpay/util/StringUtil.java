@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 public class StringUtil {
@@ -162,6 +163,19 @@ public class StringUtil {
 		String c = card.substring(card.length()-4,card.length());
 		s.append(a).append(b).append(c);
 		return s.toString();
+	}
+	
+	public static String hiddenCard(String cardNo,int start,int end){
+		if(StringUtils.isEmpty(cardNo)){
+			return "";	
+		}
+		StringBuffer sb = new StringBuffer();
+		String headStr = cardNo.substring(0, start);
+		String footerStr = cardNo.substring(cardNo.length()-end,cardNo.length());
+		for(int i=0;i<(cardNo.length()-start-end);i++){
+			sb.append("*");
+		}
+		return headStr+sb.toString()+footerStr;
 	}
 	
 	/**

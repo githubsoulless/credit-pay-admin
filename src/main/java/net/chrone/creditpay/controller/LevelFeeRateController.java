@@ -1,6 +1,7 @@
 package net.chrone.creditpay.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,10 +19,12 @@ import net.chrone.creditpay.model.LevelDTO;
 import net.chrone.creditpay.model.LevelFeeRate;
 import net.chrone.creditpay.model.LevelFeeRateDTO;
 import net.chrone.creditpay.model.MgrUser;
+import net.chrone.creditpay.model.PayChannel;
 import net.chrone.creditpay.model.SysParam;
 import net.chrone.creditpay.service.AgentFeeRateService;
 import net.chrone.creditpay.service.LevelFeeRateService;
 import net.chrone.creditpay.service.LevelService;
+import net.chrone.creditpay.service.PayChannelService;
 import net.chrone.creditpay.service.SysParamService;
 import net.chrone.creditpay.service.impl.LogConstant;
 import net.chrone.creditpay.util.AmountUtil;
@@ -48,11 +51,22 @@ public class LevelFeeRateController {
 	private LogConstant logConstant;
 	@Autowired
 	private AgentFeeRateService agentFeeRateService;
+	@Autowired
+	private PayChannelService payChannelService;
 
 	@RequestMapping("list")
 	public String list(Model model) {
 		List<Level> list = levelService.listLevel();
 		getLeves(list);
+		
+		List<PayChannel> payChannels = payChannelService.listAllPayChannel();
+		for(int i=payChannels.size()-1;i>=0;i--) {//除去禁用的,不是4快捷 7扫码的通道
+			if(payChannels.get(i).getStatus() !=1 || !(payChannels.get(i).getChnlType() ==4 || payChannels.get(i).getChnlType() ==7)) {
+				payChannels.remove(i);
+			}
+		}
+		
+		model.addAttribute("payChannels", payChannels);
 		model.addAttribute("list", list);
 		return "levelFeeRate/list";
 	}

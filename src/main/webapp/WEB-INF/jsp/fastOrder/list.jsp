@@ -87,7 +87,15 @@ function agentpay(){
 				}
 	});
 }
-
+function exportExcel(){
+	if(!confirm("是否导出记录到Excel?")){
+		return;
+	}
+	var from=document.getElementById("searchForm");
+	from.action='${ctx}/fastOrder/exportExcel';
+	from.submit();
+	from.action='${ctx}/fastOrder/list';
+}
 </script>
 <style type="text/css">
 table.table1{
@@ -176,6 +184,9 @@ table.table1 tr th{
 							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="agentpay()">手动代付</button>
 						</chrone:isAuth>
 						
+						<chrone:isAuth authCode="120000103">
+							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="exportExcel()">导出</button>
+						</chrone:isAuth>
 					</div>
 	
 				</form>

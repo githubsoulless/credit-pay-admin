@@ -1,5 +1,6 @@
 package net.chrone.creditpay.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import net.chrone.creditpay.mapper.SysParamMapper;
 import net.chrone.creditpay.model.SysParam;
 import net.chrone.creditpay.model.SysParamDTO;
 import net.chrone.creditpay.service.SysParamService;
+import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.RedisClient;
 
 /**
@@ -115,7 +117,107 @@ public class SysParamServiceImpl implements SysParamService {
 		sysParamMapper.saveSysParam(lotteryTimesFRecomOneUser);
 		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"lottery_times_f_recom_one_user", JSON.toJSONString(lotteryTimesFRecomOneUser));
 		
-	
+		//注册时奖励设置
+		SysParam awardRegisterType = new SysParam();
+		awardRegisterType.setName("award_register_type");
+		awardRegisterType.setValue(sysParamDTO.getAwardRegisterType());
+		awardRegisterType.setMemo("用户注册奖励类型 0无任何奖励 1注册奖励 2实名认证奖励");
+		sysParamMapper.saveSysParam(awardRegisterType);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_register_type", JSON.toJSONString(awardRegisterType));
+		
+		SysParam awardRegisterDirUserAmount = new SysParam();
+		awardRegisterDirUserAmount.setName("award_register_diruser_amount");
+		awardRegisterDirUserAmount.setValue(sysParamDTO.getAwardRegisterDirUserAmount());
+		awardRegisterDirUserAmount.setMemo("注册直邀奖励");
+		sysParamMapper.saveSysParam(awardRegisterDirUserAmount);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_register_diruser_amount", JSON.toJSONString(awardRegisterDirUserAmount));
+		
+		SysParam awardRegisterAgentAmount = new SysParam();
+		awardRegisterAgentAmount.setName("award_register_agent_amount");
+		awardRegisterAgentAmount.setValue(sysParamDTO.getAwardRegisterAgentAmount());
+		awardRegisterAgentAmount.setMemo("注册代理奖励");
+		sysParamMapper.saveSysParam(awardRegisterAgentAmount);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_register_agent_amount", JSON.toJSONString(awardRegisterAgentAmount));
+		
+		//快捷刷卡消费时奖励设置
+		SysParam awardFastPayType = new SysParam();
+		awardFastPayType.setName("award_fastpay_type");
+		awardFastPayType.setValue(sysParamDTO.getAwardFastPayType());
+		awardFastPayType.setMemo("快捷消费奖励类型 0无任何奖励 1首次刷卡奖励 2累积刷卡奖励");
+		sysParamMapper.saveSysParam(awardFastPayType);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_fastpay_type", JSON.toJSONString(awardFastPayType));
+		
+		SysParam awardFastPayTotal = new SysParam();
+		awardFastPayTotal.setName("award_fastpay_total");
+		awardFastPayTotal.setValue(sysParamDTO.getAwardFastPayTotal());
+		awardFastPayTotal.setMemo("累积金额");
+		sysParamMapper.saveSysParam(awardFastPayTotal);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_fastpay_total", JSON.toJSONString(awardFastPayTotal));
+		
+		SysParam awardFastPayDirUserAmount = new SysParam();
+		awardFastPayDirUserAmount.setName("award_fastpay_diruser_amount");
+		awardFastPayDirUserAmount.setValue(sysParamDTO.getAwardFastPayDirUserAmount());
+		awardFastPayDirUserAmount.setMemo("直接邀请奖励");
+		sysParamMapper.saveSysParam(awardFastPayDirUserAmount);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_fastpay_diruser_amount", JSON.toJSONString(awardFastPayDirUserAmount));
+		
+		SysParam awardFastPayAgentAmount = new SysParam();
+		awardFastPayAgentAmount.setName("award_fastpay_agent_amount");
+		awardFastPayAgentAmount.setValue(sysParamDTO.getAwardFastPayAgentAmount());
+		awardFastPayAgentAmount.setMemo("代理奖励");
+		sysParamMapper.saveSysParam(awardFastPayAgentAmount);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_fastpay_agent_amount", JSON.toJSONString(awardFastPayAgentAmount));
+		
+		//完美快捷刷卡消费时奖励设置
+		SysParam awardWMFastPayType = new SysParam();
+		awardWMFastPayType.setName("award_WMFastpay_type");
+		awardWMFastPayType.setValue(sysParamDTO.getAwardWMFastPayType());
+		awardWMFastPayType.setMemo("完美快捷消费奖励类型 0无任何奖励 1首次刷卡奖励 2累积刷卡奖励");
+		sysParamMapper.saveSysParam(awardWMFastPayType);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_WMFastpay_type", JSON.toJSONString(awardWMFastPayType));
+		
+		SysParam awardWMFastPayTotal = new SysParam();
+		awardWMFastPayTotal.setName("award_WMFastpay_total");
+		awardWMFastPayTotal.setValue(sysParamDTO.getAwardWMFastPayTotal());
+		awardWMFastPayTotal.setMemo("完美还款累积金额");
+		sysParamMapper.saveSysParam(awardWMFastPayTotal);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_WMFastpay_total", JSON.toJSONString(awardWMFastPayTotal));
+		
+		SysParam awardWMFastPayDirUserAmount = new SysParam();
+		awardWMFastPayDirUserAmount.setName("award_WMfastpay_diruser_amount");
+		awardWMFastPayDirUserAmount.setValue(sysParamDTO.getAwardWMFastPayDirUserAmount());
+		awardWMFastPayDirUserAmount.setMemo("完美还款直接邀请奖励");
+		sysParamMapper.saveSysParam(awardWMFastPayDirUserAmount);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_WMfastpay_diruser_amount", JSON.toJSONString(awardWMFastPayDirUserAmount));
+		
+		SysParam awardWMFastPayAgentAmount = new SysParam();
+		awardWMFastPayAgentAmount.setName("award_WMfastpay_agent_amount");
+		awardWMFastPayAgentAmount.setValue(sysParamDTO.getAwardWMFastPayAgentAmount());
+		awardWMFastPayAgentAmount.setMemo("完美还款代理奖励");
+		sysParamMapper.saveSysParam(awardWMFastPayAgentAmount);
+		RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_WMfastpay_agent_amount", JSON.toJSONString(awardWMFastPayAgentAmount));
+				
+		
+		//开始计算 快捷累计消费的时间点
+		if(!sysParamDTO.getAwardFastPayType().equals("0")) {
+			SysParam awardFastPayBeginTime = new SysParam();
+			awardFastPayBeginTime.setName("award_fastpay_begin_time");
+			awardFastPayBeginTime.setValue(DateUtils.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss"));
+			awardFastPayBeginTime.setMemo("快捷奖励金额开始时间");
+			sysParamMapper.saveSysParam(awardFastPayBeginTime);
+			RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_fastpay_begin_time", JSON.toJSONString(awardFastPayBeginTime));
+		}
+		
+		//开始计算完美快捷累计消费的时间点
+		if(!sysParamDTO.getAwardWMFastPayType().equals("0")) {
+			
+			SysParam awardWMFastPayBeginTime = new SysParam();
+			awardWMFastPayBeginTime.setName("award_WMfastpay_begin_time");
+			awardWMFastPayBeginTime.setValue(DateUtils.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss"));
+			awardWMFastPayBeginTime.setMemo("完美快捷奖励金额开始时间");
+			sysParamMapper.saveSysParam(awardWMFastPayBeginTime);
+			RedisClient.set(RedisClient.CACHE_PREFIX_SYSPARAM+"award_WMfastpay_begin_time", JSON.toJSONString(awardWMFastPayBeginTime));
+		}
 	}
 	
 	public void repaySysParam(SysParamDTO sysParamDTO) {

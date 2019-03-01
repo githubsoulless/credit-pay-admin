@@ -93,6 +93,51 @@ function changeProfitsType(val){
 		$(".profitsType2").show();
 	}
 }
+function awardFastPayTypeSel(obj){
+	if(obj=="2"){
+		$("#awardFastPayTotal_outer").show();
+	}else{
+		$("#awardFastPayTotal_outer").hide();
+	}
+}
+
+function awardWMFastPayTypeSel(obj){
+	if(obj=="2"){
+		$("#awardWMFastPayTotal_outer").show();
+	}else{
+		$("#awardWMFastPayTotal_outer").hide();
+	}
+}
+
+function init_award_param(){
+	$("#awardRegisterType").val('${params.award_register_type}');
+	$("#awardRegisterDirUserAmount").val('${params.award_register_diruser_amount}');
+	$("#awardRegisterAgentAmount").val('${params.award_register_agent_amount}');
+	
+	
+	$("#awardFastPayType").val('${params.award_fastpay_type}');
+	$("#awardFastPayDirUserAmount").val('${params.award_fastpay_diruser_amount}');
+	$("#awardFastPayAgentAmount").val('${params.award_fastpay_agent_amount}');
+	$("#awardFastPayTotal").val('${params.award_fastpay_total}');
+	
+	
+	$("#awardWMFastPayType").val('${params.award_WMFastpay_type}');
+	$("#awardWMFastPayDirUserAmount").val('${params.award_WMfastpay_diruser_amount}');
+	$("#awardWMFastPayAgentAmount").val('${params.award_WMfastpay_agent_amount}');
+	$("#awardWMFastPayTotal").val('${params.award_WMFastpay_total}');
+	
+	$("#awardFastPayBeginTime").val('${params.award_fastpay_begin_time}');
+	$("#awardWMFastPayBeginTime").val('${params.award_WMfastpay_begin_time}');
+	
+	awardFastPayTypeSel('${params.award_fastpay_type}');
+	awardWMFastPayTypeSel('${params.award_WMFastpay_type}');
+	
+}
+
+$(function(){
+	init_award_param();
+})
+
 </script>
 </head>
 <body onload="init()">
@@ -134,6 +179,67 @@ function changeProfitsType(val){
 							计划失败通知：<textarea rows="5" cols="50" id="templatePlanFaildNotice" name="templatePlanFaildNotice">${params.template_plan_faild_notice }</textarea>	
 						</div>
 					</fieldset>
+					
+					<!--奖励设置-->
+					<fieldset class="fieldset1">
+						<legend class="legend1">组合奖励设置</legend>
+						<div class="col-lg-4 col-md-6 margin10">
+							<p style="font-weight: bold;">用户注册奖励</p>
+							<div style="margin-bottom: 10px;">
+								奖励类型：
+								<select name="awardRegisterType" id="awardRegisterType">
+									<option value="0">无任何奖励</option>
+									<option value="1">注册奖励</option>
+									<option value="2">实名认证奖励</option>
+								</select>
+							</div>
+							<div>
+								直邀奖励：<input type="text" id="awardRegisterDirUserAmount" name="awardRegisterDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								代理奖励：<input type="text" id="awardRegisterAgentAmount" name="awardRegisterAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+							</div>
+						</div>
+						
+						<div class="col-lg-4 col-md-6 margin10">
+							<p style="font-weight: bold;">快捷刷卡消费奖励</p>
+							<div style="margin-bottom: 10px;">
+								奖励类型：
+								<select name="awardFastPayType" id="awardFastPayType" onchange="awardFastPayTypeSel(this.value)">
+									<option value="0">无任何奖励</option>
+									<option value="1">首次刷卡奖励</option>
+									<option value="2">累积刷卡奖励</option>
+								</select>
+								<span id="awardFastPayTotal_outer" style="display:none;">
+									&nbsp;&nbsp;累积金额：<input type="text" id="awardFastPayTotal" name="awardFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								</span>
+								&nbsp;&nbsp;开始生效时间<input type="text" id="awardFastPayBeginTime" value="" disabled="disabled">
+							</div>
+							<div>
+								直邀奖励：<input type="text" id="awardFastPayDirUserAmount" name="awardFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								代理奖励：<input type="text" id="awardFastPayAgentAmount" name="awardFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+							</div>
+						</div>
+						
+						<div class="col-lg-4 col-md-6 margin10">
+							<p style="font-weight: bold;">完美刷卡消费奖励</p>
+							<div style="margin-bottom: 10px;">
+								奖励类型：
+								<select name="awardWMFastPayType" id="awardWMFastPayType" onchange="awardWMFastPayTypeSel(this.value)">
+									<option value="0">无任何奖励</option>
+									<option value="1">首次刷卡奖励</option>
+									<option value="2">累积刷卡奖励</option>
+								</select>
+								<span id="awardWMFastPayTotal_outer" style="display: none;">
+									&nbsp;&nbsp;累积金额：<input type="text" id="awardWMFastPayTotal"  name="awardWMFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								</span>
+								&nbsp;&nbsp;开始生效时间<input type="text" id="awardWMFastPayBeginTime" value="" disabled="disabled" >
+							</div>
+							<div>
+								直邀奖励：<input type="text" id="awardWMFastPayDirUserAmount" name="awardWMFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								代理奖励：<input type="text" id="awardWMFastPayAgentAmount" name="awardWMFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+							</div>
+						</div>
+					</fieldset>
+					
 					<div class="align-center divbtn">
 						<chrone:isAuth authCode="600000201">
 							<div align="center"><button type="button" class="btn btn-primary"  onclick="fastSearch()">保存设置</button></div>

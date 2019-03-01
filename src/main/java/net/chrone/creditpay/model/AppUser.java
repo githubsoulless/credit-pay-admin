@@ -663,19 +663,54 @@ public class AppUser extends ParentMode{
 	private String agentId2;
 	private String agentId3;
 	private String agentId4;
-	
 	private String agentLevel;
-	
 	private List<String> ids;
-	
 	private String pid;
-	
-	
 	private List<String> agentIds;
+	
+	
+	//fileds design for export excel begin
+	private String levelNameFormat;
+	private String statusFormat;
+	private String certStatusFormat;
+	private String agentNameFormat;
+	//fileds design for export excel end
 	
 
 	public List<String> getAgentIds() {
 		return agentIds;
+	}
+
+	public String getLevelNameFormat() {
+		return levelNameFormat;
+	}
+
+	public void setLevelNameFormat(String levelNameFormat) {
+		this.levelNameFormat = levelNameFormat;
+	}
+
+	public String getStatusFormat() {
+		return statusFormat;
+	}
+
+	public void setStatusFormat(String statusFormat) {
+		this.statusFormat = statusFormat;
+	}
+
+	public String getCertStatusFormat() {
+		return certStatusFormat;
+	}
+
+	public void setCertStatusFormat(String certStatusFormat) {
+		this.certStatusFormat = certStatusFormat;
+	}
+
+	public String getAgentNameFormat() {
+		return agentNameFormat;
+	}
+
+	public void setAgentNameFormat(String agentNameFormat) {
+		this.agentNameFormat = agentNameFormat;
 	}
 
 	public void setAgentIds(List<String> agentIds) {

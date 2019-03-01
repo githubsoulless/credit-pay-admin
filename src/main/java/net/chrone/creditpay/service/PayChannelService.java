@@ -3,6 +3,7 @@ package net.chrone.creditpay.service;
 import java.util.List;
 
 import net.chrone.creditpay.model.PayChannel;
+import net.chrone.creditpay.model.PayChannelExample;
 
 /**
  * 

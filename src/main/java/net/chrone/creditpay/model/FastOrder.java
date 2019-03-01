@@ -631,6 +631,99 @@ public class FastOrder extends ParentMode{
 
 	private List<String> agentIds;
 	
+	//fileds design for export excel begin
+	private String orderTpFormat;
+	private String payStFormat;
+	private String amountFormat;
+	private String feeFormat;
+	private String chnlFeeFormat;
+	private String totalProfitFormat;
+	private String userProfitFormat;
+	private String agentProfitFormat;
+	private String plantProfitFormat;
+	private String cardFormat;
+	//fileds design for export excel end	
+	
+	public String getOrderTpFormat() {
+		return orderTpFormat;
+	}
+
+	public String getCardFormat() {
+		return cardFormat;
+	}
+
+	public void setCardFormat(String cardFormat) {
+		this.cardFormat = cardFormat;
+	}
+
+	public String getAmountFormat() {
+		return amountFormat;
+	}
+
+	public void setAmountFormat(String amountFormat) {
+		this.amountFormat = amountFormat;
+	}
+
+	public String getFeeFormat() {
+		return feeFormat;
+	}
+
+	public void setFeeFormat(String feeFormat) {
+		this.feeFormat = feeFormat;
+	}
+
+	public String getChnlFeeFormat() {
+		return chnlFeeFormat;
+	}
+
+	public void setChnlFeeFormat(String chnlFeeFormat) {
+		this.chnlFeeFormat = chnlFeeFormat;
+	}
+
+	public String getTotalProfitFormat() {
+		return totalProfitFormat;
+	}
+
+	public void setTotalProfitFormat(String totalProfitFormat) {
+		this.totalProfitFormat = totalProfitFormat;
+	}
+
+	public String getUserProfitFormat() {
+		return userProfitFormat;
+	}
+
+	public void setUserProfitFormat(String userProfitFormat) {
+		this.userProfitFormat = userProfitFormat;
+	}
+
+	public String getAgentProfitFormat() {
+		return agentProfitFormat;
+	}
+
+	public void setAgentProfitFormat(String agentProfitFormat) {
+		this.agentProfitFormat = agentProfitFormat;
+	}
+
+	public String getPlantProfitFormat() {
+		return plantProfitFormat;
+	}
+
+	public void setPlantProfitFormat(String plantProfitFormat) {
+		this.plantProfitFormat = plantProfitFormat;
+	}
+
+	public void setOrderTpFormat(String orderTpFormat) {
+		this.orderTpFormat = orderTpFormat;
+	}
+
+	public String getPayStFormat() {
+		return payStFormat;
+	}
+
+	public void setPayStFormat(String payStFormat) {
+		this.payStFormat = payStFormat;
+	}
+
 	public List<String> getAgentIds() {
 		return agentIds;
 	}

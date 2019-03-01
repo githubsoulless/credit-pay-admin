@@ -92,6 +92,15 @@ function changeAgent(val) {
 			}
 		}
 }
+function exportExcel(){
+	if(!confirm("是否导出记录到Excel?")){
+		return;
+	}
+	var from=document.getElementById("searchForm");
+	from.action='${ctx}/appUser/exportExcel';
+	from.submit();
+	from.action='${ctx}/appUser/list';
+}
 </script>
 </head>
 <body>
@@ -165,6 +174,10 @@ function changeAgent(val) {
 					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
+						
+						<chrone:isAuth authCode="100000105">
+							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="exportExcel()">导出</button>
+						</chrone:isAuth>
 					</div>
 				</form>
 			</div>

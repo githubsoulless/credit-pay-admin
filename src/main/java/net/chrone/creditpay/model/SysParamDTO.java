@@ -43,6 +43,119 @@ public class SysParamDTO {
 	private String lotteryTimesFOneRePayPlan; // 每执行完1个还款计划，奖励抽奖机会次数
 	private String lotteryTimesFBindOneCard; // 每成功绑定1张信用卡，奖励抽奖机会次数
 	private String lotteryTimesFRecomOneUser; // 每推荐1个新用户，奖励抽奖机会次数
+	
+	//注册奖励机制
+	private String awardRegisterType; //0无任何奖励  1注册奖励 2实名认证奖励
+	private String awardRegisterDirUserAmount;//直邀奖励
+	private String awardRegisterAgentAmount; //代理奖励
+	//快捷刷卡消费奖励机制
+	private String awardFastPayType; //0无任何奖励  1首刷奖励 2累积奖励
+	private String awardFastPayDirUserAmount;//直邀奖励
+	private String awardFastPayAgentAmount; //代理奖励
+	private String awardFastPayTotal; //累积金额
+	
+	//完美快捷刷卡消费奖励机制
+	private String awardWMFastPayType; //0无任何奖励  1首刷奖励 2累积奖励
+	private String awardWMFastPayDirUserAmount;//直邀奖励
+	private String awardWMFastPayAgentAmount; //代理奖励
+	private String awardWMFastPayTotal; //累积金额
+	
+	
+	public String getLotteryTimesFOneRePayPlan() {
+		return lotteryTimesFOneRePayPlan;
+	}
+
+	public void setLotteryTimesFOneRePayPlan(String lotteryTimesFOneRePayPlan) {
+		this.lotteryTimesFOneRePayPlan = lotteryTimesFOneRePayPlan;
+	}
+
+	public String getAwardRegisterType() {
+		return awardRegisterType;
+	}
+
+	public void setAwardRegisterType(String awardRegisterType) {
+		this.awardRegisterType = awardRegisterType;
+	}
+
+	public String getAwardRegisterDirUserAmount() {
+		return awardRegisterDirUserAmount;
+	}
+
+	public void setAwardRegisterDirUserAmount(String awardRegisterDirUserAmount) {
+		this.awardRegisterDirUserAmount = awardRegisterDirUserAmount;
+	}
+
+	public String getAwardRegisterAgentAmount() {
+		return awardRegisterAgentAmount;
+	}
+
+	public void setAwardRegisterAgentAmount(String awardRegisterAgentAmount) {
+		this.awardRegisterAgentAmount = awardRegisterAgentAmount;
+	}
+
+	public String getAwardFastPayType() {
+		return awardFastPayType;
+	}
+
+	public void setAwardFastPayType(String awardFastPayType) {
+		this.awardFastPayType = awardFastPayType;
+	}
+
+	public String getAwardFastPayDirUserAmount() {
+		return awardFastPayDirUserAmount;
+	}
+
+	public void setAwardFastPayDirUserAmount(String awardFastPayDirUserAmount) {
+		this.awardFastPayDirUserAmount = awardFastPayDirUserAmount;
+	}
+
+	public String getAwardFastPayAgentAmount() {
+		return awardFastPayAgentAmount;
+	}
+
+	public void setAwardFastPayAgentAmount(String awardFastPayAgentAmount) {
+		this.awardFastPayAgentAmount = awardFastPayAgentAmount;
+	}
+
+	public String getAwardFastPayTotal() {
+		return awardFastPayTotal;
+	}
+
+	public void setAwardFastPayTotal(String awardFastPayTotal) {
+		this.awardFastPayTotal = awardFastPayTotal;
+	}
+
+	public String getAwardWMFastPayType() {
+		return awardWMFastPayType;
+	}
+
+	public void setAwardWMFastPayType(String awardWMFastPayType) {
+		this.awardWMFastPayType = awardWMFastPayType;
+	}
+
+	public String getAwardWMFastPayDirUserAmount() {
+		return awardWMFastPayDirUserAmount;
+	}
+
+	public void setAwardWMFastPayDirUserAmount(String awardWMFastPayDirUserAmount) {
+		this.awardWMFastPayDirUserAmount = awardWMFastPayDirUserAmount;
+	}
+
+	public String getAwardWMFastPayAgentAmount() {
+		return awardWMFastPayAgentAmount;
+	}
+
+	public void setAwardWMFastPayAgentAmount(String awardWMFastPayAgentAmount) {
+		this.awardWMFastPayAgentAmount = awardWMFastPayAgentAmount;
+	}
+
+	public String getAwardWMFastPayTotal() {
+		return awardWMFastPayTotal;
+	}
+
+	public void setAwardWMFastPayTotal(String awardWMFastPayTotal) {
+		this.awardWMFastPayTotal = awardWMFastPayTotal;
+	}
 
 	public String getLotteryTimesFNewUser() {
 		return lotteryTimesFNewUser;
@@ -52,13 +165,7 @@ public class SysParamDTO {
 		this.lotteryTimesFNewUser = lotteryTimesFNewUser;
 	}
 
-	public String getLotteryTimesFOneRePayPlan() {
-		return lotteryTimesFOneRePayPlan;
-	}
-
-	public void setLotteryTimesFOneRePayPlan(String lotteryTimesFOneRePayPlan) {
-		this.lotteryTimesFOneRePayPlan = lotteryTimesFOneRePayPlan;
-	}
+	
 
 	public String getLotteryTimesFBindOneCard() {
 		return lotteryTimesFBindOneCard;

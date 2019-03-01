@@ -94,6 +94,7 @@ public class PayChannelServiceImpl implements PayChannelService {
 		return list.get(0);
 	}
 
+	
 	@Override
 	public List<PayChannel> listAllPayChannel() {
 		return payChannelMapper.selectByExample(null);

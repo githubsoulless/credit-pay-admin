@@ -74,6 +74,7 @@ function addClose(){
 	  					   	<option value="0" ${accountDetail.transType==0?'selected="selected"':'' }>升级分润</option>
 	  					   	<option value="1" ${accountDetail.transType==1?'selected="selected"':'' }>还款推广收益</option>
 	  					   	<option value="4" ${accountDetail.transType==4?'selected="selected"':'' }>快捷推广收益</option>
+	  					   	<option value="5" ${accountDetail.transType==5?'selected="selected"':'' }>推广奖励收益</option>
 	  					   	<option value="2" ${accountDetail.transType==2?'selected="selected"':'' }>钱包提现</option>
 	  					   	<option value="3" ${accountDetail.transType==3?'selected="selected"':'' }>其他</option>
 	  					</select> 
