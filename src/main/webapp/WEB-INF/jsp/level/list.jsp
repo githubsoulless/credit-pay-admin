@@ -216,11 +216,52 @@ function init() {
 											</td>
 										</tr>
 										<tr>
+											<td>
+											等级描述:
+											</td>
+											<td>
+												<textarea class="input-sm" name="levels[${i.index}].levelDesc" rows="4" cols="40">${l.levelDesc }</textarea>
+											</td>
+											<td>
+											描述详情:
+											</td>
+											<td colspan="7">
+												<textarea class="input-sm" name="levels[${i.index}].levelDescDetail" rows="4" cols="40">${l.levelDescDetail }</textarea>
+											</td>
+										</tr>
+										<tr>
 											<td colspan="10"></td>
 										</tr>
 										</tbody>
 								</table>
 									</c:forEach>
+								<!-- 代理等级 -->
+								<c:forEach items="${agentLevelList }" varStatus="i" var="l">
+										<input type="hidden" name="agentLevels[${i.index }].levelId" value="${l.levelId }">
+										<table id="sample-table-1" class="table1 table table-striped table-bordered table-hover">
+										<tbody>
+											<tr>
+												<td>升级序号</td>
+												<td>代理名称</td>
+												<td>APP内显示</td>
+												<td>代理描述</td>
+												<td>描述详情</td>
+											</tr>
+											<tr>
+												<td>${l.levelId }</td>
+												<td><input type="text" class="input-sm" name="agentLevels[${i.index}].levelName" value="${l.levelName }"/> </td>
+												<td>
+												<select name="agentLevels[${i.index }].status" id="status-${l.levelId }" class="input-sm form-control">
+													<option  value="0" <c:if test="${l.status == 0 }">selected="selected"</c:if>>显示</option>
+													<option value="1" <c:if test="${l.status == 1 }">selected="selected"</c:if>>隐藏</option>
+												</select>
+												</td>
+												<td><textarea class="input-sm" name="agentLevels[${i.index}].levelDesc" rows="4" cols="40">${l.levelDesc }</textarea></td>
+												<td><textarea class="input-sm" name="agentLevels[${i.index}].levelDescDetail" rows="4" cols="40">${l.levelDescDetail }</textarea></td>
+											</tr>
+										</tbody>
+									</table>
+								</c:forEach>
 								<chrone:isAuth authCode="600000101">
 									<div align="center"><button type="button" class="btn btn-primary"  onclick="fastSearch()">保存设置</button></div>
 								</chrone:isAuth>

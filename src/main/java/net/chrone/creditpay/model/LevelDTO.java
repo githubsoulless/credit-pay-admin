@@ -5,6 +5,8 @@ import java.util.List;
 public class LevelDTO {
 
 	private List<Level> levels;
+	
+	private List<AgentLevel> agentLevels;
 
 	public List<Level> getLevels() {
 		return levels;
@@ -13,5 +15,15 @@ public class LevelDTO {
 	public void setLevels(List<Level> levels) {
 		this.levels = levels;
 	}
+
+	public List<AgentLevel> getAgentLevels() {
+		return agentLevels;
+	}
+
+	public void setAgentLevels(List<AgentLevel> agentLevels) {
+		this.agentLevels = agentLevels;
+	}
+	
+	
 
 }
