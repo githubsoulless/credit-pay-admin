@@ -184,7 +184,7 @@ table.table1 tr th{
 							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="agentpay()">手动代付</button>
 						</chrone:isAuth>
 						
-						<chrone:isAuth authCode="120000103">
+						<chrone:isAuth authCode="120000104">
 							&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="exportExcel()">导出</button>
 						</chrone:isAuth>
 					</div>
