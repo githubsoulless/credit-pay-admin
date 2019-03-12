@@ -18,7 +18,7 @@
             <property name="enableSubPackages" value="false" />
              <property name="rootInterface" value="net.chrone.creditpay.mapper.ParentMapper"/>
         </javaClientGenerator> 
-
+ 
  
 	 
 <!-- 	<table schema=""  tableName="t_account" domainObjectName="Account"   enableSelectByExample="true" -->
