@@ -155,6 +155,7 @@ function addClose(){
 												<c:if test="${l.transType==4 }">快捷推广收益</c:if>
 												<c:if test="${l.transType==2 }">钱包提现</c:if>
 												<c:if test="${l.transType==3 }">其他</c:if>
+												<c:if test="${l.transType==5 }">推广奖励收益</c:if>
 											</td>
 											<td>
 												<c:if test="${l.balanceType==0 }">可用</c:if>

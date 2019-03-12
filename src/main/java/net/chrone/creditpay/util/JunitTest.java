@@ -16,6 +16,7 @@ import net.chrone.creditpay.model.RoleMenu;
 import net.chrone.creditpay.service.MenuInfService;
 import net.chrone.creditpay.service.PayChannelService;
 import net.chrone.creditpay.service.RoleInfService;
+import net.chrone.creditpay.service.UserAwardStatusService;
 
 
 
@@ -28,21 +29,14 @@ public class JunitTest {
 	private RoleInfService roleInfService;
 	@Autowired
 	private PayChannelService payChannelService;
+	@Autowired
+	private UserAwardStatusService userAwardStatusService; 
+	
 	@Test
 	public void test()throws Exception{
 		
-		
-		List<PayChannel> payChannels = payChannelService.listAllPayChannel();
-		for(int i=payChannels.size()-1;i>=0;i--) {//除去禁用的,不是4快捷 7扫码的通道
-			if(payChannels.get(i).getStatus() !=1 || !(payChannels.get(i).getChnlType() ==4 || payChannels.get(i).getChnlType() ==7)) {
-				payChannels.remove(i);
-			}
-		}
-		
-		for(PayChannel payChannel:payChannels) {
-			System.out.println(payChannel);
-		}
-		
+		userAwardStatusService.resetUserStatus(0);;
+	
 	}
 }
 
