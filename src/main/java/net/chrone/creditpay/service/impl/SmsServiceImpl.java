@@ -36,6 +36,7 @@ public class SmsServiceImpl implements SmsService {
         map.put("orgId", ConfigReader.getConfig("smsOrgId"));
         map.put("mobiles", mobiles);
         map.put("dateTime", dateTime);
+        map.put("type", "1");//营销短信
         if (null != content && !"".equals(content)) {
             map.put("message", content);
         } 
