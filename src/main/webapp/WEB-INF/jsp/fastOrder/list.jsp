@@ -287,7 +287,7 @@ table.table1 tr th{
 										<td><chrone:fen2Yuan amt="${countMap.sumUserProfits }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumAgentProfits }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee-countMap.sumChnlfee-countMap.sumUserProfits-countMap.sumAgentProfits }"/></td>
-										<td colspan="10" align="right"></td>
+										<td colspan="10" align="right"></td> 
 									</tr>
 								</tbody>
 							</table>
