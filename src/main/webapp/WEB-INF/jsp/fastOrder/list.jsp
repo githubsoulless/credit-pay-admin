@@ -279,7 +279,7 @@ table.table1 tr th{
 									</c:forEach>
 									<tr>
 										<td colspan="3" align="left">查询结果：${page.rowTotal }条</td>
-										<td colspan="2" align="right">合计：</td>
+										<td colspan="3" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.sumamt }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumChnlfee }"/></td>
@@ -287,7 +287,7 @@ table.table1 tr th{
 										<td><chrone:fen2Yuan amt="${countMap.sumUserProfits }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumAgentProfits }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee-countMap.sumChnlfee-countMap.sumUserProfits-countMap.sumAgentProfits }"/></td>
-										<td colspan="10" align="right"></td> 
+										<td colspan="10" align="right"></td>
 									</tr>
 								</tbody>
 							</table>
