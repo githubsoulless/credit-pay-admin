@@ -72,5 +72,4 @@ public class SeqServiceImpl implements SeqService {
 		}
 		return format(num, length);
 	}
-
 }

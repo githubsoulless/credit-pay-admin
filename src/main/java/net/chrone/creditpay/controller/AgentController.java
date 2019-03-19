@@ -24,7 +24,9 @@ import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AgentUserService;
 import net.chrone.creditpay.service.AppUserService;
+import net.chrone.creditpay.service.SeqService;
 import net.chrone.creditpay.service.impl.LogConstant;
+import net.chrone.creditpay.service.impl.SeqServiceImpl;
 import net.chrone.creditpay.util.CHException;
 import net.chrone.creditpay.util.Constants;
 import net.chrone.creditpay.util.MyPage;
@@ -49,7 +51,8 @@ public class AgentController {
 	private AgentUserService agentUserService;
 	@Autowired
 	private LogConstant logConstant;
-	
+	@Autowired
+	private SeqService seqService;
 	
 
 	@RequestMapping("list")
@@ -103,7 +106,7 @@ public class AgentController {
 //					throw new CHException("代理登录账号已存在,请重新输入");
 //				}
 				MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
-				agent.setAgentId(StringUtil.getRandom8());
+				agent.setAgentId(StringUtil.getRandom8()+seqService.updateAndGetSequence(SeqServiceImpl.T_AGENT_INF, 2));
 				agent.setRowCrtTs(new Date());
 				agent.setRowCrtUsr(userInfSeesion.getLoginId());
 				agentService.add(agent);
