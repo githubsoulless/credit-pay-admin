@@ -117,6 +117,10 @@ function exportExcel(){
 						<input  class="input-sm" type="text" id="loginId"  name="loginId" maxlength="15"  value="${appuser.loginId}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label" for="userId">推荐人账号：</label>
+						<input  class="input-sm" type="text" id="parentUserId"  name="parentUserId" maxlength="15"  value="${appuser.parentUserId}" /> 
+					</div>
+					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="userId">真实姓名：</label>
 						<input  class="input-sm" type="text" id="accountName"  name="accountName" maxlength="15"  value="${appuser.accountName}" /> 
 					</div>
@@ -291,6 +295,7 @@ function exportExcel(){
 <form id="pageForm" action="${ctx }/appUser/list"  method="post" >
 	<input type="hidden"  name="start" id="start"></input>
 	<input type="hidden"  name="userId" value="${appuser.userId}"></input>
+	<input type="hidden"  name="parentUserId" value="${appuser.parentUserId}"></input>
 	<input type="hidden"  name="loginId" value="${appuser.loginId}"></input>
 	<input type="hidden"  name="accountName" value="${appuser.accountName}"></input>
 	<input type="hidden"  name="levelId" value="${appuser.levelId}"></input>
