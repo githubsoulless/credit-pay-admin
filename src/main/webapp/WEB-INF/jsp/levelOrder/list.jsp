@@ -168,6 +168,7 @@ table.table1 tr th{
 <form id="pageForm" action="${ctx }/levelOrder/list"  method="post" >
 	<input type="hidden"  name="start" id="start"></input>
 	<input type="hidden"  name="userId" value="${levelOrder.userId}"></input>
+	<input type="hidden"  name="paySt" value="${levelOrder.paySt}"></input>
 	<input type="hidden"  name="userName" value="${levelOrder.userName}"></input>
 	<input type="hidden"  name="orderNo" value="${levelOrder.orderNo}"></input>
 	<input type="hidden"  name="status" value="${levelOrder.paySt}"></input>
