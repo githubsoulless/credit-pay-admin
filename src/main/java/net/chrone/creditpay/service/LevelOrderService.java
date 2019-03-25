@@ -11,4 +11,6 @@ public interface LevelOrderService {
 
 	List<LevelOrder> getLevelOrderByPage(LevelOrder levelOrder);
 
+	void add(LevelOrder levelOrder);
+
 }

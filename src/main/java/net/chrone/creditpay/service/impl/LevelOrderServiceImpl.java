@@ -26,4 +26,9 @@ public class LevelOrderServiceImpl implements LevelOrderService {
 		return levelOrderMapper.getLevelOrderByPage(levelOrder);
 	}
 
+	@Override
+	public void add(LevelOrder levelOrder) {
+		levelOrderMapper.insertSelective(levelOrder);
+	}
+
 }

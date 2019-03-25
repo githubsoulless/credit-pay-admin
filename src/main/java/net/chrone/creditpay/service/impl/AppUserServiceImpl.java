@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,11 @@ import net.chrone.creditpay.mapper.AgentMapper;
 import net.chrone.creditpay.mapper.AppUserMapper;
 import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.AppUserExample;
+import net.chrone.creditpay.model.LevelOrder;
 import net.chrone.creditpay.service.AppUserService;
+import net.chrone.creditpay.service.LevelOrderService;
 import net.chrone.creditpay.util.DateUtils;
+import net.chrone.creditpay.util.IdGen;
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
@@ -26,6 +30,8 @@ public class AppUserServiceImpl implements AppUserService {
 	private AppUserMapper appUserMapper;
 	@Autowired
 	private AgentMapper agentMapper;
+	@Autowired
+	private LevelOrderService levelOrderService;
 
 	@Override
 	public int getAppUserByPageCount(AppUser appuser) {
@@ -61,6 +67,23 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public void update(AppUser appuser) {
+		//是否更改了等级
+		AppUser appUserTemp = appUserMapper.selectByPrimaryKey(appuser.getUserId());
+		if(appuser.getLevelId()!=null&&appuser.getLevelId()!=appUserTemp.getLevelId()) {
+			LevelOrder levelOrder = new LevelOrder();
+			String orderNo = "手动调整"+new IdGen().nextId();
+			levelOrder.setOrderNo(orderNo);
+			levelOrder.setOrderDt(DateUtils.getCurrentDate());
+			levelOrder.setUserId(appuser.getUserId());
+			levelOrder.setUserName(appuser.getAccountName());
+			levelOrder.setAmount(0);
+			levelOrder.setTheLevel(appUserTemp.getLevelId());
+			levelOrder.setEndLevel(appuser.getLevelId());
+			levelOrder.setRowCrtTs(new Date());
+			levelOrder.setRowCrtUsr(appuser.getRecUpdUsr());
+			levelOrderService.add(levelOrder);
+		}
+		
 		appUserMapper.updateByPrimaryKeySelective(appuser);
 	}
 
