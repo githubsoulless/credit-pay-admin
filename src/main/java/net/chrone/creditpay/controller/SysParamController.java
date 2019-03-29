@@ -1,5 +1,6 @@
 package net.chrone.creditpay.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.SysParamDTO;
+import net.chrone.creditpay.model.UserAwardDetail;
 import net.chrone.creditpay.service.SysParamService;
+import net.chrone.creditpay.service.UserAwardDetailService;
 import net.chrone.creditpay.service.impl.LogConstant;
 import net.chrone.creditpay.util.Constants;
 
@@ -31,6 +34,8 @@ public class SysParamController {
 	private SysParamService sysParamService;
 	@Autowired
 	private LogConstant logConstant;
+	@Autowired
+	private UserAwardDetailService userAwardDetailService;
 	
 	@RequestMapping("detail")
 	public String detail(Model model){
@@ -53,15 +58,29 @@ public class SysParamController {
 		return "sysParam/repayDetail";
 	}
 	
+	@RequestMapping("award")
+	public String awardDetail(Model model){
+		Map<String, String> params =  sysParamService.listSysParam();
+		List<UserAwardDetail> list = userAwardDetailService.getUserAwardDetailList();
+		
+		model.addAttribute("params", params);
+		model.addAttribute("list", list);
+		
+		return "sysParam/awardDetail";
+	}
+	
 	
 	@RequestMapping("update")
 	public String update(HttpServletRequest request, SysParamDTO sysParamDTO, Model model){
 		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+		sysParamDTO.setCreateUser(userInfSeesion.getLoginId());
 		sysParamService.updateSysParam(sysParamDTO);
 		logConstant.createTweblog(userInfSeesion.getLoginId(), "平台参数设置", 2, request);
 		Map<String, String> params =  sysParamService.listSysParam();
+		List<UserAwardDetail> list = userAwardDetailService.getUserAwardDetailList();
 		model.addAttribute("params", params);
 		model.addAttribute("message", "success");
+		model.addAttribute("list", list);
 		String returnJsp = "sysParam/detail";
 		switch (sysParamDTO.getType()) {
 		case "0":
@@ -72,6 +91,9 @@ public class SysParamController {
 			break;
 		case "2":
 			returnJsp = "sysParam/fastPayDetail";
+			break;
+		case "3":
+			returnJsp = "sysParam/awardDetail";
 			break;
 		default:
 			returnJsp = "sysParam/detail";

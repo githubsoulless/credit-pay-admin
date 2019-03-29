@@ -45,6 +45,7 @@ public class SysParamDTO {
 	private String lotteryTimesFRecomOneUser; // 每推荐1个新用户，奖励抽奖机会次数
 	
 	//注册奖励机制
+	private String awardObject; //1新用户 2旧用户 3新旧用户
 	private String awardRegisterType; //0无任何奖励  1注册奖励 2实名认证奖励
 	private String awardRegisterDirUserAmount;//直邀奖励
 	private String awardRegisterAgentAmount; //代理奖励
@@ -60,7 +61,25 @@ public class SysParamDTO {
 	private String awardWMFastPayAgentAmount; //代理奖励
 	private String awardWMFastPayTotal; //累积金额
 	
+	private String createUser;
 	
+	
+	public String getAwardObject() {
+		return awardObject;
+	}
+
+	public void setAwardObject(String awardObject) {
+		this.awardObject = awardObject;
+	}
+
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
 	public String getLotteryTimesFOneRePayPlan() {
 		return lotteryTimesFOneRePayPlan;
 	}

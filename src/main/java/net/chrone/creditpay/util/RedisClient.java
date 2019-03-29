@@ -19,6 +19,7 @@ public class RedisClient {
 	public static final String CACHE_PREFIX_ROOTBANK = "redis_prefix_rootbank_";
 	public static final String CACHE_PREFIX_SYSPARAM = "redis_prefix_sysparam_";
 	public static final String CACHE_PREFIX_CREDITROOTBANK = "redis_prefix_creditrootbank_";
+	public static final String CACHE_PREFIX_SEQ_NO_ = "redis_prefix_seq_no_";
 	
 	
 	
@@ -62,7 +63,15 @@ public class RedisClient {
 				jedis.close();
 			}
 	}
-	
+	public  static Long inc(String key){
+		Jedis jedis = null;
+		try{
+			jedis = jedisPool.getResource();
+			return jedis.incr(key);
+		}finally{
+			jedis.close();
+		}
+	}
 	public synchronized static Boolean exisit(String key){
 		Jedis jedis = null;
 		try{
