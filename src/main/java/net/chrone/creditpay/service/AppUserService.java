@@ -33,4 +33,8 @@ public interface AppUserService {
 
 	List<AppUser> getAppUserAll();
 
+	int getUserOrderStaticsPageCount(AppUser appuser);
+
+	List<AppUser> getUserOrderStaticsByPage(AppUser appuser);
+
 }

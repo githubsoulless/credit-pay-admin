@@ -97,5 +97,9 @@ public interface AppUserMapper extends ParentMapper {
 	int countSubAppUser(AppUser appUser);
 
 	List<AppUser> listSubAppUser(AppUser appUser);
+
+	int getUserOrderStaticsPageCount(AppUser appuser);
+
+	List<AppUser> getUserOrderStaticsByPage(AppUser appuser);
 	
 }

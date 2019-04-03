@@ -668,6 +668,8 @@ public class AppUser extends ParentMode{
 	private String pid;
 	private List<String> agentIds;
 	
+	private Integer sumOrder;
+	
 	
 	//fileds design for export excel begin
 	private String levelNameFormat;
@@ -676,6 +678,37 @@ public class AppUser extends ParentMode{
 	private String agentNameFormat;
 	//fileds design for export excel end
 	
+	private String monthStr;
+	
+	private String rowCrtTsFormat;
+	private String sumOrderFormat;
+	
+	
+	
+
+	public String getRowCrtTsFormat() {
+		return rowCrtTsFormat;
+	}
+
+	public void setRowCrtTsFormat(String rowCrtTsFormat) {
+		this.rowCrtTsFormat = rowCrtTsFormat;
+	}
+
+	public String getSumOrderFormat() {
+		return sumOrderFormat;
+	}
+
+	public void setSumOrderFormat(String sumOrderFormat) {
+		this.sumOrderFormat = sumOrderFormat;
+	}
+
+	public String getMonthStr() {
+		return monthStr;
+	}
+
+	public void setMonthStr(String monthStr) {
+		this.monthStr = monthStr;
+	}
 
 	public List<String> getAgentIds() {
 		return agentIds;
@@ -803,6 +836,14 @@ public class AppUser extends ParentMode{
 
 	public void setAgentId4(String agentId4) {
 		this.agentId4 = agentId4;
+	}
+
+	public Integer getSumOrder() {
+		return sumOrder;
+	}
+
+	public void setSumOrder(Integer sumOrder) {
+		this.sumOrder = sumOrder;
 	}
 
 }

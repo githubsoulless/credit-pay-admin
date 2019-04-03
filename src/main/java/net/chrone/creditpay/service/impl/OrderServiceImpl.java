@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.mapper.OrderMapper;
+import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.Order;
 import net.chrone.creditpay.service.OrderService;
 
