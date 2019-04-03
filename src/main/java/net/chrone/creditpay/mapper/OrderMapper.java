@@ -3,6 +3,7 @@ package net.chrone.creditpay.mapper;
 import java.util.List;
 import java.util.Map;
 
+import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.Order;
 import net.chrone.creditpay.model.OrderExample;
 import org.apache.ibatis.annotations.Param;
@@ -74,4 +75,8 @@ public interface OrderMapper extends ParentMapper {
 	Map<String, Object> getOrderByPageCount(Order order);
 
 	List<Order> getOrderByPage(Order order);
+
+	int getUserOrderStaticsPageCount(AppUser appuser);
+
+	List<AppUser> getUserOrderStaticsByPage(AppUser appuser);
 }

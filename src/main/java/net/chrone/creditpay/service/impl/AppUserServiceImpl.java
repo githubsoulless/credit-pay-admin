@@ -195,5 +195,15 @@ public class AppUserServiceImpl implements AppUserService {
 	public List<AppUser> getAppUserAll() {
 		return appUserMapper.selectByExample(null);
 	}
+
+	@Override
+	public int getUserOrderStaticsPageCount(AppUser appuser) {
+		return appUserMapper.getUserOrderStaticsPageCount(appuser);
+	}
+
+	@Override
+	public List<AppUser> getUserOrderStaticsByPage(AppUser appuser) {
+		return appUserMapper.getUserOrderStaticsByPage(appuser);
+	}
 	
 }
