@@ -72,11 +72,17 @@ function cancelVal() {
 							<tr>
 								<td>${i.index+1 }</td>
 								<td>
-									<c:if test="${ empty p.agentId }">
-										用户${p.profitsNum }次分润
+									<c:if test="${p.profitsNum==1}">
+										直接推荐返佣
 									</c:if> 
-									<c:if test="${ not empty p.agentId }">
-										${p.level }级代理分润
+									<c:if test="${p.profitsNum==2}">
+										间接推荐返佣
+									</c:if> 
+									<c:if test="${p.profitsNum==3}">
+										三级推荐返佣
+									</c:if> 
+									<c:if test="${p.profitsNum==4}">
+										代理分润
 									</c:if> 
 								</td>
 								<td>${p.profitsUserId }</td>

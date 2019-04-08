@@ -7,6 +7,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import net.chrone.creditpay.util.ApplicationContextKeeper;
 import net.chrone.creditpay.util.LogWriter;
+import net.chrone.creditpay.util.RefreshCacheUtil;
 
 
 public class SysParamInitListener implements ServletContextListener{
@@ -19,7 +20,7 @@ public class SysParamInitListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent arg0) {
 		initContext(arg0);
 		LogWriter.info("=========>初始数据开始");
-//		RefreshCacheUtil.refreshCacheAll();
+		RefreshCacheUtil.refreshCacheAll();
 		LogWriter.info("=========>初始数据结束");
 	}
 

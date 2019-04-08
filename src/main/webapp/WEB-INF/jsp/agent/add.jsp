@@ -1,8 +1,11 @@
+<%@page import="net.chrone.creditpay.util.RedisClient"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	request.setAttribute("ctx", request.getContextPath());
+String regionStr = RedisClient.getByKey(RedisClient.CACHE_PREFIX_REGION_LIST);
+request.setAttribute("regionList", regionStr);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,6 +30,41 @@
 	function cancelVal() {
 		api.close();
 	}
+	var region=eval('${regionList}');
+	function changeProv(provCd){
+		$("#cityId").empty();
+		$("#cityId").append("<option value=''>请选择</option>");
+		$("#countyCd").empty();
+		$("#countyCd").append("<option value=''>请选择</option>");
+		for(var i=0;i<region.length;i++){
+			if(provCd==region[i].provCd){
+				var citys = region[i].citys;
+				for(var j=0;j<citys.length;j++){
+					$("#cityId").append("<option value='"+citys[j].cityCd+"'>"+citys[j].cityNm+"</option>");
+				}
+				return;
+			}
+		}
+	}
+	function changeCity(cityCd){
+		$("#countyCd").empty();
+		$("#countyCd").append("<option value=''>请选择</option>");
+		for(var i=0;i<region.length;i++){
+			if($("#provId").val()==region[i].provCd){
+				var citys = region[i].citys;
+				for(var j=0;j<citys.length;j++){
+					if(cityCd==citys[j].cityCd){
+						var regions = citys[j].regions;
+						for(var a=0;a<regions.length;a++){
+							$("#countyCd").append("<option value='"+regions[a].countyCd+"'>"+regions[a].countyNm+"</option>");
+						}
+					}
+				}
+				return;
+			}
+		}
+	}
+	
 	function subForm() {
 		if ($("#agentName").val() == "") {
 			alert("请输入代理名称");
@@ -36,16 +74,6 @@
 		if ($("#userId").val() == "") {
 			alert("请输入绑定用户账号");
 			$("#userId").focus();
-			return;
-		}
-		if ($("#level").val() == "") {
-			alert("请选择代理级别");
-			$("#level").focus();
-			return;
-		}
-		if ($("#parentAgentId").val() == "-1") {
-			alert("上级代理不正确");
-			$("#parentAgentId").focus();
 			return;
 		}
 		if ($("#linkName").val() == "") {
@@ -106,27 +134,10 @@
 		if (result != "") {
 			parent.callBack(result);
 		}
-	}
-function changeLevel(val) {
-		$("#parentAgentId").empty();
-			$("#parentAgentId").append("<option value=''>平台	</option>");
-		if(val==1){
-		}else if(val==2){
-			<c:forEach items="${agentList }" var="agt">
-			<c:if test="${agt.level==1 }">
-			$("#parentAgentId").append("<option value='${agt.agentId}'>${agt.agentName}</option>");
-			</c:if>
-			</c:forEach>
-		}else if(val==3){
-			<c:forEach items="${agentList }" var="agt">
-			<c:if test="${agt.level==1 || agt.level==2 }">
-			$("#parentAgentId").append("<option value='${agt.agentId}'>${agt.agentName}</option>");
-			</c:if>
-			</c:forEach>
-		}else{
-			$("#parentAgentId").append("<option value='-1'>请选择</option>");
+		for(var i=0;i<region.length;i++){
+			$("#provId").append("<option value='"+region[i].provCd+"'>"+region[i].provNm+"</option>");
 		}
-}
+	}
 </script>
 <style type="text/css">
 .begin2{
@@ -148,20 +159,17 @@ function changeLevel(val) {
 					</span></td>
 				</tr>
 				<tr>
-					<td class="width90"><span><span style="color:red;">*</span>代理级别：</span></td>
-					<td><span>
-						<select  name="level" id="level"  onchange="changeLevel(this.value)">
-							<option value="">请选择</option>
-							<option value="1">一级代理</option>
-							<option value="2">二级代理</option>
-							<option value="3">三级代理</option>
-						</select>
-					</span></td>
-					<td class="width90"><span style="color:red;">*</span><span>上级代理：</span></td>
-					<td><span>
-						<select  name="parentAgentId" id="parentAgentId">
-							<option value="-1">请选择</option>
-						</select>
+					<td class="width90"><span><span style="color:red;">*</span>代理区域：</span></td>
+					<td  colspan="3"><span>
+					<select style="width: 184px;" id="provId"  onchange="changeProv(this.value)">
+						<option value="">请选择</option>
+					</select>
+					<select  style="width: 184px;"  id="cityId" onchange="changeCity(this.value)">
+						<option value="">请选择</option>
+					</select>
+					<select  style="width: 184px;" id="countyCd" name="countyCd">
+						<option value="">请选择</option>
+					</select>
 					</span></td>
 				</tr>
 				<tr>

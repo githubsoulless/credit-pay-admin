@@ -77,15 +77,6 @@ function addClose(){
 					</div>
 					<br>
 					<div class="form-group">&nbsp;&nbsp;
-						<label class="control-label" for="level">代理级别：</label>
-						<select class="input-sm" name="level" id="level">
-							<option value="">全部级别</option>
-							<option value="1" <c:if test="${agentProfits.level == 1 }" >selected="selected"</c:if>>一级代理</option>
-							<option value="2" <c:if test="${agentProfits.level == 2 }" >selected="selected"</c:if>>二级代理</option>
-							<option value="3" <c:if test="${agentProfits.level == 3 }" >selected="selected"</c:if>>三级代理</option>
-						</select>
-					</div>
-					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="startDate">分润生成日期：</label>
 						<input  class="Wdate input-sm" style="height: 30px" type="text" id="startDate"  name="startDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'});"  value="${agentProfits.startDate}"  />&nbsp;- 
 						<input  class="Wdate input-sm" style="height: 30px" type="text" id="endDate"  name="endDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'});"  value="${agentProfits.endDate}"  /> 
@@ -112,7 +103,6 @@ function addClose(){
 										<th>序号</th>
 										<th>代理ID</th>
 										<th>代理名称</th>
-										<th>代理级别</th>
 										<th>分润类型</th>
 										<th>分润金额</th>
 										<th>关联订单号</th>
@@ -133,11 +123,6 @@ function addClose(){
 											<td>${l.agentId}</td>
 											<td>${l.agentName}</td>
 											<td>
-												<c:if test="${l.level ==1 }">一级代理</c:if>
-												<c:if test="${l.level ==2 }">二级代理</c:if>
-												<c:if test="${l.level ==3 }">三级代理</c:if>
-											</td>
-											<td>
 												<c:if test="${l.profitsType == 1 }">还款分润</c:if>
 												<c:if test="${l.profitsType == 2 }">用户升级分润</c:if>
 												<c:if test="${l.profitsType == 3 }">快捷分润</c:if>
@@ -155,7 +140,7 @@ function addClose(){
 									</c:forEach>
 									<tr>
 										<td colspan="2" align="right">查询结果${page.rowTotal }条</td>
-										<td colspan="3" align="right">合计：</td>
+										<td colspan="2" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.assumProfitsAmount }"/></td>
 										<td></td>
 										<td></td>

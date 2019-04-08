@@ -142,20 +142,10 @@ table.table1 tr th{
 						<input  class="input-sm" type="text" id="agentId"  name="agentId" maxlength="32"  value="${agent.agentId}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
-						<label class="control-label padding-left" for="level">代理级别：</label>
-						<select id="level" name="level" class="input-sm">
-	  					   	<option value="">全部</option>
-	  					   	<option value="1" ${agent.level==1?'selected="selected"':'' }>一级代理</option>
-	  					   	<option value="2" ${agent.level==2?'selected="selected"':'' }>二级代理</option>
-	  					   	<option value="3" ${agent.level==3?'selected="selected"':'' }>三级代理</option>
-	  					   </select> 
-					</div>
-					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="startDate">创建日期：</label>
 						<input  class="Wdate input-sm" style="height: 30px" type="text" id="startDate"  name="startDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'});"  value="${agent.startDate}"  />&nbsp;- 
 						<input  class="Wdate input-sm" style="height: 30px" type="text" id="endDate"  name="endDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'});"  value="${agent.endDate}"  /> 
 					</div>
-					<br/>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="cardName">代理绑定账号：</label>
 						<input  class="input-sm" type="text" id="userId"  name="userId" maxlength="15"  value="${agent.userId}" /> 
@@ -185,11 +175,9 @@ table.table1 tr th{
 										<th>序号</th>
 										<th>代理ID</th>
 										<th>代理名称</th>
-										<th>代理级别</th>
-										<th>直属上级代理</th>
+										<th>代理区域</th>
 										<th>代理绑定用户账号</th>
 										<th>用户姓名</th>
-										<th>下级代理数量</th>
 										<th>创建时间</th>
 										<th>最后操作人</th>
 										<th>最后修改时间</th>
@@ -203,30 +191,9 @@ table.table1 tr th{
 											<td>${i.index+1}</td>
 											<td>${l.agentId}</td>
 											<td >${l.agentName}</td>
-											<td >
-												<c:if test="${l.level==1 }">一级代理</c:if>
-												<c:if test="${l.level==2 }">二级代理</c:if>
-												<c:if test="${l.level==3 }">三级代理</c:if>
-											</td>
-											<td >
-												<c:forEach items="${agentList }" var="agt">
-													<c:if test="${agt.agentId==l.parentAgentId }">
-														${agt.agentName }(${agt.agentId})
-													</c:if>
-												</c:forEach>
-												<c:if test="${empty l.parentAgentId }">平台</c:if>
-											</td>
+											<td >${l.countyNm}</td>
 											<td >${l.userId}</td>
 											<td >${l.accountName}</td>
-											<td >
-												<chrone:isAuth authCode="200000104">
-												<a href="#" onclick="subAgentList('${l.agentId}')">
-												</chrone:isAuth>
-												${l.subAgentCount }
-												<chrone:isAuth authCode="200000104">
-												</a>
-												</chrone:isAuth>
-											</td>
 											<td><fmt:formatDate value="${l.rowCrtTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td >${l.recUpdUsr }</td>
 											<td><fmt:formatDate value="${l.recUpdTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>

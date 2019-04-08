@@ -20,6 +20,8 @@ public class RedisClient {
 	public static final String CACHE_PREFIX_SYSPARAM = "redis_prefix_sysparam_";
 	public static final String CACHE_PREFIX_CREDITROOTBANK = "redis_prefix_creditrootbank_";
 	public static final String CACHE_PREFIX_SEQ_NO_ = "redis_prefix_seq_no_";
+	public static final String CACHE_PREFIX_REGION_LIST = "redis_prefix_region_list";
+	public static final String CACHE_PREFIX_REGION_COUNTY_CD_ = "redis_prefix_region_county_cd_";
 	
 	
 	

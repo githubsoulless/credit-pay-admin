@@ -17,13 +17,18 @@ public class AgentLevelServiceImpl implements AgentLevelService {
 
 	@Override
 	public List<AgentLevel> getAgentLevelAll() {
-		return agentLevelMapper.selectByExample(null);
+		List<AgentLevel> list = agentLevelMapper.selectByExample(null);
+		for(AgentLevel a:list) {
+			a.setCommissionRate(a.getCommissionRate()*100);
+		}
+		return list;
 	}
 
 	@Override
 	@Transactional
 	public void updateLevels(List<AgentLevel> agentLevels) {
 		for(AgentLevel agentLevel:agentLevels) {
+			agentLevel.setCommissionRate(agentLevel.getCommissionRate()/ 100);
 			agentLevelMapper.updateByPrimaryKeySelective(agentLevel);
 		}
 	}

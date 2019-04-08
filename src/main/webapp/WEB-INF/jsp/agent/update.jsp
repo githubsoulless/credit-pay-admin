@@ -33,16 +33,6 @@
 			$("#userId").focus();
 			return;
 		}
-		if ($("#level").val() == "") {
-			alert("请选择代理级别");
-			$("#level").focus();
-			return;
-		}
-		if ($("#parentAgentId").val() == "-1") {
-			alert("上级代理不正确");
-			$("#parentAgentId").focus();
-			return;
-		}
 		if ($("#linkName").val() == "") {
 			alert("请输入业务联系人");
 			$("#linkName").focus();
@@ -141,42 +131,6 @@ function changeLevel(val) {
 					<td><span>${agent.agentName }</span></td>
 					<td class="width90"><span style="color:red;">*</span><span>绑定用户账号：</span></td>
 					<td><span>${agent.userId }</span></td>
-				</tr>
-				<tr>
-					<td class="width90"><span><span style="color:red;">*</span>代理级别：</span></td>
-					<td><span>
-						<select  name="level" id="level" disabled="disabled" onchange="changeLevel(this.value)">
-							<option value="">请选择</option>
-							<option value="1" ${agent.level==1?'selected="selected"':'' }>一级代理</option>
-							<c:if test="${agent.level != 1 }">
-								<option value="2" ${agent.level==2?'selected="selected"':'' }>二级代理</option>
-							</c:if>
-							<c:if test="${agent.level == 3 }">
-								<option value="3" ${agent.level==3?'selected="selected"':'' }>三级代理</option>	
-							</c:if>
-							
-						</select>
-					</span></td>
-					<td class="width90"><span style="color:red;">*</span><span>上级代理：</span></td>
-					<td><span>
-						<select  name="parentAgentId" id="parentAgentId">
-								<option value=''>平台</option>
-							<c:if test="${agent.level==2 }">
-								<c:forEach items="${agentList }" var="agt">
-									<c:if test="${agt.level==1 }">
-										<option value='${agt.agentId}' ${agent.parentAgentId==agt.agentId?'selected="selected"':'' }>${agt.agentName}</option>
-									</c:if>
-								</c:forEach>
-							</c:if>
-							<c:if test="${agent.level==3 }">
-								<c:forEach items="${agentList }" var="agt">
-									<c:if test="${agt.level==1||agt.level==2 }">
-										<option value='${agt.agentId}' ${agent.parentAgentId==agt.agentId?'selected="selected"':'' }>${agt.agentName}</option>
-									</c:if>
-								</c:forEach>
-							</c:if>
-						</select>
-					</span></td>
 				</tr>
 				<tr>
 					<td class="width90"><span style="color:red;">*</span><span>业务联系人：</span></td>
