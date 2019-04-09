@@ -92,6 +92,9 @@ public class AgentController {
 				if (null != oAgent) {
 					throw new CHException("代理名称已存在,请重新输入");
 				}
+				if(StringUtils.isEmpty(agent.getCountyCd())) {
+					agent.setCountyCd(agent.getCityId());
+				}
 				oAgent = agentService.getAgentByCountyCd(agent.getCountyCd());
 				if (null != oAgent) {
 					throw new CHException("此区县已有代理,请重新选择区县");

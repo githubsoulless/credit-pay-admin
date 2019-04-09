@@ -405,7 +405,19 @@ public class Agent extends ParentMode{
     
     private String countyNm;
     
+    private String cityId;
     
+    
+
+    
+    
+	public String getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
 
 	public String getCountyNm() {
 		return countyNm;

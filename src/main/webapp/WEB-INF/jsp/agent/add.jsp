@@ -76,6 +76,19 @@ request.setAttribute("regionList", regionStr);
 			$("#userId").focus();
 			return;
 		}
+		if($("#provId").val()=='460'){
+			if ($("#cityId").val() == "") {
+				alert("请选区区县");
+				$("#cityId").focus();
+				return;
+			}
+		}else{
+			if ($("#countyCd").val() == "") {
+				alert("请选区区县");
+				$("#countyCd").focus();
+				return;
+			}
+		}
 		if ($("#linkName").val() == "") {
 			alert("请输入业务联系人");
 			$("#linkName").focus();
@@ -164,7 +177,7 @@ request.setAttribute("regionList", regionStr);
 					<select style="width: 184px;" id="provId"  onchange="changeProv(this.value)">
 						<option value="">请选择</option>
 					</select>
-					<select  style="width: 184px;"  id="cityId" onchange="changeCity(this.value)">
+					<select  style="width: 184px;" id="cityId"  name="cityId" onchange="changeCity(this.value)">
 						<option value="">请选择</option>
 					</select>
 					<select  style="width: 184px;" id="countyCd" name="countyCd">
