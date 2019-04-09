@@ -28,13 +28,11 @@ import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.Level;
 import net.chrone.creditpay.model.MgrUser;
-import net.chrone.creditpay.model.RegionInfo;
 import net.chrone.creditpay.model.UserTree;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AppUserService;
 import net.chrone.creditpay.service.LevelService;
 import net.chrone.creditpay.service.PmsBankInfService;
-import net.chrone.creditpay.service.RegionInfoService;
 import net.chrone.creditpay.service.UserTreeService;
 import net.chrone.creditpay.service.impl.LogConstant;
 import net.chrone.creditpay.util.Constants;
@@ -69,9 +67,6 @@ public class AppUserController {
 	private UserTreeService userTreeService;
 	@Autowired
 	private AppUserMapper appUserMapper;
-	@Autowired
-	private RegionInfoService regionInfoService;
-	
 	private static Logger logger = Logger.getLogger(AppUserController.class);
 	@RequestMapping("list")
 	public String list(AppUser appuser, String start, Model model) {
@@ -91,10 +86,9 @@ public class AppUserController {
 		model.addAttribute("start", starIndex);
 		model.addAttribute("appuser", appuser);
 		model.addAttribute("levelList", levelService.getLevelAll());
-		if(StringUtils.isNotEmpty(appuser.getAgentId())) {
-			RegionInfo region = regionInfoService.getRegionInfoByFyCountyCd(appuser.getAgentId());
-			model.addAttribute("region", region);
-		}
+		List<Agent> agentList = agentService.getAgentAll();
+		model.addAttribute("agentList", agentList);
+		model.addAttribute("agentListJson", JSON.toJSONString(agentList));
 		return "appUser/list";
 	}
 
@@ -212,10 +206,6 @@ public class AppUserController {
 		List<Agent> agentList = agentService.getAgentAll();
 		model.addAttribute("agentList", agentList);
 		model.addAttribute("agentListJson", JSON.toJSONString(agentList));
-		if(StringUtils.isNotEmpty(appuser.getAgentId())) {
-			RegionInfo region = regionInfoService.getRegionInfoByFyCountyCd(appuser.getAgentId());
-			model.addAttribute("region", region);
-		}
 		return "appUser/directUserList";
 	}
 	
@@ -252,10 +242,6 @@ public class AppUserController {
 		List<Agent> agentList = agentService.getAgentAll();
 		model.addAttribute("agentList", agentList);
 		model.addAttribute("agentListJson", JSON.toJSONString(agentList));
-		if(StringUtils.isNotEmpty(appuser.getAgentId())) {
-			RegionInfo region = regionInfoService.getRegionInfoByFyCountyCd(appuser.getAgentId());
-			model.addAttribute("region", region);
-		}
 		return "appUser/subUserList";
 	}
 	

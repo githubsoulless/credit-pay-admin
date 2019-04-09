@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,11 +24,9 @@ import net.chrone.creditpay.model.AgentRoleMenu;
 import net.chrone.creditpay.model.AgentUser;
 import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.AppUserExample;
-import net.chrone.creditpay.model.RegionInfo;
 import net.chrone.creditpay.service.AgentMenuService;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AgentUserService;
-import net.chrone.creditpay.service.RegionInfoService;
 
 @Service
 public class AgentServiceImpl implements AgentService {
@@ -46,9 +43,7 @@ public class AgentServiceImpl implements AgentService {
 	private AgentRoleMapper agentRoleMapper;
 	@Autowired
 	private AppUserMapper appUserMapper;
-	@Autowired
-	private RegionInfoService regionInfoService;
-	
+
 	@Override
 	public List<Agent> getAgentAll() {
 		return agentMapper.selectByExample(null);
@@ -67,16 +62,7 @@ public class AgentServiceImpl implements AgentService {
 
 	@Override
 	public List<Agent> getAgentByPage(Agent agent) {
-		List<Agent> list = agentMapper.getAgentByPage(agent);
-		for(Agent ag:list) {
-			if(StringUtils.isNotEmpty(ag.getCountyCd())) {
-				RegionInfo region = regionInfoService.getRegionInfoByFyCountyCd(ag.getCountyCd());
-				if(region !=null) {
-					ag.setCountyNm(region.getProvNmCn()+" "+region.getRegionNmCn()+" "+region.getCountyNmCn());
-				}
-			}
-		}
-		return list;
+		return agentMapper.getAgentByPage(agent);
 	}
 
 	@Transactional
@@ -230,18 +216,6 @@ public class AgentServiceImpl implements AgentService {
 	@Override
 	public List<Agent> getAgentUserStatisticsByPage(Agent agent) {
 		return agentMapper.getAgentUserStatisticsByPage(agent);
-	}
-
-
-	@Override
-	public Agent getAgentByCountyCd(String countyCd) {
-		AgentExample agentExample = new AgentExample();
-		agentExample.createCriteria().andCountyCdEqualTo(countyCd);
-		List<Agent> list = agentMapper.selectByExample(agentExample);
-		if (list.isEmpty()) {
-			return null;
-		}
-		return list.get(0);
 	}
 
 }

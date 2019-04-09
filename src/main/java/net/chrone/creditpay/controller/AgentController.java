@@ -92,12 +92,9 @@ public class AgentController {
 				if (null != oAgent) {
 					throw new CHException("代理名称已存在,请重新输入");
 				}
-				if(StringUtils.isEmpty(agent.getCountyCd())) {
-					agent.setCountyCd(agent.getCityId());
-				}
-				oAgent = agentService.getAgentByCountyCd(agent.getCountyCd());
+				oAgent = agentService.getAgentByUserId(agent.getUserId());
 				if (null != oAgent) {
-					throw new CHException("此区县已有代理,请重新选择区县");
+					throw new CHException("绑定的用户账号已绑定其他代理，请更换");
 				}
 				AppUser appUser = appUserService.getAppUserByUserId(agent.getUserId());
 				if (appUser == null) {
@@ -112,7 +109,6 @@ public class AgentController {
 				agent.setAgentId(StringUtil.getRandom8()+seqService.updateAndGetSequence(SeqServiceImpl.T_AGENT_INF, 2));
 				agent.setRowCrtTs(new Date());
 				agent.setRowCrtUsr(userInfSeesion.getLoginId());
-				agent.setLevel(1);
 				agentService.add(agent);
 				message = "success";
 			} else {
