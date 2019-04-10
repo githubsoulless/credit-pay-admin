@@ -191,6 +191,68 @@ $(function(){
 						</div>
 					</fieldset>
 					
+					<!--奖励设置-->
+					<fieldset class="fieldset1">
+						<div style="color: #990000">提示：奖励制度由三种类型，保存设置实时生效，请慎重增加奖励规则。请参照奖励池预充值资金，由资金池余额不足导致奖励失败问题，无法补发奖励</div>
+						<legend class="legend1">组合奖励设置</legend>
+						<div class="col-lg-4 col-md-6 margin10">
+							<p style="font-weight: bold;">用户注册奖励</p>
+							<div style="margin-bottom: 10px;">
+								奖励类型：
+								<select name="awardRegisterType" id="awardRegisterType">
+									<option value="0">无任何奖励</option>
+									<option value="1">注册奖励</option>
+									<option value="2">实名认证奖励</option>
+								</select>
+							</div>
+							<div>
+								直邀奖励：<input type="text" id="awardRegisterDirUserAmount" name="awardRegisterDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								代理奖励：<input type="text" id="awardRegisterAgentAmount" name="awardRegisterAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+							</div>
+						</div>
+						
+						<div class="col-lg-4 col-md-6 margin10">
+							<p style="font-weight: bold;">快捷刷卡消费奖励</p>
+							<div style="margin-bottom: 10px;">
+								奖励类型：
+								<select name="awardFastPayType" id="awardFastPayType" onchange="awardFastPayTypeSel(this.value)">
+									<option value="0">无任何奖励</option>
+									<option value="1">首次刷卡奖励</option>
+									<option value="2">累积刷卡奖励</option>
+								</select>
+								<span id="awardFastPayTotal_outer" style="display:none;">
+									&nbsp;&nbsp;累积金额：<input type="text" id="awardFastPayTotal" name="awardFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								</span>
+								<span id="awardFastPayBeginTimeOuter">&nbsp;&nbsp;开始生效时间<input type="text" id="awardFastPayBeginTime" value="" disabled="disabled"></span>
+								
+							</div>
+							<div>
+								直邀奖励：<input type="text" id="awardFastPayDirUserAmount" name="awardFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								代理奖励：<input type="text" id="awardFastPayAgentAmount" name="awardFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+							</div>
+						</div>
+						
+						<div class="col-lg-4 col-md-6 margin10">
+							<p style="font-weight: bold;">完美刷卡消费奖励</p>
+							<div style="margin-bottom: 10px;">
+								奖励类型：
+								<select name="awardWMFastPayType" id="awardWMFastPayType" onchange="awardWMFastPayTypeSel(this.value)">
+									<option value="0">无任何奖励</option>
+									<option value="1">首次刷卡奖励</option>
+									<option value="2">累积刷卡奖励</option>
+								</select>
+								<span id="awardWMFastPayTotal_outer" style="display: none;">
+									&nbsp;&nbsp;累积金额：<input type="text" id="awardWMFastPayTotal"  name="awardWMFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								</span>
+								<span id="awardWMFastPayBeginTimeOuter">&nbsp;&nbsp;开始生效时间<input type="text" id="awardWMFastPayBeginTime" value="" disabled="disabled" ></span>
+							</div>
+							<div>
+								直邀奖励：<input type="text" id="awardWMFastPayDirUserAmount" name="awardWMFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								代理奖励：<input type="text" id="awardWMFastPayAgentAmount" name="awardWMFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+							</div>
+						</div>
+					</fieldset>
+					
 					<div class="align-center divbtn">
 						<chrone:isAuth authCode="600000201">
 							<div align="center"><button type="button" class="btn btn-primary"  onclick="fastSearch()">保存设置</button></div>

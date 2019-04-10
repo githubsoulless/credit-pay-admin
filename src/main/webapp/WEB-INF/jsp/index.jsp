@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>卡卫士还款管理平台</title>
+<title>融亿达还款管理平台</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" /> 
 <script type="text/javascript" src='<c:url value="/static/js/jquery-1.7.1.min.js"/>'></script>
@@ -79,7 +79,7 @@
 	<div data-options="region:'north'" style="background: -ms-linear-gradient(top, #93daff,#4fc3ff);background: -moz-linear-gradient(top,#93daff,#4fc3ff);background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#93daff), to(#4fc3ff));background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#93daff),to(#4fc3ff));
 									background: -webkit-linear-gradient(top, #93daff, #4fc3ff);background: -o-linear-gradient(top, #93daff, #4fc3ff);height:93px;border: 0px;">
 		<div class="top">
-            <span class="logo" style="color: white;width: 400px;"><strong style="font-size:25px;">卡卫士管理平台</strong></span>
+            <span class="logo" style="color: white;width: 400px;"><strong style="font-size:25px;">融亿达管理平台</strong></span>
             <div class="topRt clearfix" style="font-size: 20px;">
                 <div class="w-wel"><span class="">欢迎你，${sessionScope.LOGIN_SESSION.loginId }&nbsp;!</span></div>
                 <div class="u-user"><span>[平台用户]</span></div>

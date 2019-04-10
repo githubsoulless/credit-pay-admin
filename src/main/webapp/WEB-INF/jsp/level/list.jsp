@@ -89,8 +89,7 @@ function init() {
 											<td rowspan="2">升级序号</td>
 											<td rowspan="2">等级名称</td>
 											<td>APP内显示</td>
-											<td colspan="2" style="width:260px;">推荐用户数量自动升级</td>
-											<!-- <td>服务费率</td> -->
+											<td colspan="2" style="width:260px;">推荐免费用户升级人数</td>
 											<td>提现手续费</td>
 											<td colspan="2">还款计划允许金额(元)</td>
 											<td colspan="2">钱包提现金额(元)</td>
@@ -106,15 +105,9 @@ function init() {
 											<td  colspan="2">
 												<div class="input-group">
 													<input name="levels[${i.index }].levelUpUser" id="levelUpUser-${l.levelId }" value="${l.levelUpUser }" type="text" class="input-sm width80" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-													<span class="input-span">人，0表示禁用推荐升级</span>
+													<span class="input-span">人</span>
 												</div>
 											</td>
-											<%-- <td>
-												<div class="input-group">
-													<input name="levels[${i.index }].feeRate" id="feeRate-${l.levelId }" value="<fmt:formatNumber value="${l.feeRate }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
-													<span class="input-span">%</span>
-												</div>
-											</td> --%>
 											<td>
 												<div class="input-group">
 													<input name="levels[${i.index }].txRateFJ" id="txRate-${l.levelId }" value="<chrone:fen2Yuan amt="${l.txRate }"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
@@ -139,36 +132,27 @@ function init() {
 										<tr>
 											<td rowspan="2">${l.levelId }</td>
 											<td rowspan="2"><input name="levels[${i.index }].levelName" id="levelName-${l.levelId }" value="${l.levelName }" type="text" class="input-sm"  maxlength="45"></td>
-											<td>升级费(元)</td>
-											<td colspan="2">升级返润方式</td>
-											<td>二级用户</td>
-											<td>一级用户</td>
-											<td>三级代理</td>
-											<td>二级代理</td>
-											<td>一级代理</td>
+											<td></td>
+											<td colspan="2">推荐黄金用户升级人数</td>
+											<td>直推返佣</td>
+											<td>间推返佣</td>
+											<td>二级推荐返佣</td>
+											<td></td>
+											<td></td>
 										</tr>
 										<tr>
 											<td>
-												<input id="upgradeFee" name="levels[${i.index }].upgradeFeeFJ" value="<chrone:fen2Yuan amt="${l.upgradeFee }"/>" type="text" class="input-sm" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
+												<input name="levels[${i.index }].profitsType" id="profitsType-${l.levelId }" value="1" type="hidden" class="input-sm width80" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+												<input name="levels[${i.index }].indirectAgentFee" id="indirectAgentFee-${l.levelId }" value="0" type="hidden" class="input-sm width80" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+												<input name="levels[${i.index }].upAgentFee" id="upAgentFee-${l.levelId }" value="0" type="hidden" class="input-sm width80" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+												<input name="levels[${i.index }].upgradeFeeFJ" id="upgradeFeeFJ-${l.levelId }" value="0" type="hidden" class="input-sm width80" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 											</td>
 											<td colspan="2">
-												<select id="profitsType" name="levels[${i.index }].profitsType" class="input-sm">
-													<option value="1" <c:if test="${l.profitsType == 1 }">selected="selected"</c:if>>按比例分配</option>
-													<option value="0" <c:if test="${l.profitsType == 0 }">selected="selected"</c:if>>固定金额分配</option>
-												</select>
+												<div class="input-group">
+													<input name="levels[${i.index }].levelVipUpUser" id="levelVipUpUser-${l.levelId }" value="${l.levelVipUpUser }" type="text" class="input-sm width80" maxlength="12" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+													<span class="input-span">人</span>
+												</div>
 											</td>
-<!-- 											<td> -->
-<!-- 												<div class="input-group"> -->
-<%-- 													<input id="directUserFee" name="levels[${i.index }].directUserFee"  --%>
-<%-- 													value="<fmt:formatNumber value="${l.directUserFee }" type="currency" pattern="0.00"/>"  --%>
-<!-- 													type="text" class="input-sm" maxlength="12"  -->
-<!-- 													onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"> -->
-<!-- 													<span class="input-span"> -->
-<%-- 														<c:if test="${l.profitsType == 0 }">元</c:if> --%>
-<%-- 														<c:if test="${l.profitsType == 1 }">%</c:if> --%>
-<!-- 													</span> -->
-<!-- 												</div> -->
-<!-- 											</td> -->
 											<td>
 												<div class="input-group">
 													<input id="indirectUserFee" name="levels[${i.index }].indirectUserFee" value="<fmt:formatNumber value="${l.indirectUserFee }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
@@ -198,20 +182,10 @@ function init() {
 											</td>
 											<td>
 												<div class="input-group">
-													<input id="indirectAgentFee" name="levels[${i.index }].indirectAgentFee" value="<fmt:formatNumber value="${l.indirectAgentFee }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
-													<span class="input-span">
-														<c:if test="${l.profitsType == 0 }">元</c:if>
-														<c:if test="${l.profitsType == 1 }">%</c:if>
-													</span>
 												</div>
 											</td>
 											<td>
 												<div class="input-group">
-													<input id="upAgentFee" name="levels[${i.index }].upAgentFee" value="<fmt:formatNumber value="${l.upAgentFee }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
-													<span class="input-span">
-														<c:if test="${l.profitsType == 0 }">元</c:if>
-														<c:if test="${l.profitsType == 1 }">%</c:if>
-													</span>
 												</div>
 											</td>
 										</tr>
@@ -244,6 +218,7 @@ function init() {
 												<td>升级序号</td>
 												<td>代理名称</td>
 												<td>APP内显示</td>
+												<td>返佣比例</td>
 												<td>代理描述</td>
 												<td>描述详情</td>
 											</tr>
@@ -255,6 +230,12 @@ function init() {
 													<option  value="0" <c:if test="${l.status == 0 }">selected="selected"</c:if>>显示</option>
 													<option value="1" <c:if test="${l.status == 1 }">selected="selected"</c:if>>隐藏</option>
 												</select>
+												</td>
+												<td>
+													<input id="commissionRate-${l.levelId }" id="status-${l.levelId }" name="agentLevels[${i.index }].commissionRate" value="<fmt:formatNumber value="${l.commissionRate }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
+													<span class="input-span">
+														%
+													</span>
 												</td>
 												<td><textarea class="input-sm" name="agentLevels[${i.index}].levelDesc" rows="4" cols="40">${l.levelDesc }</textarea></td>
 												<td><textarea class="input-sm" name="agentLevels[${i.index}].levelDescDetail" rows="4" cols="40">${l.levelDescDetail }</textarea></td>
