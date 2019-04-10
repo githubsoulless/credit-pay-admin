@@ -13,14 +13,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link href="${ctx }/static/css/refundSearch.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src='${ctx }/static/js/jquery-1.7.1.min.js'></script>
-<title>融亿达管理平台</title>
+<title>卡卫士管理平台</title>
 </head>
 
 <body>
 	<div class="manage-container">
 		<div class="manage-box">
 			<div class="manage-content">
-				<p class="manage-title">融亿达管理平台</p>
+				<p class="manage-title">卡卫士管理平台</p>
 				<div class="manage-smallbg">
 					<div class="manage-cont">
 						<form id="loginForm" action='${ctx }/public/login' method="post">
@@ -34,7 +34,7 @@
 							<div class="">
 								<p class="manage-userp">
 									<span class="manage-userimg manage-userimg-lock"> <img src="${ctx }/static/imgs/lock.png" class="icon" />
-									</span> <input type="password" name="password"  id="password"  class="m-user" placeholder="请输入密码" />
+									</span> <input type="password" name="password"  id="password" onkeydown="LoginSubmit()" class="m-user" placeholder="请输入密码" />
 								</p>
 								<i class="prompt"></i>
 							</div>
