@@ -677,8 +677,14 @@
 	  	<if test="endTime !=null and endTime !=''">
 	  		and t.row_crt_ts &lt;=#{endTime}
 	  	</if>
-	  	<if test="agentId !=null and agentId !=''"> 
-  			and t.agent_id=#{agentId}
+	  	<if test="agentId1 !=null and agentId1 !=''">
+			and t.agent_id in 
+	 		<foreach close=")" collection="agentIds" index="index" item="item" open="(" separator=",">  
+			  #{item}  
+			 </foreach> 
+	  	</if>
+	  	<if test="agentId4 !=null and agentId4 !=''"> 
+  			and t.agent_id=#{agentId4}
 	  	</if>
 	  	<if test="parentUserId != null and parentUserId!=''">
 	  		and t.parent_user_id = #{parentUserId}

@@ -15,14 +15,11 @@ import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.mapper.AgentMapper;
 import net.chrone.creditpay.mapper.AppUserMapper;
-import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AppUser;
 import net.chrone.creditpay.model.AppUserExample;
 import net.chrone.creditpay.model.LevelOrder;
-import net.chrone.creditpay.model.RegionInfo;
 import net.chrone.creditpay.service.AppUserService;
 import net.chrone.creditpay.service.LevelOrderService;
-import net.chrone.creditpay.service.RegionInfoService;
 import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.IdGen;
 
@@ -35,26 +32,23 @@ public class AppUserServiceImpl implements AppUserService {
 	private AgentMapper agentMapper;
 	@Autowired
 	private LevelOrderService levelOrderService;
-	@Autowired
-	private RegionInfoService regionInfoService;
 
 	@Override
 	public int getAppUserByPageCount(AppUser appuser) {
+		if(StringUtils.isNotEmpty(appuser.getAgentId1())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(appuser.getAgentId1());
+			appuser.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
 		return appUserMapper.getAppUserByPageCount(appuser);
 	}
 
 	@Override
 	public List<AppUser> getAppUserByPage(AppUser appuser) {
-		 List<AppUser> list = appUserMapper.getAppUserByPage(appuser);
-		 for(AppUser ag:list) {
-				if(StringUtils.isNotEmpty(ag.getAgentId())) {
-					RegionInfo region = regionInfoService.getRegionInfoByFyCountyCd(ag.getAgentId());
-					if(region !=null) {
-						ag.setCountyNm(region.getProvNmCn()+" "+region.getRegionNmCn()+" "+region.getCountyNmCn());
-					}
-				}
-			}
-		return list;
+		if(StringUtils.isNotEmpty(appuser.getAgentId1())) {
+			String agentIds = agentMapper.getSUBAgentIdByAgentId(appuser.getAgentId1());
+			appuser.setAgentIds(Arrays.asList(agentIds.split("\\,")));
+		}
+		return appUserMapper.getAppUserByPage(appuser);
 	}
 
 	@Override

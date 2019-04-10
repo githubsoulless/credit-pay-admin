@@ -28,6 +28,4 @@ public interface AgentService {
 
 	List<Agent> getAgentUserStatisticsByPage(Agent agent);
 
-	Agent getAgentByCountyCd(String countyCd);
-
 }

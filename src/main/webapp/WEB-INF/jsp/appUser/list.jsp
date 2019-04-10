@@ -1,4 +1,3 @@
-<%@page import="net.chrone.creditpay.util.RedisClient"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,8 +6,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setAttribute("ctx", request.getContextPath());
-String regionStr = RedisClient.getByKey(RedisClient.CACHE_PREFIX_REGION_LIST);
-request.setAttribute("regionList", regionStr);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -48,41 +45,6 @@ function fastSearch(){
 	document.getElementById("searchForm").submit();
 }
 
-var region=eval('${regionList}');
-function changeProv(provCd){
-	$("#cityId").empty();
-	$("#cityId").append("<option value=''>请选择</option>");
-	$("#countyCd").empty();
-	$("#countyCd").append("<option value=''>请选择</option>");
-	for(var i=0;i<region.length;i++){
-		if(provCd==region[i].provCd){
-			var citys = region[i].citys;
-			for(var j=0;j<citys.length;j++){
-				$("#cityId").append("<option value='"+citys[j].cityCd+"'>"+citys[j].cityNm+"</option>");
-			}
-			return;
-		}
-	}
-}
-function changeCity(cityCd){
-	$("#countyCd").empty();
-	$("#countyCd").append("<option value=''>请选择</option>");
-	for(var i=0;i<region.length;i++){
-		if($("#provId").val()==region[i].provCd){
-			var citys = region[i].citys;
-			for(var j=0;j<citys.length;j++){
-				if(cityCd==citys[j].cityCd){
-					var regions = citys[j].regions;
-					for(var a=0;a<regions.length;a++){
-						$("#countyCd").append("<option value='"+regions[a].countyCd+"'>"+regions[a].countyNm+"</option>");
-					}
-				}
-			}
-			return;
-		}
-	}
-}
-
 function update(userId){
 	var url = "url:${ctx}/appUser/update?type=toUpdate&userId="+userId+"&a="+encodeURIComponent(new Date());
 	$.dialog({content:url ,
@@ -120,6 +82,16 @@ function addClose(){
 		document.getElementById("searchForm").submit();
 	}
 }
+function changeAgent(val) {
+	var agentList=eval('${agentListJson}');
+		$("#agentId1").empty();
+		$("#agentId1").append("<option value=''>请选择</option>");
+		for(var i=0;i<agentList.length;i++){
+			if(agentList[i].level==val){
+				$("#agentId1").append("<option value='"+agentList[i].agentId+"'>"+agentList[i].agentName+"</option>");
+			}
+		}
+}
 function exportExcel(){
 	if(!confirm("是否导出记录到Excel?")){
 		return;
@@ -129,33 +101,9 @@ function exportExcel(){
 	from.submit();
 	from.action='${ctx}/appUser/list';
 }
-function init(){
-	for(var i=0;i<region.length;i++){
-		$("#provId").append("<option value='"+region[i].provCd+"'>"+region[i].provNm+"</option>");
-	}
-	if('${appuser.agentId}'!=''){
-		for(var i=0;i<region.length;i++){
-			if('${region.fyProvCd}'==region[i].provCd){
-				var citys = region[i].citys;
-				for(var j=0;j<citys.length;j++){
-					$("#cityId").append("<option value='"+citys[j].cityCd+"'>"+citys[j].cityNm+"</option>");
-					if('${region.fyRegionCd}'==citys[j].cityCd){
-						var regions = citys[j].regions;
-						for(var a=0;a<regions.length;a++){
-							$("#countyCd").append("<option value='"+regions[a].countyCd+"'>"+regions[a].countyNm+"</option>");
-						}
-					}
-				}
-			}
-		}
-	}
-	$("#provId").val('${region.fyProvCd}');
-	$("#cityId").val('${region.fyRegionCd}');
-	$("#countyCd").val('${region.fyCountyCd}');
-}
 </script>
 </head>
-<body onload="init()">
+<body>
 	<div class="page-content">
 		<div class="page-header">
 			<div class="row">
@@ -199,16 +147,25 @@ function init(){
 	  					   </select> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
-						<label class="control-label" for="agentId">所属区县：</label>
-						<select id="provId"  onchange="changeProv(this.value)">
-							<option value="">请选择</option>
-						</select>
-						<select  id="cityId" onchange="changeCity(this.value)">
-							<option value="">请选择</option>
-						</select>
-						<select id="countyCd" name="agentId">
-							<option value="">请选择</option>
-						</select>
+						<label class="control-label" for="agentId1">所属代理：</label>
+						<select id="agentLevel" name="agentLevel" class="input-sm" onchange="changeAgent(this.value)">
+	  					   	<option value="">代理级别</option>
+	  					   	<option value="1" ${appuser.agentLevel==1?'selected="selected"':'' }>一级代理</option>
+	  					   	<option value="2" ${appuser.agentLevel==2?'selected="selected"':'' }>二级代理</option>
+	  					   	<option value="3" ${appuser.agentLevel==3?'selected="selected"':'' }>三级代理</option>
+	  					 </select> 	
+						<select id="agentId1" name="agentId1" class="input-sm">
+	  					   	<option value="">请选择</option>
+	  					   	<c:forEach items="${agentList }" var="agt">
+									<c:if test="${agt.level==appuser.agentLevel}"> 
+										<option value='${agt.agentId}' ${appuser.agentId1==agt.agentId?'selected="selected"':'' }>${agt.agentName}</option>
+									</c:if>
+								</c:forEach>
+	  					 </select> 	
+					</div>
+					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label" for="agentId4">所属直接代理ID：</label>
+						<input  class="input-sm" type="text" id="agentId4"  name="agentId4" maxlength="32" value="${appuser.agentId4}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label padding-left" for="certStatus">实名认证：</label>
@@ -256,8 +213,8 @@ function init(){
 										<th>直接下级用户</th>
 										<th>所有下级用户</th>
 										<th>推荐人</th>
-										<th>所属区县</th>
-<!-- 										<th>剩余体验计划次数</th> -->
+										<th>所属直接代理</th>
+										<th>剩余体验计划次数</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -300,8 +257,14 @@ function init(){
 												<chrone:isAuth authCode="100000104"></a></chrone:isAuth>
 											</td>
 											<td >${l.parentUserId }</td>
-											<td >${l.countyNm }</td>
-<%-- 											<td >${l.tyCount }</td> --%>
+											<td >
+												<c:forEach items="${agentList }" var="agt">
+													<c:if test="${agt.agentId==l.agentId }">
+														${agt.agentName }(${agt.agentId})
+													</c:if>
+												</c:forEach>
+											</td>
+											<td >${l.tyCount }</td>
 											<td>
 												<c:if test="${l.userId != '13888888888' }">
 													<chrone:isAuth authCode="100000102">
@@ -340,7 +303,9 @@ function init(){
 	<input type="hidden"  name="certStatus" value="${appuser.certStatus}"></input>
 	<input type="hidden"  name="startDate" value="${appuser.startDate}"></input>
 	<input type="hidden"  name="endDate" value="${appuser.endDate}"></input>
-	<input type="hidden"  name="agentId" value="${appuser.agentId}"></input>
+	<input type="hidden"  name="agentId1" value="${appuser.agentId1}"></input>
+	<input type="hidden"  name="agentId2" value="${appuser.agentId2}"></input>
+	<input type="hidden"  name="agentId4" value="${appuser.agentId4}"></input>
 	<input type="hidden"  name="agentLevel" value="${appuser.agentLevel}"></input>
 </form>
 <input type="hidden"  id="closeTp"/>

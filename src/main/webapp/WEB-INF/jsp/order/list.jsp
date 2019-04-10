@@ -128,6 +128,10 @@ table.table1 tr th{
 						<input  class="input-sm" type="text" id="userId"  name="userId" maxlength="20"  value="${order.userId}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label" for="agentId">代理ID：</label>
+						<input  class="input-sm" type="text" id="agentId"  name="agentId" maxlength="20"  value="${order.agentId}" /> 
+					</div>
+					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="chnlOrderNo">通道交易号：</label>
 						<input  class="input-sm" type="text" id="chnlOrderNo"  name="chnlOrderNo" maxlength="20"  value="${order.chnlOrderNo}" /> 
 					</div>
@@ -174,6 +178,7 @@ table.table1 tr th{
 										<th>序号</th>
 										<th>内部流水号</th>
 										<th>业务流水号</th>
+										<th>所属代理</th>
 										<th>所属计划ID</th>
 										<th>所属任务ID</th>
 										<th>订单类型</th>
@@ -203,6 +208,11 @@ table.table1 tr th{
 											<td>${i.index+1}</td>
 											<td>${l.orderNo}</td>
 											<td>${l.busiOrderNo}</td>
+											<td>
+												<c:if test="${!empty l.agentId}">
+												${l.agentName}(${l.agentId})
+												</c:if>
+											</td>
 											<td>${l.planId}</td>
 											<td>${l.taskId}</td>
 											<td>
@@ -235,7 +245,7 @@ table.table1 tr th{
 									</c:forEach>
 									<tr>
 										<td colspan="3" align="left">查询结果：${page.rowTotal }条</td>
-										<td colspan="3" align="right">合计：</td>
+										<td colspan="4" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.sumamt }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumPlatFee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee }"/></td>

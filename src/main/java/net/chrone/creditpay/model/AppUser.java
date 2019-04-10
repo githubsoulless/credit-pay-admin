@@ -683,20 +683,8 @@ public class AppUser extends ParentMode{
 	private String rowCrtTsFormat;
 	private String sumOrderFormat;
 	
-	private String countyNm;
 	
 	
-	
-	
-	
-
-	public String getCountyNm() {
-		return countyNm;
-	}
-
-	public void setCountyNm(String countyNm) {
-		this.countyNm = countyNm;
-	}
 
 	public String getRowCrtTsFormat() {
 		return rowCrtTsFormat;

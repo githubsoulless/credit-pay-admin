@@ -85,9 +85,9 @@ public class LevelFeeRateController {
 			level.setListLevelFeeRate(listLevelFeeRate);
 		}
 		//一级代理
-//		for(int i=3;i>=1;i--){
-			list.add(getAgentLevelFeeRate(1, sysParam));
-//		}
+		for(int i=3;i>=1;i--){
+			list.add(getAgentLevelFeeRate(i, sysParam));
+		}
 	}
 	
 	private Level getAgentLevelFeeRate(int levelId,SysParam sysParam){
@@ -95,7 +95,7 @@ public class LevelFeeRateController {
 		level.setLevelId(levelId);
 		level.setLevelType(levelId);
 		if(levelId==1){
-			level.setLevelName("区县代理");
+			level.setLevelName("一级代理");
 		}else if(levelId==2){
 			level.setLevelName("二级代理");
 		}else if(levelId==3){
