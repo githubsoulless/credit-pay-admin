@@ -784,9 +784,9 @@
   
   <select id="getUserOrderStaticsByPage" parameterType="net.chrone.creditpay.model.AppUser" resultMap="BaseResultMap">
   	 select au.user_id,au.account_name,au.row_crt_ts,au.cert_status,
-	(select sum(amount) from t_order where user_id=au.user_id and order_dt&gt;=#{startDate} and order_dt&lt;=#{endDate} and order_tp=0)
+	(select (case when sum(amount) is null then 0 else sum(amount) end ) from t_order where user_id=au.user_id and order_dt&gt;=#{startDate} and order_dt&lt;=#{endDate} and order_tp=0)
 	+ 
-	(select sum(amount) from t_fast_order where user_id=au.user_id and order_dt&gt;=#{startDate} and order_dt&lt;=#{endDate} and order_tp=0) as sum_order
+	(select (case when sum(amount) is null then 0 else sum(amount) end ) from t_fast_order where user_id=au.user_id and order_dt&gt;=#{startDate} and order_dt&lt;=#{endDate} and order_tp=0) as sum_order
 	from t_app_user au
 	 <include refid="userorder_where_page" /> 
 	 	order by sum_order desc
