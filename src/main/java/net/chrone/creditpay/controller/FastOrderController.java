@@ -82,8 +82,8 @@ public class FastOrderController {
 		List list = new ArrayList();
 		 try {
 			
-            String[] titleNms = { "订单流水号","所属代理", "用户帐号","卡编号", "订单类型", "订单金额", "交易服务费","通道手续费", "总利润", "用户分润","代理分润","平台利润","卡号","持卡人姓名","订单状态","订单生成时间","订单支付时间","关联订单号","交易通道","描述"};
-            String[] columMethodNms = { "getOrderNo","getAgentName","getUserId", "getCardId", "getOrderTpFormat", "getAmountFormat","getFeeFormat","getChnlFeeFormat","getTotalProfitFormat","getUserProfitFormat","getAgentProfitFormat","getPlantProfitFormat","getCardFormat","getCardName","getPayStFormat","getCreateTime","getPayTime","getSettleOrderNo","getChnlName","getMemo"};
+            String[] titleNms = { "订单流水号","所属代理", "用户帐号","卡编号", "订单类型", "订单金额", "交易服务费","通道手续费", "总利润", "用户分润","代理分润","平台利润","银行名称","卡号","持卡人姓名","订单状态","订单生成时间","订单支付时间","关联订单号","交易通道","描述"};
+            String[] columMethodNms = { "getOrderNo","getAgentName","getUserId", "getCardId", "getOrderTpFormat", "getAmountFormat","getFeeFormat","getChnlFeeFormat","getTotalProfitFormat","getUserProfitFormat","getAgentProfitFormat","getPlantProfitFormat","getBankNm","getCardFormat","getCardName","getPayStFormat","getCreateTime","getPayTime","getSettleOrderNo","getChnlName","getMemo"};
             Workbook workbook = ExcelUtil.createExcel(2007, "快捷交易订单明细", titleNms, columMethodNms, list );
             
             int rowNum=Constants.MAX_EXPORT_NUM;

@@ -218,6 +218,7 @@ table.table1 tr th{
 										<th>用户分润</th>
 										<th>代理分润</th>
 										<th>平台利润</th>
+										<th>银行名称</th>
 										<th>卡号</th>
 										<th>持卡人姓名</th>
 										<th>订单状态</th>
@@ -254,6 +255,7 @@ table.table1 tr th{
 											<td ><chrone:fen2Yuan amt="${l.userProfits}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.agentProfits}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.fee-l.chnlFee-l.userProfits-l.agentProfits}"/> </td>
+											<td >${l.bankNm}</td>
 											<td><chrone:HiddenStr head="4" srcStr="${l.cardNo}" footer="4"/> </td>
 											<td >${l.cardName}</td>
 											<td >
@@ -287,7 +289,7 @@ table.table1 tr th{
 										<td><chrone:fen2Yuan amt="${countMap.sumUserProfits }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumAgentProfits }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee-countMap.sumChnlfee-countMap.sumUserProfits-countMap.sumAgentProfits }"/></td>
-										<td colspan="10" align="right"></td>
+										<td colspan="11" align="right"></td>
 									</tr>
 								</tbody>
 							</table>

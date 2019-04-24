@@ -496,6 +496,16 @@ public class Order extends ParentMode{
 	//fileds design for export excel end
 	
 	
+	private String bankNm;
+	
+	public String getBankNm() {
+		return bankNm;
+	}
+
+	public void setBankNm(String bankNm) {
+		this.bankNm = bankNm;
+	}
+
 	public String getAgentName() {
 		return agentName;
 	}

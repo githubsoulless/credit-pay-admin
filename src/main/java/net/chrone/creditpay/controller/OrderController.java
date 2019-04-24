@@ -100,8 +100,8 @@ public class OrderController {
 		List list = new ArrayList();
 		 try {
 			
-            String[] titleNms = { "内部流水号","所属代理", "所属计划ID","所属任务ID", "订单类型", "订单金额","平台服务费", "通道手续费", "总利润", "用户利润","代理利润","平台利润","卡号","持卡人姓名","订单状态","订单生成时间","订单支付时间","交易通道","所属用户帐号","卡编号","备注"};
-            String[] columMethodNms = { "getOrderNo","getAgentName","getPlanId", "getTaskId", "getOrderTpFormat", "getAmountFormat","getPlatFeeFormat","getFeeFormat","getTotalProfitFormat","getUserProfitFormat","getAgentProfitFormat","getPlantProfitFormat","getCardFormat","getCardName","getPayStFormat","getCreateTime","getPayTime","getChnlName","getUserId","getCardId","getRemark"};
+            String[] titleNms = { "内部流水号","所属代理", "所属计划ID","所属任务ID", "订单类型", "订单金额","平台服务费", "通道手续费", "总利润", "用户利润","代理利润","平台利润","银行名称","卡号","持卡人姓名","订单状态","订单生成时间","订单支付时间","交易通道","所属用户帐号","卡编号","备注"};
+            String[] columMethodNms = { "getOrderNo","getAgentName","getPlanId", "getTaskId", "getOrderTpFormat", "getAmountFormat","getPlatFeeFormat","getFeeFormat","getTotalProfitFormat","getUserProfitFormat","getAgentProfitFormat","getPlantProfitFormat","getBankNm","getCardFormat","getCardName","getPayStFormat","getCreateTime","getPayTime","getChnlName","getUserId","getCardId","getRemark"};
             Workbook workbook = ExcelUtil.createExcel(2007, "交易订单明细", titleNms, columMethodNms, list );
             
             int rowNum=Constants.MAX_EXPORT_NUM;

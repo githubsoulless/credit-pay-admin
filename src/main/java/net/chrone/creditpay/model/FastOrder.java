@@ -644,6 +644,19 @@ public class FastOrder extends ParentMode{
 	private String cardFormat;
 	//fileds design for export excel end	
 	
+	
+	private String bankNm;
+	
+	
+	
+	public String getBankNm() {
+		return bankNm;
+	}
+
+	public void setBankNm(String bankNm) {
+		this.bankNm = bankNm;
+	}
+
 	public String getOrderTpFormat() {
 		return orderTpFormat;
 	}

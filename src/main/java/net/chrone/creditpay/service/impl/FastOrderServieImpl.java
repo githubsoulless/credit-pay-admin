@@ -13,14 +13,17 @@ import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.api.FastPayApi;
 import net.chrone.creditpay.mapper.AgentMapper;
+import net.chrone.creditpay.mapper.CreditRootBankMapper;
 import net.chrone.creditpay.mapper.FastOrderMapper;
 import net.chrone.creditpay.mapper.PayChannelMapper;
 import net.chrone.creditpay.model.Agent;
 import net.chrone.creditpay.model.AgentFeeRate;
 import net.chrone.creditpay.model.AppUser;
+import net.chrone.creditpay.model.CreditRootBank;
 import net.chrone.creditpay.model.FastOrder;
 import net.chrone.creditpay.model.FastOrderExample;
 import net.chrone.creditpay.model.LevelFeeRate;
+import net.chrone.creditpay.model.Order;
 import net.chrone.creditpay.model.PayChannel;
 import net.chrone.creditpay.service.AgentFeeRateService;
 import net.chrone.creditpay.service.AgentService;
@@ -56,6 +59,8 @@ public class FastOrderServieImpl implements FastOrderService {
 	private AgentFeeRateService agentFeeRateService;
 	@Autowired
 	private AgentMapper agentMapper;
+	@Autowired
+	private CreditRootBankMapper creditRootBankMapper;
 	
 
 	private final static Logger log = Logger.getLogger(FastOrderServieImpl.class);
@@ -74,7 +79,14 @@ public class FastOrderServieImpl implements FastOrderService {
 			String agentIds = agentMapper.getSUBAgentIdByAgentId(order.getAgentId());
 			order.setAgentIds(Arrays.asList(agentIds.split("\\,")));
 		}
-		return fastOrderMapper.getOrderByPage(order);
+		List<FastOrder> list = fastOrderMapper.getOrderByPage(order);
+		for(FastOrder l:list){
+			CreditRootBank creditRootBank = creditRootBankMapper.selectByPrimaryKey(l.getBankNo());
+			if(creditRootBank!=null){
+				l.setBankNm(creditRootBank.getBankNm());
+			}
+		}
+		return list;
 	}
 
 	@Override
