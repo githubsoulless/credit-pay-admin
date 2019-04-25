@@ -19,14 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import net.chrone.creditpay.model.FastOrder;
 import net.chrone.creditpay.model.Order;
 import net.chrone.creditpay.model.PayChannel;
+import net.chrone.creditpay.model.PayPlanTask;
 import net.chrone.creditpay.service.OrderService;
 import net.chrone.creditpay.service.PayChannelService;
+import net.chrone.creditpay.service.PayPlanTaskService;
 import net.chrone.creditpay.taglibs.Fen2YuanTag;
 import net.chrone.creditpay.util.Constants;
 import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.ExcelUtil;
 import net.chrone.creditpay.util.MyPage;
 import net.chrone.creditpay.util.StringUtil;
+import net.chrone.creditpay.util.Utils;
 
 /**
  * 
@@ -44,6 +47,9 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private PayChannelService payChannelService;
+	@Autowired
+	private PayPlanTaskService payPlanTaskService;
+	
 	private static Logger logger = Logger.getLogger(OrderController.class);
 
 	@RequestMapping("list")
@@ -66,6 +72,27 @@ public class OrderController {
 		}
 		MyPage page = new MyPage(list, starIndex, Constants.SHOW_NUM, rowTotal);
 		List<PayChannel> channelList = payChannelService.listAllPayChannel();
+		if(list !=null && list.size()>0) {
+			for(Order order_ : list) {
+				PayPlanTask task = payPlanTaskService.getPayPlanTaskById(order_.getTaskId());
+				if(task.getType() == 0) {//消费
+					if(task.getPlanType() ==0) {
+						order_.setActualAmt(task.getAmount());
+					}else if(task.getPlanType() ==1) {
+						task.setActualAmt(task.getAmount() - task.getHkFee());
+					}else if(task.getPlanType() ==2) {
+						if(task.getTarnsGroup() ==0) {//后扣整数手续费会在第一笔中存放
+							order_.setActualAmt(task.getAmount() - task.getHkFee());
+						}else {
+							order_.setActualAmt(task.getAmount());
+						}
+					}
+				}else {
+					order_.setActualAmt(task.getAmount());
+				}
+			
+			}
+		}
 		model.addAttribute("channelList", channelList);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);

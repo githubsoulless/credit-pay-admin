@@ -480,7 +480,7 @@ public class Order extends ParentMode{
 	
 	private String agentId;
 	private String agentName;
-	
+	private int actualAmt;
 	
 	//fileds design for export excel begin
 	private String orderTpFormat;
@@ -498,6 +498,14 @@ public class Order extends ParentMode{
 	
 	private String bankNm;
 	
+	public int getActualAmt() {
+		return actualAmt;
+	}
+
+	public void setActualAmt(int actualAmt) {
+		this.actualAmt = actualAmt;
+	}
+
 	public String getBankNm() {
 		return bankNm;
 	}

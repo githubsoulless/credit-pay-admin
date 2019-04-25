@@ -20,5 +20,7 @@ public interface PayPlanTaskService {
 	Map<String, Object> countTaskStatistics(PayPlanTask payPlanTask);
 	
 	List<Map<String, Object>> listTaskStatistics(PayPlanTask payPlanTask);
+	
+	PayPlanTask getPayPlanTaskById(String id);
 
 }

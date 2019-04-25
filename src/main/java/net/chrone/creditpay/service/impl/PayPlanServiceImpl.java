@@ -11,13 +11,17 @@ import org.springframework.stereotype.Service;
 
 import net.chrone.creditpay.mapper.CreditRootBankMapper;
 import net.chrone.creditpay.mapper.PayPlanMapper;
+import net.chrone.creditpay.mapper.PayPlanTaskMapper;
 import net.chrone.creditpay.model.CreditRootBank;
 import net.chrone.creditpay.model.PayPlan;
 import net.chrone.creditpay.model.PayPlanDCStatisticsDTO;
+import net.chrone.creditpay.model.PayPlanTask;
+import net.chrone.creditpay.model.PayPlanTaskExample;
 import net.chrone.creditpay.model.RootBank;
 import net.chrone.creditpay.service.PayPlanService;
 import net.chrone.creditpay.service.RootBankService;
 import net.chrone.creditpay.util.DateUtils;
+import net.chrone.creditpay.util.Fen2YuanUtil;
 
 @Service
 public class PayPlanServiceImpl implements PayPlanService {
@@ -26,6 +30,8 @@ public class PayPlanServiceImpl implements PayPlanService {
 	private PayPlanMapper payPlanMapper;
 	@Autowired
 	private CreditRootBankMapper creditRootBankMapper;
+	@Autowired
+	private PayPlanTaskMapper payPlanTaskMapper;
 
 	@Override
 	public Map<String,Object> getPayPlanByPageCount(PayPlan payPlan) {
@@ -100,6 +106,73 @@ public class PayPlanServiceImpl implements PayPlanService {
 	@Override
 	public List<PayPlanDCStatisticsDTO> pagePayPlayDCStatistics(PayPlanDCStatisticsDTO dcStatisticsDTO) {
 		return payPlanMapper.pagePayPlayDCStatistics(dcStatisticsDTO);
+	}
+	
+	@Override
+	public List<PayPlanTask> getPayPlanTaskList(String planId) {
+	
+		PayPlanTaskExample payPlanTaskExample = new PayPlanTaskExample();
+		PayPlanTaskExample.Criteria criteria = payPlanTaskExample.createCriteria();
+		criteria.andPlanIdEqualTo(planId);
+		payPlanTaskExample.setOrderByClause("tarns_group asc");
+		return payPlanTaskMapper.selectByExample(payPlanTaskExample);
+	}
+	
+	@Override
+	public Integer[] calcTaskListFees(String planId) {
+		
+		List<PayPlanTask> list = getPayPlanTaskList(planId);
+		Integer[] feeArray = new Integer[3];
+		int execTotalFee = 0;
+		int totalFee = 0;
+		int hkIntegerFee = 0;
+		if(list != null && list.size()>0) {
+			for(PayPlanTask task : list) {
+				if(task.getPlanType() ==2 && task.getTarnsGroup() == 0) {
+					hkIntegerFee = task.getHkFee();
+				}
+				//己执行手续费
+				if(task.getStatus() == 2) {//任务己执行
+					if(task.getPlanType() ==0) {//前扣每笔都要计算手续费
+						if(task.getType() == 0) {//消费
+							execTotalFee += Fen2YuanUtil.caclFee(task.getAmount(), task.getPayFee());
+						}else {//还款
+							execTotalFee += task.getDfFee();
+						}
+					}else if(task.getPlanType() ==1) {//后扣小数,手续费己经计算
+						if(task.getType() == 0) {
+							execTotalFee += task.getHkFee();
+						}else {
+							execTotalFee += task.getDfFee();
+						}
+					}else if(task.getPlanType() ==2) {//后扣整数,手续费全部的收取到了第一笔中,若计划开始执行则剩余手续费余额会在计划的后扣余额中
+						PayPlan payPlan = getPayPlanByPlanId(planId);
+						execTotalFee = hkIntegerFee - payPlan.getHkFeeBalance();
+					}
+				}
+				
+				//总手续费
+				if(task.getPlanType() ==0) {//前扣
+					if(task.getType() == 0) {
+						totalFee += Fen2YuanUtil.caclFee(task.getAmount(), task.getPayFee());
+					}else {
+						totalFee += task.getDfFee();
+					}
+				}else if(task.getPlanType() == 1) {//后扣小数
+					if(task.getType() == 0) {
+						totalFee += task.getHkFee();
+					}else {
+						totalFee += task.getDfFee();
+					}
+				}else if(task.getPlanType() ==2) {//后扣整数
+					totalFee = hkIntegerFee;
+				}
+			}
+		}
+		feeArray[0] = totalFee;
+		feeArray[1] = execTotalFee;
+		feeArray[2] = (totalFee - execTotalFee);
+		return feeArray;
 	}
 
 }

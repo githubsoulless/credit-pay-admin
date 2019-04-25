@@ -20,11 +20,15 @@
         </javaClientGenerator> 
  
 	
+<<<<<<< HEAD
 	<table schema=""  tableName="t_level_inf" domainObjectName="Level"  enableSelectByExample="true"
+=======
+		<table schema=""  tableName="t_pay_plan" domainObjectName="PayPlan"   enableSelectByExample="true"
+>>>>>>> branch 'master' of http://bmw.hxfuu.com:8888/aojiong/credit-pay-admin.git
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />
-	</table>
+		</table>
 	 
 
 	

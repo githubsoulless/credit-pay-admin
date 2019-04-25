@@ -66,8 +66,39 @@ public class PayPlanController {
 	public String detail(PayPlan payPlan,Model model){
 		payPlan = payPlanService.getPayPlanByPlanId(payPlan.getPlanId());
 		List<PayPlanTask> payPlanTaskList = payPlanTaskService.getPayPlanTaskListByPlanId(payPlan.getPlanId());
+		Integer[] feesArray = payPlanService.calcTaskListFees(payPlan.getPlanId());
+		
+		if(payPlanTaskList != null && payPlanTaskList.size()>0) {
+			for(PayPlanTask task: payPlanTaskList) {
+				if(task.getType() == 0) {//消费
+					if(task.getPlanType() ==0) {
+						task.setActualAmt(task.getAmount());
+						task.setIncludeAgentFee(true);
+					}else if(task.getPlanType() ==1) {
+						task.setActualAmt(task.getAmount() - task.getHkFee());
+						if((task.getTarnsGroup()+3)%3==0) {//第一笔包含代付费
+							task.setIncludeAgentFee(true);
+						}
+					}else if(task.getPlanType() ==2) {
+						if(task.getTarnsGroup() ==0) {//后扣整数手续费会在第一笔中存放
+							task.setActualAmt(task.getAmount() - task.getHkFee());
+							task.setIncludeAgentFee(true);
+						}else {
+							task.setActualAmt(task.getAmount());
+						}
+					}
+				}else {
+					task.setActualAmt(task.getAmount());
+				}
+			}
+		}
+		
 		model.addAttribute("payPlan", payPlan);
 		model.addAttribute("payPlanTaskList", payPlanTaskList);
+		model.addAttribute("totalFee", feesArray[0]);
+		model.addAttribute("execTotalFee", feesArray[1]);
+		model.addAttribute("reduceFee", feesArray[2]);
+		
 		return "payPlan/detail"; 
 	}
 
