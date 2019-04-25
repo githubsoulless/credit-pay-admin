@@ -1,6 +1,44 @@
 package net.chrone.creditpay.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Utils {
+	
+	
+	/**
+	 * 
+	 * @param cardNo
+	 * @param start 开始显示位数
+	 * @param end 结束显示位数
+	 * @return
+	 */
+	public static String hiddenCard(String cardNo,int start,int end){
+		if(StringUtils.isEmpty(cardNo)){
+			return "";	
+		}
+		StringBuffer sb = new StringBuffer();
+		String headStr = cardNo.substring(0, start);
+		String footerStr = cardNo.substring(cardNo.length()-end,cardNo.length());
+		for(int i=0;i<(cardNo.length()-start-end);i++){
+			sb.append("*");
+		}
+		return headStr+sb.toString()+footerStr;
+	}
+	/**
+	 * 只显示姓，隐藏名
+	 * @param name
+	 * @return
+	 */
+	public static String hiddenName(String name) {
+		if(StringUtils.isEmpty(name))
+			return "";
+		String suffix = "";
+		for(int i=0;i<name.length()-1;i++) {
+			suffix +="X";
+		}
+		return name.substring(0, 1)+suffix;
+		
+	}
 	
 	/**
 	 * 计算后扣手续费金额,最终返回手续费和消费金额总和
