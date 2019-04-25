@@ -183,6 +183,7 @@ table.table1 tr th{
 										<th>所属任务ID</th>
 										<th>订单类型</th>
 										<th>订单金额</th>
+										<th>去手续费金额</th>
 										<th>平台服务费</th>
 										<th>通道手续费</th>
 										<th>总利润</th>
@@ -222,6 +223,7 @@ table.table1 tr th{
 												<c:if test="${l.orderTp==2 }">提现</c:if>
 											</td>
 											<td ><chrone:fen2Yuan amt="${l.amount}"/> </td>
+											<td ><chrone:fen2Yuan amt="${l.actualAmt}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.platFee}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.fee}"/> </td>
 											<td ><chrone:fen2Yuan amt="${l.platFee-l.fee}"/> </td>

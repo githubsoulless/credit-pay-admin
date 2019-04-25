@@ -162,5 +162,8 @@ public class PayPlanTaskServiceImpl implements PayPlanTaskService {
 		
 		return listTaskStatistics;
 	}
-
+	@Override
+	public PayPlanTask getPayPlanTaskById(String id) {
+		return	payPlanTaskMapper.selectByPrimaryKey(id);
+	}
 }

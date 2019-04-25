@@ -96,6 +96,14 @@ function cancelVal() {
 					<td class="width90">已还款金额：</td>
 					<td><span><chrone:fen2Yuan amt="${sumPayAmt }"/></span></td>
 				</tr>
+				<tr>
+					<td class="width90">己执行手续费：</td>
+					<td><span><chrone:fen2Yuan amt="${execTotalFee }"/></span></td>
+					<td class="width90">总手续费：</td>
+					<td><span><chrone:fen2Yuan amt="${totalFee }"/></span></td>
+					<td class="width90"></td>
+					<td><span></span></td>
+				</tr>
 				<tr><td colspan="6">
 					<table width="100%" id="sample-table-1"
 								class="table table-striped table-bordered table-hover">
@@ -103,6 +111,8 @@ function cancelVal() {
 							<td>序号</td>
 							<td>任务类型</td>
 							<td>交易金额</td>
+							<td>除手续费金额</td>
+							<td>包含代付费</td>
 							<td>任务流水号</td>
 							<td>预计执行日期</td>
 							<td>预计执行时间</td>
@@ -119,7 +129,16 @@ function cancelVal() {
 									<c:if test="${p.type==0 }">消费</c:if> 
 									<c:if test="${p.type==1 }">还款</c:if> 
 								</td>
-								<td><chrone:fen2Yuan amt="${p.amount }"/></td>
+								<td>
+									<chrone:fen2Yuan amt="${p.amount }"/>
+								</td>
+								<td>
+									<chrone:fen2Yuan amt="${p.actualAmt }"/>
+								</td>
+								<td>
+									<c:if test="${p.includeAgentFee==true}">是</c:if> 
+									<c:if test="${p.includeAgentFee==false}">否</c:if> 
+								</td>
 								<td>${p.taskId }</td>
 								<td>${p.planDt }</td>
 								<td>${p.executeTime }</td>
