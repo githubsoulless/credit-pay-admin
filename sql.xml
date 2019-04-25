@@ -20,7 +20,7 @@
         </javaClientGenerator> 
  
 	
-	<table schema=""  tableName="t_user_award_detail" domainObjectName="UserAwardDetail"  enableSelectByExample="true"
+	<table schema=""  tableName="t_level_inf" domainObjectName="Level"  enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />

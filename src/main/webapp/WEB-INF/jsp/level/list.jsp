@@ -89,6 +89,7 @@ function init() {
 											<td rowspan="2">升级序号</td>
 											<td rowspan="2">等级名称</td>
 											<td>APP内显示</td>
+											<td>是否在线缴费</td>
 											<td colspan="2" style="width:260px;">推荐用户数量自动升级</td>
 											<!-- <td>服务费率</td> -->
 											<td>提现手续费</td>
@@ -98,9 +99,15 @@ function init() {
 										<tr>
 											<td>
 											<input type="hidden" name="levels[${i.index }].levelId" value="${l.levelId }">
+												<select name="levels[${i.index }].isShow" id="isShow-${l.levelId }" class="input-sm form-control">
+													<option  value="0" <c:if test="${l.isShow == 0 }">selected="selected"</c:if>>显示</option>
+													<option value="1" <c:if test="${l.isShow == 1 }">selected="selected"</c:if>>隐藏</option>
+												</select>
+											</td>
+											<td>
 												<select name="levels[${i.index }].status" id="status-${l.levelId }" class="input-sm form-control">
-													<option  value="0" <c:if test="${l.status == 0 }">selected="selected"</c:if>>显示</option>
-													<option value="1" <c:if test="${l.status == 1 }">selected="selected"</c:if>>隐藏</option>
+													<option  value="0" <c:if test="${l.status == 0 }">selected="selected"</c:if>>是</option>
+													<option value="1" <c:if test="${l.status == 1 }">selected="selected"</c:if>>否</option>
 												</select>
 											</td>
 											<td  colspan="2">
@@ -145,7 +152,7 @@ function init() {
 											<td>一级用户</td>
 											<td>三级代理</td>
 											<td>二级代理</td>
-											<td>一级代理</td>
+											<td colspan="2">一级代理</td>
 										</tr>
 										<tr>
 											<td>
@@ -205,7 +212,7 @@ function init() {
 													</span>
 												</div>
 											</td>
-											<td>
+											<td colspan="2">
 												<div class="input-group">
 													<input id="upAgentFee" name="levels[${i.index }].upAgentFee" value="<fmt:formatNumber value="${l.upAgentFee }" type="currency" pattern="0.00"/>" type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
 													<span class="input-span">
@@ -225,12 +232,12 @@ function init() {
 											<td>
 											描述详情:
 											</td>
-											<td colspan="7">
+											<td colspan="8">
 												<textarea class="input-sm" name="levels[${i.index}].levelDescDetail" rows="4" cols="40">${l.levelDescDetail }</textarea>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="10"></td>
+											<td colspan="11"></td>
 										</tr>
 										</tbody>
 								</table>
