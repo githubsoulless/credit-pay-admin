@@ -251,6 +251,7 @@ table.table1 tr th{
 										<td colspan="3" align="left">查询结果：${page.rowTotal }条</td>
 										<td colspan="4" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.sumamt }"/></td>
+										<td></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumPlatFee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumfee }"/></td>
 										<td><chrone:fen2Yuan amt="${countMap.sumPlatFee-countMap.sumfee }"/></td>
