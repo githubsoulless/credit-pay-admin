@@ -75,22 +75,23 @@ public class OrderController {
 		if(list !=null && list.size()>0) {
 			for(Order order_ : list) {
 				PayPlanTask task = payPlanTaskService.getPayPlanTaskById(order_.getTaskId());
-				if(task.getType() == 0) {//消费
-					if(task.getPlanType() ==0) {
-						order_.setActualAmt(task.getAmount());
-					}else if(task.getPlanType() ==1) {
-						task.setActualAmt(task.getAmount() - task.getHkFee());
-					}else if(task.getPlanType() ==2) {
-						if(task.getTarnsGroup() ==0) {//后扣整数手续费会在第一笔中存放
-							order_.setActualAmt(task.getAmount() - task.getHkFee());
-						}else {
+				if(task != null) {
+					if(task.getType() == 0) {//消费
+						if(task.getPlanType() ==0) {
 							order_.setActualAmt(task.getAmount());
+						}else if(task.getPlanType() ==1) {
+							task.setActualAmt(task.getAmount() - task.getHkFee());
+						}else if(task.getPlanType() ==2) {
+							if(task.getTarnsGroup() ==0) {//后扣整数手续费会在第一笔中存放
+								order_.setActualAmt(task.getAmount() - task.getHkFee());
+							}else {
+								order_.setActualAmt(task.getAmount());
+							}
 						}
+					}else {
+						order_.setActualAmt(task.getAmount());
 					}
-				}else {
-					order_.setActualAmt(task.getAmount());
 				}
-			
 			}
 		}
 		model.addAttribute("channelList", channelList);
