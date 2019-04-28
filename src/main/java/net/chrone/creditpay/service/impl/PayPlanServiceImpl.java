@@ -133,7 +133,7 @@ public class PayPlanServiceImpl implements PayPlanService {
 				}
 				//己执行手续费
 				if(task.getStatus() == 2) {//任务己执行
-					if(task.getPlanType() ==0) {//前扣每笔都要计算手续费
+					if(task.getPlanType() ==0 || task.getPlanType() ==2) {//前扣每笔都要计算手续费
 						if(task.getType() == 0) {//消费
 							execTotalFee += Fen2YuanUtil.caclFee(task.getAmount(), task.getPayFee());
 						}else {//还款
@@ -145,10 +145,11 @@ public class PayPlanServiceImpl implements PayPlanService {
 						}else {
 							execTotalFee += task.getDfFee();
 						}
-					}else if(task.getPlanType() ==2) {//后扣整数,手续费全部的收取到了第一笔中,若计划开始执行则剩余手续费余额会在计划的后扣余额中
-						PayPlan payPlan = getPayPlanByPlanId(planId);
-						execTotalFee = hkIntegerFee - payPlan.getHkFeeBalance();
 					}
+//					else if(task.getPlanType() ==2) {//后扣整数,手续费全部的收取到了第一笔中,若计划开始执行则剩余手续费余额会在计划的后扣余额中
+//						PayPlan payPlan = getPayPlanByPlanId(planId);
+//						execTotalFee = hkIntegerFee - payPlan.getHkFeeBalance();
+//					}
 				}
 				
 				//总手续费
@@ -168,6 +169,10 @@ public class PayPlanServiceImpl implements PayPlanService {
 					totalFee = hkIntegerFee;
 				}
 			}
+		}
+		PayPlan plan = getPayPlanByPlanId(planId);
+		if(execTotalFee>0&&(plan.getStatus()==1||plan.getStatus()==3)) {//执行过计划,并且不成功,要多计算一笔代付费
+			execTotalFee=execTotalFee+100;
 		}
 		feeArray[0] = totalFee;
 		feeArray[1] = execTotalFee;
