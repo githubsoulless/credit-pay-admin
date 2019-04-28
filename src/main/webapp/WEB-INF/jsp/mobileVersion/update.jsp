@@ -93,35 +93,6 @@
 					</td>
 				</tr>
 				
-				<c:if test="${mobileVersion.osType eq '1' }"><!-- 苹果包需要再上传plist和2张图片 -->
-					<tr>
-						<td class="width90"><span>plist文件：</span></td>
-						<td colspan="3">
-							<span>
-							${plistfile}&nbsp;&nbsp;&nbsp;	<input type="file" name="plistfile" id="plistfile"/>
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td class="width90"><span>icon1文件：</span></td>
-						<td colspan="3">
-							<span>
-								${icon1file}&nbsp;&nbsp;&nbsp;<input type="file" name="icon1" id="icon1"/>
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td class="width90"><span>icon2文件：</span></td>
-						<td colspan="3">
-							<span>
-								${icon2file}&nbsp;&nbsp;&nbsp;<input type="file" name="icon2" id="icon2"/>
-							</span>
-						</td>
-					</tr>
-				
-				</c:if>
-				
-				
 				<tr>
 					<td class="width90"><span>版本描述：</span></td>
 					<td colspan="3">

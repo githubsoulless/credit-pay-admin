@@ -171,7 +171,12 @@ public class MobileVersionController {
 			if(file != null && !file.isEmpty()){
 				long fileSize = file.getSize();
 				String oFileName = file.getOriginalFilename();
-				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+				String fileName = "";
+				if("1".equals(mobileVersion.getOsType())) {//苹果固定名称
+					fileName = "ios_app.ipa";
+				}else {
+					fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+				}
 				File newFile = new File(saveFilePath + fileName);
 	            if (!newFile.exists()) { // 文件夹
 	            	newFile.getParentFile().mkdirs();
@@ -185,52 +190,6 @@ public class MobileVersionController {
 	            mobileVersion.setFilePath(saveFilePath);
 			}
 			
-			if(plistfile != null && !plistfile.isEmpty()){
-				long fileSize = plistfile.getSize();
-				String oFileName = plistfile.getOriginalFilename();
-				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
-				File newFile = new File(saveFilePath + fileName);
-	            if (!newFile.exists()) { // 文件夹
-	            	newFile.getParentFile().mkdirs();
-	            	newFile.createNewFile();
-	            }
-	            // 将内存中的数据写入磁盘
-	            plistfile.transferTo(newFile);
-	            ipaDownloadPaths.put("plistPath", httpBaseUrl+fileName);
-			}
-			
-			if(icon1 != null && !icon1.isEmpty()){
-				long fileSize = icon1.getSize();
-				String oFileName = icon1.getOriginalFilename();
-				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
-				File newFile = new File(saveFilePath + fileName);
-	            if (!newFile.exists()) { // 文件夹
-	            	newFile.getParentFile().mkdirs();
-	            	newFile.createNewFile();
-	            }
-	            // 将内存中的数据写入磁盘
-	            icon1.transferTo(newFile);
-	            ipaDownloadPaths.put("icon1Path", httpBaseUrl+fileName);
-			}
-			
-			if(icon2 != null && !icon2.isEmpty()){
-				long fileSize = icon2.getSize();
-				String oFileName = icon2.getOriginalFilename();
-				String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
-				File newFile = new File(saveFilePath + fileName);
-	            if (!newFile.exists()) { // 文件夹
-	            	newFile.getParentFile().mkdirs();
-	            	newFile.createNewFile();
-	            }
-	            // 将内存中的数据写入磁盘
-	            icon2.transferTo(newFile);
-	            ipaDownloadPaths.put("icon2Path", httpBaseUrl+fileName);
-			}
-			
-			if(mobileVersion.getOsType().equals("1")) {
-				String json = JSON.toJSONString(ipaDownloadPaths);
-				mobileVersion.setDownloadUrl(json);
-			}
 			mobileVersion.setModTime(new Date());
 			mobileVersion.setOperator(userInfSeesion.getLoginId());
 			mobileVersionService.updateMobileVersion(mobileVersion);
