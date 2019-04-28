@@ -89,7 +89,12 @@ public class MobileVersionController {
 			}
 			long fileSize = file.getSize();
 			String oFileName = file.getOriginalFilename();
-			String fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+			String fileName = "";
+			if("1".equals(mobileVersion.getOsType())) {//苹果固定名称
+				fileName = "ios_app.ipa";
+			}else {
+				fileName = new IdGen().nextId() + oFileName.substring(oFileName.lastIndexOf("."));
+			}
 			File newFile = new File(saveFilePath + fileName);
             if (!newFile.exists()) { // 文件夹
             	newFile.getParentFile().mkdirs();
