@@ -103,9 +103,6 @@ table.table1 tr th{
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay2' }">${paychannel.name }</c:if></c:forEach>
 										</th>
-										<th>
-											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'qfpay' }">${paychannel.name }</c:if></c:forEach>
-										</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -185,21 +182,6 @@ table.table1 tr th{
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'yakupay2' }">
-														<c:if test="${lfr.feeRate > 0 }">
-															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%
-															<c:if test="${lfr.payFee > 0 }">
-																+<chrone:fen2Yuan amt="${lfr.payFee }"/>元/笔
-															</c:if>
-															<c:if test="${lfr.upperlimit > 0 }">
-																，封顶<chrone:fen2Yuan amt="${lfr.upperlimit }"/>元
-															</c:if>
-														</c:if>
-													</c:if>
-												</c:forEach>
-											</td>
-											<td>
-												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
-													<c:if test="${lfr.payChnlCode eq 'qfpay' }">
 														<c:if test="${lfr.feeRate > 0 }">
 															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%
 															<c:if test="${lfr.payFee > 0 }">
