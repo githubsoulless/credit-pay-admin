@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -91,20 +92,24 @@ public class LevelFeeRateController {
 		//一级代理
 		List<AgentLevel> agentLevelList = agentLevelService.getAgentLevelAll();
 		for(AgentLevel agentLevel:agentLevelList){
-			list.add(getAgentLevelFeeRate(24-agentLevel.getLevelId(), sysParam));
+			list.add(getAgentLevelFeeRate(24-agentLevel.getLevelId(), sysParam,agentLevel.getLevelName()));
 		}
 	}
 	
-	private Level getAgentLevelFeeRate(int levelId,SysParam sysParam){
+	private Level getAgentLevelFeeRate(int levelId,SysParam sysParam,String levelName){
 		Level level = new Level();
 		level.setLevelId(levelId);
 		level.setLevelType(levelId);
-		if(levelId==1){
-			level.setLevelName("一级代理");
-		}else if(levelId==2){
-			level.setLevelName("二级代理");
-		}else if(levelId==3){
-			level.setLevelName("三级代理");
+		if(StringUtils.isNotEmpty(levelName)) {
+			level.setLevelName(levelName);
+		}else {
+			if(levelId==1){
+				level.setLevelName("一级代理");
+			}else if(levelId==2){
+				level.setLevelName("二级代理");
+			}else if(levelId==3){
+				level.setLevelName("三级代理");
+			}
 		}
 		if(null != sysParam) {
 			level.setPlan_df_fee(new BigDecimal(AmountUtil.parseAmountStr2Long(sysParam.getValue()))); 
@@ -143,7 +148,7 @@ public class LevelFeeRateController {
 						levelInfo.setPlan_df_fee(new BigDecimal(AmountUtil.parseAmountStr2Long(sysParam.getValue())));
 					}
 				}else{
-					levelInfo =getAgentLevelFeeRate(levelFeeRateDTO.getLevel().getLevelId(), null);
+					levelInfo =getAgentLevelFeeRate(levelFeeRateDTO.getLevel().getLevelId(), null,null);
 				}
 				model.addAttribute("level", levelInfo);
 			}
