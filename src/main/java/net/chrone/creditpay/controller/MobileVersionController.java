@@ -50,7 +50,7 @@ public class MobileVersionController {
 	private LogConstant logConstant;
 	private String saveFilePath = PropertiseUtil.getDataFromPropertiseFile("pay", "APK_FILE_PATH");
 	private String httpBaseUrl = PropertiseUtil.getDataFromPropertiseFile("pay", "APK_HTTP_BASE_URL");
-	
+	 
 	@RequestMapping("list")
 	public String list(MobileVersion mobileVersion, String start, Model model) {
 		int starIndex = StringUtils.isEmpty(start) ? 0 : Integer.valueOf(start);
