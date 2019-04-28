@@ -351,7 +351,7 @@
   
   <select id="countAccount" parameterType="net.chrone.creditpay.model.Account" resultType="map">
   	select count(1) as count, sum(a.available) as sumAvailable, sum(a.untransfer) as sumUntransfer 
-  	from t_account a left join t_app_user b on a.owner_id=b.owner_id where 1=1 
+  	from t_account a left join t_app_user b on a.owner_id=b.owner_id where  b.user_id !='13888888888' 
   		<if test="userId !=null and userId != ''">
   			and b.user_id=#{userId}
   		</if>
@@ -362,7 +362,7 @@
   		select a.*,b.user_id as userId, b.mer_name as merName,b.account_name as accountName, c.level_name as levelName
   		from t_account a left join t_app_user b on a.owner_id=b.owner_id 
   		left join t_level_inf c on b.level_id=c.level_id
-  		where 1=1
+  		where  b.user_id !='13888888888' 
   		<if test="userId !=null and userId != ''">
   			and b.user_id=#{userId}
   		</if>
