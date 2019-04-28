@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSON;
 
 import net.chrone.creditpay.model.AgentFeeRate;
+import net.chrone.creditpay.model.AgentLevel;
 import net.chrone.creditpay.model.Level;
 import net.chrone.creditpay.model.LevelDTO;
 import net.chrone.creditpay.model.LevelFeeRate;
@@ -22,6 +23,7 @@ import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.PayChannel;
 import net.chrone.creditpay.model.SysParam;
 import net.chrone.creditpay.service.AgentFeeRateService;
+import net.chrone.creditpay.service.AgentLevelService;
 import net.chrone.creditpay.service.LevelFeeRateService;
 import net.chrone.creditpay.service.LevelService;
 import net.chrone.creditpay.service.PayChannelService;
@@ -53,6 +55,8 @@ public class LevelFeeRateController {
 	private AgentFeeRateService agentFeeRateService;
 	@Autowired
 	private PayChannelService payChannelService;
+	@Autowired
+	private AgentLevelService agentLevelService;
 
 	@RequestMapping("list")
 	public String list(Model model) {
@@ -85,8 +89,9 @@ public class LevelFeeRateController {
 			level.setListLevelFeeRate(listLevelFeeRate);
 		}
 		//一级代理
-		for(int i=3;i>=1;i--){
-			list.add(getAgentLevelFeeRate(i, sysParam));
+		List<AgentLevel> agentLevelList = agentLevelService.getAgentLevelAll();
+		for(AgentLevel agentLevel:agentLevelList){
+			list.add(getAgentLevelFeeRate(24-agentLevel.getLevelId(), sysParam));
 		}
 	}
 	

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.chrone.creditpay.mapper.AgentLevelMapper;
 import net.chrone.creditpay.model.AgentLevel;
+import net.chrone.creditpay.model.AgentLevelExample;
 import net.chrone.creditpay.service.AgentLevelService;
 
 @Service
@@ -17,7 +18,9 @@ public class AgentLevelServiceImpl implements AgentLevelService {
 
 	@Override
 	public List<AgentLevel> getAgentLevelAll() {
-		return agentLevelMapper.selectByExample(null);
+		AgentLevelExample example = new AgentLevelExample();
+		example.setOrderByClause(" level_id asc");
+		return agentLevelMapper.selectByExample(example);
 	}
 
 	@Override
