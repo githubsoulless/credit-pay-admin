@@ -90,7 +90,7 @@ function init() {
 											<td rowspan="2">等级名称</td>
 											<td>APP内显示</td>
 											<td>是否在线缴费</td>
-											<td colspan="2" style="width:260px;">推荐用户数量自动升级</td>
+											<td colspan="2" style="width:260px;">直推用户自动升级</td>
 											<!-- <td>服务费率</td> -->
 											<td>提现手续费</td>
 											<td colspan="2">还款计划允许金额(元)</td>
