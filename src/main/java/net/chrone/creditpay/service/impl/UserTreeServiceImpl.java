@@ -1,5 +1,6 @@
 package net.chrone.creditpay.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,18 @@ public class UserTreeServiceImpl implements UserTreeService {
 	
 	@Override
 	public void batchAdd(List<UserTree> treeList) {
-		userTreeMapper.batchAdd(treeList);
+		List<UserTree> tempList = new ArrayList<>();
+		for(int i=0;i<treeList.size();i++) {
+			if((i+1)%500==0) {
+				userTreeMapper.batchAdd(tempList);
+				tempList = new ArrayList<>();
+			}else {
+				tempList.add(treeList.get(i));
+			}
+		}
+		if(tempList.size()>0) {
+			userTreeMapper.batchAdd(tempList);
+		}
 	}
+	
 }
