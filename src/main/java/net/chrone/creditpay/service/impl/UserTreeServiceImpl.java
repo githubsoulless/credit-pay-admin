@@ -19,6 +19,7 @@ public class UserTreeServiceImpl implements UserTreeService {
 		List<UserTree> tempList = new ArrayList<>();
 		for(int i=0;i<treeList.size();i++) {
 			if((i+1)%500==0) {
+				tempList.add(treeList.get(i));
 				userTreeMapper.batchAdd(tempList);
 				tempList = new ArrayList<>();
 			}else {
@@ -29,5 +30,4 @@ public class UserTreeServiceImpl implements UserTreeService {
 			userTreeMapper.batchAdd(tempList);
 		}
 	}
-	
 }
