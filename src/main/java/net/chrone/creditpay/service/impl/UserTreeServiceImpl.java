@@ -18,12 +18,10 @@ public class UserTreeServiceImpl implements UserTreeService {
 	public void batchAdd(List<UserTree> treeList) {
 		List<UserTree> tempList = new ArrayList<>();
 		for(int i=0;i<treeList.size();i++) {
+			tempList.add(treeList.get(i));
 			if((i+1)%500==0) {
-				tempList.add(treeList.get(i));
 				userTreeMapper.batchAdd(tempList);
 				tempList = new ArrayList<>();
-			}else {
-				tempList.add(treeList.get(i));
 			}
 		}
 		if(tempList.size()>0) {
