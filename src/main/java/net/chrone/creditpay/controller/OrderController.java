@@ -80,7 +80,7 @@ public class OrderController {
 						if(task.getPlanType() ==0) {
 							order_.setActualAmt(task.getAmount());
 						}else if(task.getPlanType() ==1) {
-							task.setActualAmt(task.getAmount() - task.getHkFee());
+							order_.setActualAmt(task.getAmount() - task.getHkFee());
 						}else if(task.getPlanType() ==2) {
 							if(task.getTarnsGroup() ==0) {//后扣整数手续费会在第一笔中存放
 								order_.setActualAmt(task.getAmount() - task.getHkFee());
