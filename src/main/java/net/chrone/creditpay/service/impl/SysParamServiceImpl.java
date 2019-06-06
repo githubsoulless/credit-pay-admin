@@ -1,5 +1,6 @@
 package net.chrone.creditpay.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -251,24 +252,25 @@ public class SysParamServiceImpl implements SysParamService {
 			if(awardRegBeginTime != null) {
 				userAwardDetail.setRegAwardBeginTime(DateUtils.parseDate(awardRegBeginTime.getValue(), "yyyy-MM-dd HH:mm:ss"));
 			}
-			userAwardDetail.setRegAwardDiruserMoney(Integer.parseInt(awardRegisterDirUserAmount.getValue()));
-			userAwardDetail.setRegAwardAgentMoney(Integer.parseInt(awardRegisterAgentAmount.getValue()));
+			userAwardDetail.setRegAwardDiruserMoney(new BigDecimal(Double.parseDouble(awardRegisterDirUserAmount.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
+			userAwardDetail.setRegAwardAgentMoney(new BigDecimal(Double.parseDouble(awardRegisterAgentAmount.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
 
 			userAwardDetail.setFastpayAwardType(Integer.parseInt(awardFastPayType.getValue()));
 			if(awardFastPayBeginTime != null) {
 				userAwardDetail.setFastpayAwardBeginTime(DateUtils.parseDate(awardFastPayBeginTime.getValue(), "yyyy-MM-dd HH:mm:ss"));
 			}
-			userAwardDetail.setFastpayAwardTotal(Integer.parseInt(awardFastPayTotal.getValue()));
-			userAwardDetail.setFastpayAwardDiruserMoney(Integer.parseInt(awardFastPayDirUserAmount.getValue()));
-			userAwardDetail.setFastpayAwardAgentMoney(Integer.parseInt(awardFastPayAgentAmount.getValue()));
+			userAwardDetail.setFastpayAwardTotal(new BigDecimal(Double.parseDouble(awardFastPayTotal.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
+			userAwardDetail.setFastpayAwardDiruserMoney(new BigDecimal(Double.parseDouble(awardFastPayDirUserAmount.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
+			
+			userAwardDetail.setFastpayAwardAgentMoney(new BigDecimal(Double.parseDouble(awardFastPayAgentAmount.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
 			
 			userAwardDetail.setWanmeiAwardType(Integer.parseInt(awardWMFastPayType.getValue()));
 			if(awardWMFastPayBeginTime != null) {
 				userAwardDetail.setWanmeiAwardBeginTime(DateUtils.parseDate(awardWMFastPayBeginTime.getValue(), "yyyy-MM-dd HH:mm:ss"));
 			}
-			userAwardDetail.setWanmeiAwardTotal(Integer.parseInt(awardWMFastPayTotal.getValue()));
-			userAwardDetail.setWanmeiAwardDiruserMoney(Integer.parseInt(awardWMFastPayDirUserAmount.getValue()));
-			userAwardDetail.setWanmeiAwardAgentMoney(Integer.parseInt(awardWMFastPayAgentAmount.getValue()));
+			userAwardDetail.setWanmeiAwardTotal(new BigDecimal(Double.parseDouble(awardWMFastPayTotal.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
+			userAwardDetail.setWanmeiAwardDiruserMoney(new BigDecimal(Double.parseDouble(awardWMFastPayDirUserAmount.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
+			userAwardDetail.setWanmeiAwardAgentMoney(new BigDecimal(Double.parseDouble(awardWMFastPayAgentAmount.getValue())*100).setScale(0,BigDecimal.ROUND_HALF_DOWN).intValue());
 			
 			userAwardDetail.setCreateUser(sysParamDTO.getCreateUser());
 			userAwardDetail.setCreateTime(new Date());

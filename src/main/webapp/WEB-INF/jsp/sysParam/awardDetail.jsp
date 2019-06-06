@@ -197,8 +197,8 @@ $(function(){
 								<span id="awardRegBeginTimeOuter">&nbsp;&nbsp;开始生效时间<input type="text" id="awardRegBeginTime" value="" disabled="disabled"></span>
 							</div>
 							<div>
-								直邀奖励：<input type="text" id="awardRegisterDirUserAmount" name="awardRegisterDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
-								代理奖励：<input type="text" id="awardRegisterAgentAmount" name="awardRegisterAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								直邀奖励：<input type="text" id="awardRegisterDirUserAmount" name="awardRegisterDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
+								代理奖励：<input type="text" id="awardRegisterAgentAmount" name="awardRegisterAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
 							</div>
 						</div>
 						
@@ -212,14 +212,14 @@ $(function(){
 									<option value="2">累积刷卡奖励</option>
 								</select>
 								<span id="awardFastPayTotal_outer" style="display:none;">
-									&nbsp;&nbsp;累积金额：<input type="text" id="awardFastPayTotal" name="awardFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+									&nbsp;&nbsp;累积金额：<input type="text" id="awardFastPayTotal" name="awardFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
 								</span>
 								<span id="awardFastPayBeginTimeOuter">&nbsp;&nbsp;开始生效时间<input type="text" id="awardFastPayBeginTime" value="" disabled="disabled"></span>
 								
 							</div>
 							<div>
-								直邀奖励：<input type="text" id="awardFastPayDirUserAmount" name="awardFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
-								代理奖励：<input type="text" id="awardFastPayAgentAmount" name="awardFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								直邀奖励：<input type="text" id="awardFastPayDirUserAmount" name="awardFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
+								代理奖励：<input type="text" id="awardFastPayAgentAmount" name="awardFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
 							</div>
 						</div>
 						
@@ -233,13 +233,13 @@ $(function(){
 									<option value="2">累积刷卡奖励</option>
 								</select>
 								<span id="awardWMFastPayTotal_outer" style="display: none;">
-									&nbsp;&nbsp;累积金额：<input type="text" id="awardWMFastPayTotal"  name="awardWMFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+									&nbsp;&nbsp;累积金额：<input type="text" id="awardWMFastPayTotal"  name="awardWMFastPayTotal" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
 								</span>
 								<span id="awardWMFastPayBeginTimeOuter">&nbsp;&nbsp;开始生效时间<input type="text" id="awardWMFastPayBeginTime" value="" disabled="disabled" ></span>
 							</div>
 							<div>
-								直邀奖励：<input type="text" id="awardWMFastPayDirUserAmount" name="awardWMFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
-								代理奖励：<input type="text" id="awardWMFastPayAgentAmount" name="awardWMFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d]/g,'')">元
+								直邀奖励：<input type="text" id="awardWMFastPayDirUserAmount" name="awardWMFastPayDirUserAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
+								代理奖励：<input type="text" id="awardWMFastPayAgentAmount" name="awardWMFastPayAgentAmount" value="0" size="10"  oninput = "value=value.replace(/[^\d.]/g,'')">元
 							</div>
 						</div>
 						<div class="align-center divbtn"></div>
@@ -297,26 +297,26 @@ $(function(){
 												<c:if test="${l.regAwardType==1 }">注册奖励</c:if>
 												<c:if test="${l.regAwardType==2 }">实名认证奖励</c:if>
 											</td>
-											<td>${l.regAwardDiruserMoney}</td>
-											<td>${l.regAwardAgentMoney}</td>
+											<td><chrone:fen2Yuan amt="${l.regAwardDiruserMoney}"/></td>
+											<td><chrone:fen2Yuan amt="${l.regAwardAgentMoney}"/></td>
 											<td><fmt:formatDate value="${l.regAwardBeginTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td>
 												<c:if test="${l.fastpayAwardType==0 }">无任何奖励</c:if>
 												<c:if test="${l.fastpayAwardType==1 }">首刷奖励</c:if>
 												<c:if test="${l.fastpayAwardType==2 }">累积奖励</c:if>
 											</td>
-											<td>${l.fastpayAwardDiruserMoney}</td>
-											<td>${l.fastpayAwardAgentMoney}</td>
-											<td>${l.fastpayAwardTotal}</td>
+											<td><chrone:fen2Yuan amt="${l.fastpayAwardDiruserMoney}"/></td>
+											<td><chrone:fen2Yuan amt="${l.fastpayAwardAgentMoney}"/></td>
+											<td><chrone:fen2Yuan amt="${l.fastpayAwardTotal}"/></td>
 											<td><fmt:formatDate value="${l.fastpayAwardBeginTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td>
 												<c:if test="${l.wanmeiAwardType==0 }">无任何奖励</c:if>
 												<c:if test="${l.wanmeiAwardType==1 }">首刷奖励</c:if>
 												<c:if test="${l.wanmeiAwardType==2 }">累积奖励</c:if>
 											</td>
-											<td>${l.wanmeiAwardDiruserMoney}</td>
-											<td>${l.wanmeiAwardAgentMoney}</td>
-											<td>${l.wanmeiAwardTotal}</td>
+											<td><chrone:fen2Yuan amt="${l.wanmeiAwardDiruserMoney}"/></td>
+											<td><chrone:fen2Yuan amt="${l.wanmeiAwardAgentMoney}"/></td>
+											<td><chrone:fen2Yuan amt="${l.wanmeiAwardTotal}"/></td>
 											<td><fmt:formatDate value="${l.wanmeiAwardBeginTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td><fmt:formatDate value="${l.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td>${l.createUser}</td>
