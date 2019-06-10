@@ -77,6 +77,22 @@ function detail(userId){
 				}
 	});
 }
+function audit(userId){
+	var url = "url:${ctx}/appUser/audit?userId="+userId+"&a="+encodeURIComponent(new Date());
+	$.dialog({content:url ,
+		        title:'用户证件审核',
+		        lock: true,
+				background: '#FFF', /* 背景色 默认的遮罩背景色为:#DCE2F1浅蓝护眼色 */
+				max: false,
+				height:500,
+				width:1000,
+				min: false,
+				opacity: 0.5,	/* 透明度 */
+				close: function(){
+					addClose();
+				}
+	});
+}
 function addClose(){
 	if(document.getElementById("closeTp").value=="1"){
 		document.getElementById("searchForm").submit();
@@ -176,6 +192,15 @@ function exportExcel(){
 	  					   	<option value="2" ${appuser.certStatus=='2'?'selected="selected"':'' }>认证失败</option>
 	  					</select> 
 					</div>
+					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label padding-left" for="certStatus">审核状态：</label>
+						<select id="auditStatus" name="auditStatus" class="input-sm">
+	  					   	<option value="">全部</option>
+	  					   	<option value="0" ${appuser.auditStatus==0?'selected="selected"':'' }>待审核</option>
+	  					   	<option value="1" ${appuser.auditStatus==1?'selected="selected"':'' }>已通过</option>
+	  					   	<option value="2" ${appuser.auditStatus==2?'selected="selected"':'' }>未通过</option>
+	  					</select> 
+					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
 						
@@ -207,6 +232,7 @@ function exportExcel(){
 										<th>等级</th>
 										<th>状态</th>
 										<th>实名认证</th>
+										<th>审核状态</th>
 										<th>注册时间</th>
 										<th>最后登录时间</th>
 										<th>信用卡数量</th>
@@ -243,6 +269,11 @@ function exportExcel(){
 												<c:if test="${l.certStatus == 1 }">已认证</c:if>
 												<c:if test="${l.certStatus == 2 }">认证失败</c:if>
 											</td>
+											<td>
+												<c:if test="${l.auditStatus == 0 }">待审核</c:if>
+												<c:if test="${l.auditStatus == 1 }">已通过</c:if>
+												<c:if test="${l.auditStatus == 2 }">未通过</c:if>
+											</td>
 											<td><fmt:formatDate value="${l.rowCrtTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td ><fmt:formatDate value="${l.lastLoginTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 											<td >${l.cardNum }</td>
@@ -270,6 +301,11 @@ function exportExcel(){
 													<chrone:isAuth authCode="100000102">
 					                            		<a href="javascript:detail('${ l.userId}')">查看</a>&nbsp;&nbsp;
 					                            	</chrone:isAuth>
+													<chrone:isAuth authCode="100000106">
+														<c:if test="${l.certStatus == 1 && l.auditStatus ==0}">
+						                            		<a href="javascript:audit('${ l.userId}')">证件审核</a>&nbsp;&nbsp;
+														</c:if>
+					                            	</chrone:isAuth>
 					                            	<chrone:isAuth authCode="100000101">
 					                            		<a href="javascript:update('${ l.userId}')">修改</a>&nbsp;&nbsp;
 					                            	</chrone:isAuth>
@@ -278,7 +314,7 @@ function exportExcel(){
 										</tr>
 									</c:forEach>
 									<tr>
-										<td colspan="17" align="left">查询结果：${page.rowTotal }</td>
+										<td colspan="18" align="left">查询结果：${page.rowTotal }</td>
 									</tr>
 								</tbody>
 							</table>
@@ -307,6 +343,7 @@ function exportExcel(){
 	<input type="hidden"  name="agentId2" value="${appuser.agentId2}"></input>
 	<input type="hidden"  name="agentId4" value="${appuser.agentId4}"></input>
 	<input type="hidden"  name="agentLevel" value="${appuser.agentLevel}"></input>
+	<input type="hidden"  name="auditStatus" value="${appuser.auditStatus}"></input>
 </form>
 <input type="hidden"  id="closeTp"/>
 </body>

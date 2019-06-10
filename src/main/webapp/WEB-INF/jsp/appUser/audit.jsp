@@ -34,9 +34,55 @@ var api = frameElement.api, W = api.opener, D = W.document; // api.opener 为载
 function cancelVal() {
 	api.close();
 }
+function subForm(){
+	if($("#loginId").val()==""){
+		alert("登录账户不能为空");
+		$("#loginId").focus();
+		return;
+	}
+	 var auditStatus=$('input:radio[name="auditStatus"]:checked').val();
+     if(auditStatus==null){
+         alert("请选择审核状态");
+         return ;
+     }
+	if(auditStatus==2&&$("#auditDesc").val()==""){
+		alert("请填写审核不通过原因");
+        return ;
+	}
+     
+	
+	W.showWait();
+	document.getElementById("subForm").submit();
+}
+function isShowDesc(status){
+	if(status==1){
+		$("#auditDescTr").hide();
+	}else{
+		$("#auditDescTr").show();
+	}
+}
+function callBack(result) {
+	W.hideWait();
+	if(result=="success"){
+		alert("操作成功!");
+		D.getElementById('closeTp').value = "1";
+		api.close();
+	}else{
+		alert("操作失败,"+result+"!");
+	}
+}
+function init(){
+	var result="${message}";
+	if(result!=""){
+		parent.callBack(result);
+	}
+}
 </script>
 </head>
-<body>
+<body onload="init()">
+<form action="${ctx}/appUser/audit" id="subForm" method="post" target="hidden_frame">
+<input name="userId" type="hidden" value="${appuser.userId }"/>
+<input name="type" type="hidden" value="update"/>
 <div class="begin">
 <table style="white-space: nowrap;">
 <tr><td colspan="6" class="tdaa" >基本信息</td></tr>
@@ -55,13 +101,13 @@ function cancelVal() {
 					<td><fmt:formatDate value="${appuser.rowCrtTs}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				</tr>
 				<tr>
-					<td class="width90"><span>昵称：</span></td>
-					<td><span>${appuser.merName }</span></td>
+					<td class="width90"><span>登录账户：</span></td>
+					<td><span>${appuser.loginId}</span></td>
 					<td class="width90"><span>真实姓名：</span></td>
-					<td><span><input disabled="disabled"  class="ipt" type="text" id="accountName"  name="accountName" maxlength="15"  value="${appuser.accountName}" />
+					<td><span>${appuser.accountName}
 					</span></td>
 					<td class="width90"><span>身份证：</span></td>
-					<td><span><input disabled="disabled"  class="ipt" type="text" id="certNo"  name="certNo" maxlength="15"  value="${appuser.certNo}" />
+					<td><span>${appuser.certNo}
 					</span></td>
 				</tr>
 				<tr>
@@ -102,6 +148,14 @@ function cancelVal() {
 					<td class="width90">联行号：<span></span></td>
 					<td><span>${appuser.pmsBankNo }</span></td>
 				</tr>
+				<tr>
+					<td class="width90"><span>预留手机：</span></td>
+					<td><span>${appuser.mobile}</span></td>
+					<td class="width90"><span></span></td>
+					<td><span> </span></td>
+					<td class="width90"><span></span></td>
+					<td><span></span></td>
+				</tr>
 				<tr><td colspan="6" >&nbsp;</td></tr>
 				<tr><td colspan="6" class="tdaa" >照片信息</td></tr>
 				<tr>
@@ -141,22 +195,20 @@ function cancelVal() {
 					<td colspan="2" align="center"><span>身份证背面</span></td>
 					<td colspan="2" align="center"><span>手持合照</span></td>
 				</tr>
-				<tr><td colspan="6" class="tdaa" >资料审核明细</td></tr>
+				<tr><td colspan="6" class="tdaa" >资料审核</td></tr>
 				<tr>
-					<td class="width90"><span>审核状态：</span></td>
-					<td><span>
-						<c:if test="${appuser.auditStatus == 0 }">待审核</c:if>
-						<c:if test="${appuser.auditStatus == 1 }">已通过</c:if>
-						<c:if test="${appuser.auditStatus == 2 }">未通过</c:if>
+					<td colspan="6" align="center"><span>审核状态:&nbsp; <input type="radio" onclick="isShowDesc(1)" name="auditStatus" value="1">审核通过&nbsp;
+					<input type="radio" name="auditStatus" onclick="isShowDesc(2)"  value="2">审核不通过</span></td>
+				</tr>
+				<tr id="auditDescTr" style="display: none;">
+					<td colspan="6" align="center" valign="middle"><span>失败原因:&nbsp; 
+						<textarea rows="3" cols="20" name="auditDesc" id="auditDesc"></textarea>
 					</span></td>
-					<td class="width90"><span>不通过原因：</span></td>
-					<td><span><c:if test="${appuser.auditStatus == 2 }">${ appuser.auditDesc}</c:if></span></td>
-					<td class="width90"><span></span></td>
-					<td><span></span></td>
 				</tr>
 				<tr class="textcenter">
 					<td colspan="6">
-						<button class="btn2" onclick="cancelVal()">关闭</button>
+						<button class="btn1" type="button" onclick="subForm()">保存</button>
+						<button class="btn2" onclick="cancelVal()">取消</button>
 					</td>
 				</tr>
 
@@ -167,6 +219,7 @@ function cancelVal() {
 				<img id="bigimg" style="border:5px solid #fff;" src="" />
 			</div>
 		</div>
+	</form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 </body>
 <script type="text/javascript">

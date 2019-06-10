@@ -146,6 +146,33 @@ public class AppUserController {
 		model.addAttribute("message", message);
 		return "appUser/update";
 	}
+	
+	@RequestMapping("audit")
+	public String audit(AppUser appuser, String type, Model model, HttpServletRequest request) {
+		String message = "";
+		try {
+			if ("update".equals(type)) {
+				MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+				appuser.setRecUpdTs(new Date());
+				appuser.setRecUpdUsr(userInfSeesion.getLoginId());
+				appUserService.update(appuser);
+				message = "success";
+			} else {
+				appuser = appUserService.getAppUserByUserId(appuser.getUserId());
+				if (StringUtils.isNotEmpty(appuser.getPmsBankNo())) {
+					appuser.setPmsBankName(pmsBankInfService.find(appuser.getPmsBankNo()).getFullName());
+				}
+				model.addAttribute("levelList", levelService.getLevelAll());
+				model.addAttribute("agentList", agentService.getAgentAll());
+				model.addAttribute("appuser", appuser);
+			}
+		} catch (Exception e) {
+			message = "系统异常";
+			e.printStackTrace();
+		}
+		model.addAttribute("message", message);
+		return "appUser/audit";
+	}
 
 	public void writeLog(AppUser appuser, HttpServletRequest request) {
 		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
