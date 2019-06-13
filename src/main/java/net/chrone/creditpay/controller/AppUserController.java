@@ -31,6 +31,7 @@ import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.UserTree;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AppUserService;
+import net.chrone.creditpay.service.DayTransService;
 import net.chrone.creditpay.service.LevelService;
 import net.chrone.creditpay.service.PmsBankInfService;
 import net.chrone.creditpay.service.UserTreeService;
@@ -67,6 +68,9 @@ public class AppUserController {
 	private UserTreeService userTreeService;
 	@Autowired
 	private AppUserMapper appUserMapper;
+	@Autowired
+	private DayTransService dayTransService;
+	
 	private static Logger logger = Logger.getLogger(AppUserController.class);
 	@RequestMapping("list")
 	public String list(AppUser appuser, String start, Model model) {
@@ -358,6 +362,20 @@ public class AppUserController {
 				userTreeService.batchAdd(treeList);
 				treeList = new ArrayList<>();
 			}
+		}
+	}
+	
+	/**
+	 * 生成用户关系
+	 */
+	@RequestMapping("genUserOrder")
+	public void genUserOrder() {		
+		//首次生成
+		List<AppUser> userList = appUserMapper.selectByExample(null);
+		List<String> strs = DateUtils.getBetweenDates("20180101", DateUtils.getCurrentDate());
+		for(String s:strs) {
+			System.out.println(s);
+			dayTransService.dayUserOrderStatics(s,userList);
 		}
 	}
 	

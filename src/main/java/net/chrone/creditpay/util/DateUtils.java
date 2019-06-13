@@ -3,8 +3,10 @@ package net.chrone.creditpay.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DateUtils {
 	
@@ -319,6 +321,31 @@ public class DateUtils {
 		}else {
 			return 0;
 		}
+	}
+	
+	/**
+	 * 获取两个日期之间的日期
+	 * @param start 开始日期
+	 * @param end 结束日期
+	 * @return 日期集合
+	 */
+	public static List<String> getBetweenDates(String startDt, String endDt) {
+	    List<String> result = new ArrayList<String>();
+	    try {
+			Calendar tempStart = Calendar.getInstance();
+			tempStart.setTime(DateUtils.parseDate(startDt, "yyyyMMdd"));
+			tempStart.add(Calendar.DAY_OF_YEAR, 1);
+
+			Calendar tempEnd = Calendar.getInstance();
+			tempEnd.setTime(DateUtils.parseDate(endDt, "yyyyMMdd"));
+			while (tempStart.before(tempEnd)) {
+				result.add(DateUtils.formatDate(tempStart.getTime(), "yyyyMMdd"));
+				tempStart.add(Calendar.DAY_OF_YEAR, 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    return result;
 	}
     
     public static void main(String[] args) {
