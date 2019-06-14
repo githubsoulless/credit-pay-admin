@@ -92,10 +92,10 @@ table.table1 tr th{
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'reapalfast' }">${paychannel.name }</c:if></c:forEach>
 										</th>
 										<th>
-											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yspay' }">${paychannel.name }</c:if></c:forEach>
+											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong' }">${paychannel.name }</c:if></c:forEach>
 										</th>
 										<th>
-											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yspay2' }">${paychannel.name }</c:if></c:forEach>
+											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong2' }">${paychannel.name }</c:if></c:forEach>
 										</th>
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay' }">${paychannel.name }</c:if></c:forEach>
@@ -136,7 +136,7 @@ table.table1 tr th{
 											</td>
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
-													<c:if test="${lfr.payChnlCode eq 'yspay' }">
+													<c:if test="${lfr.payChnlCode eq 'tenfutong' }">
 														<c:if test="${lfr.feeRate > 0 }">
 															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%
 															<c:if test="${lfr.payFee > 0 }">
@@ -151,7 +151,7 @@ table.table1 tr th{
 											</td>
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
-													<c:if test="${lfr.payChnlCode eq 'yspay2' }">
+													<c:if test="${lfr.payChnlCode eq 'tenfutong2' }">
 														<c:if test="${lfr.feeRate > 0 }">
 															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%
 															<c:if test="${lfr.payFee > 0 }">
