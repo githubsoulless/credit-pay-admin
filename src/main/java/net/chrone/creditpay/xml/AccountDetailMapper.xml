@@ -603,7 +603,9 @@
 
 	<sql id="where_page">
 		<where>
-		 and  b.user_id !='13888888888' 
+		<if test="ownerId ==null or ownerId ==''" >
+			 and  b.user_id !='13888888888' 
+		</if>
 			<if test="accountLogId !=null and accountLogId !=''">
 				and a.account_log_id=#{accountLogId}
 			</if>

@@ -20,7 +20,7 @@
         </javaClientGenerator> 
  
 	
-	<table schema=""  tableName="t_app_user" domainObjectName="AppUser"  enableSelectByExample="true"
+	<table schema=""  tableName="t_day_trans" domainObjectName="DayTrans"  enableSelectByExample="true"
 			enableDeleteByExample="true" enableCountByExample="true"
 			enableUpdateByExample="true">
 			<property name="useActualColumnNames" value="false" />
