@@ -123,6 +123,8 @@ function queryFee(){
 							<option value="yakupay">雅酷</option>
 							<option value="yspay2">银盛2</option>
 							<option value="yakupay2">雅酷2</option>
+							<option value="tenfutong">腾付通</option>
+							<option value="tenfutong2">腾付通2</option>
 						</select>
 					</span></td>
 				</tr>	
@@ -136,7 +138,6 @@ function queryFee(){
 				</td>
 				<td></td>
 				</tr>	
-				
 				<tr class="textcenter">
 					<td colspan="4">
 						<button class="btn1" type="button" onclick="queryFee()">查询手续费</button>
