@@ -87,7 +87,8 @@ table.table1 tr th{
 								<thead>
 									<tr>
 										<th>等级名称</th>
-										<th>还款服务费</th>
+										<th>完美还款服务费</th>
+										<th>极速还款服务费</th>
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'reapalfast' }">${paychannel.name }</c:if></c:forEach>
 										</th>
@@ -113,6 +114,15 @@ table.table1 tr th{
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'reapal' }">
+														<c:if test="${lfr.feeRate > 0 }">
+															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%+<chrone:fen2Yuan amt="${lfr.payFee }"/>元/笔
+														</c:if>
+													</c:if>
+												</c:forEach>
+											</td>
+											<td>
+												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
+													<c:if test="${lfr.payChnlCode eq 'hwpay' }">
 														<c:if test="${lfr.feeRate > 0 }">
 															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%+<chrone:fen2Yuan amt="${lfr.payFee }"/>元/笔
 														</c:if>

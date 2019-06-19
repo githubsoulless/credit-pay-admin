@@ -131,11 +131,25 @@ table tr td{
 				</tr>
 				
 				<tr>
-					<td class="width90"><span>RB完美还款：</span></td>
+					<td class="width90"><span>完美还款：</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
 								<c:if test="${lfr.payChnlCode eq 'reapal' }">
+									<input name="levelFeeRates[${i.index }].id" value="${lfr.id }" type="hidden" class="ipt" />
+									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate_reapal" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
+									单笔代付费<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee_reapal" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
+								</c:if>
+							</c:forEach>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="width90"><span>极速还款：</span></td>
+					<td>
+						<span>
+							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
+								<c:if test="${lfr.payChnlCode eq 'hwpay' }">
 									<input name="levelFeeRates[${i.index }].id" value="${lfr.id }" type="hidden" class="ipt" />
 									费率<input name="levelFeeRates[${i.index }].feeRate" id="feeRate_reapal" value='<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />%，
 									单笔代付费<input name="levelFeeRates[${i.index }].payFeeFj" id="payFee_reapal" value='<chrone:fen2Yuan amt="${lfr.payFee }"/>' type="text" class="input-sm" maxlength="12" onkeypress="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[/+/-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[/+/-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />元/笔
