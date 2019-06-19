@@ -22,6 +22,8 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String YSPAY2="yspay2";//银盛
 	public final static String YAKUPAY="yakupay";//银盛
 	public final static String YAKUPAY2="yakupay2";//银盛
+	public final static String TENFUTONG="tenfutong";//腾付通
+	public final static String TENFUTONG2="tenfutong2";//腾付通2
 	
 	
 	/**
@@ -71,8 +73,12 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
+		}else if(TENFUTONG.equals(code) || TENFUTONG2.equals(code)) {
+			Map<String, String> resMap = ChroneApi.agentPayByTenfutong(order, ConfigReader.getConfig("chronePayOrgId"), ConfigReader.getConfig("chronePayPriKey"));
+			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+				resultMap.put("status", "1");//成功
+			}
 		}
-		
 		else{
 			logger.error("fastPay_df 未找到通道");
 		}
