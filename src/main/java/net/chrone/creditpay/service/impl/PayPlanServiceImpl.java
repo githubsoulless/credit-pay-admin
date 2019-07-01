@@ -2,6 +2,7 @@ package net.chrone.creditpay.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +16,13 @@ import net.chrone.creditpay.mapper.PayPlanTaskMapper;
 import net.chrone.creditpay.model.CreditRootBank;
 import net.chrone.creditpay.model.PayPlan;
 import net.chrone.creditpay.model.PayPlanDCStatisticsDTO;
+import net.chrone.creditpay.model.PayPlanExample;
 import net.chrone.creditpay.model.PayPlanTask;
 import net.chrone.creditpay.model.PayPlanTaskExample;
 import net.chrone.creditpay.model.RootBank;
 import net.chrone.creditpay.service.PayPlanService;
 import net.chrone.creditpay.service.RootBankService;
+import net.chrone.creditpay.util.CHException;
 import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.Fen2YuanUtil;
 
@@ -180,4 +183,40 @@ public class PayPlanServiceImpl implements PayPlanService {
 		return feeArray;
 	}
 
+	/**
+	 * 继续执行计划
+	 * @param planId
+	 */
+	@Override
+	public void continuePayPlan(String planId) {
+		//继续计划
+		PayPlan payPlan = new PayPlan();
+		payPlan.setPlanId(planId);
+		payPlan.setStatus(0);//进行中
+		payPlan.setRecUpdTs(new Date());
+		PayPlanExample example = new PayPlanExample();
+		example.createCriteria()
+		.andPlanIdEqualTo(planId)
+		.andStatusEqualTo(4);
+		int pres = payPlanMapper.updateByExampleSelective(payPlan, example);
+		if(pres!=1){
+			throw new CHException("216","计划不为待处理,不能继续执行");
+		}
+		//继续任务
+		PayPlanTask payPlanTask = new PayPlanTask();
+		payPlanTask.setPlanId(planId);
+		payPlanTask.setStatus(0);//进行中
+		payPlanTask.setTransBatch("");
+		payPlanTask.setRemark("");
+		payPlanTask.setRecUpdTs(new Date());
+		PayPlanTaskExample payPlanTaskExample = new PayPlanTaskExample();
+		payPlanTaskExample.createCriteria()
+		.andPlanIdEqualTo(planId)
+		.andStatusEqualTo(1);//失败
+		int tres = payPlanTaskMapper.updateByExampleSelective(payPlanTask, payPlanTaskExample);
+		if(tres<1){
+			throw new CHException("500","系统异常");
+		}
+	}
+	
 }

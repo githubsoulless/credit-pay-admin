@@ -31,4 +31,6 @@ public interface PayPlanService {
 	 * @return 返回一个长度为3的数组 array[0]=总手续费  array[1]己执行手续费 array[2]未执行手续费
 	 */
 	Integer[] calcTaskListFees(String planId);
+
+	void continuePayPlan(String planId);
 }

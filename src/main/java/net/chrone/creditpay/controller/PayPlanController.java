@@ -1,22 +1,30 @@
 package net.chrone.creditpay.controller;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.model.PayPlan;
 import net.chrone.creditpay.model.PayPlanTask;
 import net.chrone.creditpay.service.PayPlanService;
 import net.chrone.creditpay.service.PayPlanTaskService;
+import net.chrone.creditpay.util.CHException;
 import net.chrone.creditpay.util.Constants;
 import net.chrone.creditpay.util.DateUtils;
+import net.chrone.creditpay.util.LogWriter;
 import net.chrone.creditpay.util.MyPage;
 
 /**
@@ -100,6 +108,43 @@ public class PayPlanController {
 		model.addAttribute("reduceFee", feesArray[2]);
 		
 		return "payPlan/detail"; 
+	}
+	
+	/**
+	 * 继续执行计划
+	 */
+	@RequestMapping("continuePayPlan")
+	public void checkPwd(String planIdStr,HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String message="";
+		try {
+			if(StringUtils.isEmpty(planIdStr)){
+				throw new CHException("参数为空");
+			}
+			String[] planIds = planIdStr.split("\\,");
+			
+			if(planIds.length==0) {
+				throw new CHException("参数为空");
+			}
+			for(int i=0;i<planIds.length;i++) {
+				try {
+					payPlanService.continuePayPlan(planIds[i]);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			message="true";
+		} catch (CHException e) {
+			message=e.getErrInfo();
+			LogWriter.error(e.getErrInfo());
+		} catch (Exception e) {
+			message="系统异常";
+			e.printStackTrace();
+		}finally{
+			LogWriter.error("============>"+message);
+			OutputStream out =response.getOutputStream();
+			out.write(message.getBytes("UTF-8"));
+			out.flush();
+		}
 	}
 
 }
