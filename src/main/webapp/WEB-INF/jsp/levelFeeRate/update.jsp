@@ -160,7 +160,9 @@ table tr td{
 				</tr>
 				
 				<tr>
-					<td class="width90"><span>RB快捷：</span></td>
+					<td class="width90"><span>
+					 <c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'reapalfast' }">${paychannel.name }：</c:if></c:forEach>
+					 </span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
@@ -176,7 +178,9 @@ table tr td{
 				</tr>
 				
 				<tr>
-					<td class="width90"><span>TFT快捷：</span></td>
+					<td class="width90"><span>
+					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong' }">${paychannel.name }：</c:if></c:forEach>
+					</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
@@ -191,7 +195,9 @@ table tr td{
 					</td>
 				</tr>
 				<tr>
-					<td class="width90"><span>TFT2快捷：</span></td>
+					<td class="width90"><span>
+					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong2' }">${paychannel.name }：</c:if></c:forEach>
+					</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
@@ -206,7 +212,9 @@ table tr td{
 					</td>
 				</tr>
 				<tr>
-					<td class="width90"><span>YAKUPAY快捷：</span></td>
+					<td class="width90"><span>
+					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay' }">${paychannel.name }：</c:if></c:forEach>
+					</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">
@@ -221,7 +229,9 @@ table tr td{
 					</td>
 				</tr>
 				<tr>
-					<td class="width90"><span>YAKUPAY2快捷：</span></td>
+					<td class="width90"><span>
+					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay2' }">${paychannel.name }：</c:if></c:forEach>
+					</span></td>
 					<td>
 						<span>
 							<c:forEach items="${level.listLevelFeeRate }" varStatus="i" var="lfr">

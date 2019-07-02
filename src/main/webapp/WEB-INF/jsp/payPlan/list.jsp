@@ -55,6 +55,75 @@ function detail(planId){
 				}
 	});
 }
+
+function continuePayPlan(planId){
+	if(!confirm('确认继续执行计划['+planId+']吗?')){
+		return;
+	}
+	$.ajax({
+		type : "POST",
+		dataType : "text",
+		async : false,
+		beforeSend : function(XHR) {
+			showWait();
+		},
+		url : "${ctx}/payPlan/continuePayPlan",
+		data : "planIdStr="+planId,
+		success : function(msg) {
+			hideWait();
+			if (msg == 'true') {
+				alert("操作成功!");
+				window.location.reload(true);
+				return;
+			}
+		}
+	});
+}
+
+function continuePayPlaAll(){
+	var planIds="";
+	 $.each($('input[name="planIdStr"]:checked'),function(){
+		 planIds+=$(this).val()+","
+     });
+	if(planIds==''){
+		alert("最少选择一个需要执行的计划");
+		return;
+	}
+	if(!confirm('确认继续执行计划['+planIds+']吗?')){
+		return;
+	}
+	$.ajax({
+		type : "POST",
+		dataType : "text",
+		async : false,
+		beforeSend : function(XHR) {
+			showWait();
+		},
+		url : "${ctx}/payPlan/continuePayPlan",
+		data : "planIdStr="+planIds,
+		success : function(msg) {
+			hideWait();
+			if (msg == 'true') {
+				alert("操作成功!");
+				window.location.reload(true);
+				return;
+			}
+		}
+	});
+}
+
+function selectAll(){
+	if ($("#selectAll").attr("checked")) {
+		$("input[name='planIdStr']").each(function() {
+			if ($(this).attr("disabled") != "disabled") {
+				$(this).attr("checked", true);
+			}
+		})
+	} else {
+		$("input[name='planIdStr']").attr("checked", false);
+	}
+}
+
 </script>
 <style type="text/css">
 table.table1{
@@ -116,6 +185,9 @@ table.table1 tr th{
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
 					</div>
+					<chrone:isAuth authCode="300000102">
+						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="continuePayPlaAll()">批量继续执行</button>
+					</chrone:isAuth>
 				</form>
 			</div>
 		</div>
@@ -132,6 +204,9 @@ table.table1 tr th{
 								class="table table1 table-striped table-bordered table-hover">
 								<thead>
 									<tr>
+										<chrone:isAuth authCode="300000102">
+										<th><input type="checkbox" id="selectAll" onclick="selectAll()" />全选</th>
+										</chrone:isAuth>
 										<th>序号</th>
 										<th>还款计划单ID</th>
 										<th>信用卡号</th>
@@ -150,12 +225,16 @@ table.table1 tr th{
 										<th>已消费/预计笔数</th>
 										<th>已还款/预计笔数</th>
 										<th>备注</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
 									<c:forEach items="${list }" varStatus="i" var="l">
 										<tr>
+										<chrone:isAuth authCode="300000102">
+											<td><input type="checkbox" name="planIdStr" value="${l.planId}" ${l.status==4?'':'disabled="disabled"' }  /> </td>
+										</chrone:isAuth>
 											<td>${i.index+1}</td>
 											<td>
 												<chrone:isAuth authCode="300000101">
@@ -190,9 +269,19 @@ table.table1 tr th{
 											<td >${l.successXfCount}/${l.xfNum }</td>
 											<td >${l.successPayCount}/${l.payNum }</td>
 											<td >${l.remark }</td>
+											<td >
+											<chrone:isAuth authCode="300000102">
+												<c:if test="${l.status==4 }">
+													<a href="javascript:continuePayPlan('${l.planId}')">继续执行</a>
+												</c:if>
+											</chrone:isAuth>
+											</td>
 										</tr>
 									</c:forEach>
 									<tr>
+										<chrone:isAuth authCode="300000102">
+										<td ></td>
+										</chrone:isAuth>
 										<td colspan="2" align="left">查询结果：${page.rowTotal }条</td>
 										<td colspan="5" align="right">合计：</td>
 										<td><chrone:fen2Yuan amt="${countMap.sumPlanAmt }"/></td>

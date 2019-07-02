@@ -150,6 +150,14 @@ public class LevelFeeRateController {
 				}else{
 					levelInfo =getAgentLevelFeeRate(levelFeeRateDTO.getLevel().getLevelId(), null,null);
 				}
+				List<PayChannel> payChannels = payChannelService.listAllPayChannel();
+				for(int i=payChannels.size()-1;i>=0;i--) {//除去禁用的,不是4快捷 7扫码的通道
+					if(payChannels.get(i).getStatus() !=1 || !(payChannels.get(i).getChnlType() ==4 || payChannels.get(i).getChnlType() ==7)) {
+						payChannels.remove(i);
+					}
+				}
+				
+				model.addAttribute("payChannels", payChannels);
 				model.addAttribute("level", levelInfo);
 			}
 			
