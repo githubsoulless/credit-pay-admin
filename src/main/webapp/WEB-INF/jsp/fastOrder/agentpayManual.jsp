@@ -125,6 +125,7 @@ function queryFee(){
 							<option value="yakupay2">雅酷2</option>
 							<option value="tenfutong">腾付通</option>
 							<option value="tenfutong2">腾付通2</option>
+							<option value="allinpay2">通联大额快捷</option>
 						</select>
 					</span></td>
 				</tr>	

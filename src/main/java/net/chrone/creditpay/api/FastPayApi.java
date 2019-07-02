@@ -24,6 +24,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String YAKUPAY2="yakupay2";//银盛
 	public final static String TENFUTONG="tenfutong";//腾付通
 	public final static String TENFUTONG2="tenfutong2";//腾付通2
+	public final static String ALLINPAY2="allinpay2";//通联大额快捷
 	
 	
 	/**
@@ -75,6 +76,11 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			}
 		}else if(TENFUTONG.equals(code) || TENFUTONG2.equals(code)) {
 			Map<String, String> resMap = ChroneApi.agentPayByTenfutong(order, ConfigReader.getConfig("chronePayOrgId"), ConfigReader.getConfig("chronePayPriKey"));
+			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+				resultMap.put("status", "1");//成功
+			}
+		}else if(ALLINPAY2.equals(code)) {
+			Map<String, String> resMap = ChroneApi.agentPayByAllinpayV2(order, ConfigReader.getConfig("chronePayOrgId"), ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
