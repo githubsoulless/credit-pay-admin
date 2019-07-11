@@ -100,7 +100,7 @@ public class PayPlanTask extends ParentMode{
      *
      * @mbg.generated Thu Apr 25 11:14:08 CST 2019
      */
-    private double payFee;
+    private Double payFee;
 
     /**
      *
@@ -512,7 +512,7 @@ public class PayPlanTask extends ParentMode{
      *
      * @mbg.generated Thu Apr 25 11:14:08 CST 2019
      */
-    public double getPayFee() {
+    public Double getPayFee() {
         return payFee;
     }
 
@@ -524,7 +524,7 @@ public class PayPlanTask extends ParentMode{
      *
      * @mbg.generated Thu Apr 25 11:14:08 CST 2019
      */
-    public void setPayFee(double payFee) {
+    public void setPayFee(Double payFee) {
         this.payFee = payFee;
     }
 
