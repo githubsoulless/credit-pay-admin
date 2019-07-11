@@ -138,7 +138,7 @@ public class PayPlanServiceImpl implements PayPlanService {
 				if(task.getStatus() == 2) {//任务己执行
 					if(task.getPlanType() ==0 || task.getPlanType() ==2) {//前扣每笔都要计算手续费
 						if(task.getType() == 0) {//消费
-							execTotalFee += Fen2YuanUtil.caclFee(task.getAmount(), task.getPayFee());
+							execTotalFee += Fen2YuanUtil.caclFee(task.getAmount(), task.getPayFee()==null?0:task.getPayFee());
 						}else {//还款
 							execTotalFee += task.getDfFee();
 						}
