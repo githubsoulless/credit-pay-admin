@@ -122,7 +122,7 @@ public class DownloadShareImgController {
 				OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
 				toClient.write(buffer);
 				toClient.flush();
-				toClient.close();
+				toClient.close(); 
 			}else {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "找不到相关资源");
 			}
