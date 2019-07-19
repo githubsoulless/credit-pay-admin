@@ -17,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import net.chrone.creditpay.model.MobileVersion;
+import net.chrone.creditpay.model.Guide;
+import net.chrone.creditpay.model.Information;
 import net.chrone.creditpay.model.ShareImg;
-import net.chrone.creditpay.service.MobileVersionService;
+import net.chrone.creditpay.service.GuideService;
+import net.chrone.creditpay.service.InformationService;
 import net.chrone.creditpay.service.ShareImgService;
 
 @Controller
@@ -29,6 +31,11 @@ public class DownloadShareImgController {
 	@Autowired
 	private ShareImgService shareImgService;
 	
+	@Autowired
+	private GuideService guideService;
+	
+	@Autowired
+	private InformationService informationService;
 	
 	@RequestMapping("shareImg/{imgName}.{suffix}")
 	public void download(@PathVariable("imgName") String imgName, @PathVariable("suffix") String suffix,Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -63,5 +70,64 @@ public class DownloadShareImgController {
             ex.printStackTrace();
         }
     }
-
+	
+	@RequestMapping("guideImg/{guideId}")
+	public void guideImg(@PathVariable("guideId")String guideId,Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		try {
+			Guide guide=guideService.getGuideImg(guideId);
+			if(guide!=null){
+				File file = new File(guide.getTitleName()+guide.getTitleImg());
+		        // 以流的形式下载文件。
+		        InputStream fis = new BufferedInputStream(new FileInputStream(file));
+		        byte[] buffer = new byte[fis.available()];
+		        fis.read(buffer);
+		        fis.close();
+		        response.reset();
+				String su = guide.getTitleImg().substring(guide.getTitleImg().lastIndexOf("."));
+				String suffix = su.substring(1);
+		        if(suffix !=null && suffix.equals("jpg"))
+		       	 suffix = "jpeg";
+		        response.setContentType("image/"+suffix+"");
+		        response.setContentLength((int)file.length());
+		        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+		        toClient.write(buffer);
+		        toClient.flush();
+		        toClient.close();
+			}else {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "找不到相关资源");
+			}
+		} catch (IOException ex) {
+	        ex.printStackTrace();
+	    }
+    }
+	
+	@RequestMapping("infoImg/{infoId}")
+	public void infoImg(@PathVariable("infoId")String infoId,Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		try {
+			Information information=informationService.getInformationImg(infoId);
+			if(information!=null){
+				File file = new File(information.getTitleName()+information.getTitleImg());
+				// 以流的形式下载文件。
+				InputStream fis = new BufferedInputStream(new FileInputStream(file));
+				byte[] buffer = new byte[fis.available()];
+				fis.read(buffer);
+				fis.close();
+				response.reset();
+				String su = information.getTitleImg().substring(information.getTitleImg().lastIndexOf("."));
+				String suffix = su.substring(1);
+				if(suffix !=null && suffix.equals("jpg"))
+					suffix = "jpeg";
+				response.setContentType("image/"+suffix+"");
+				response.setContentLength((int)file.length());
+				OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+				toClient.write(buffer);
+				toClient.flush();
+				toClient.close();
+			}else {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "找不到相关资源");
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
 }
