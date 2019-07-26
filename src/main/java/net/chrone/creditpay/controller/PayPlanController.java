@@ -94,7 +94,14 @@ public class PayPlanController {
 						}else {
 							task.setActualAmt(task.getAmount());
 						}
-					}
+					}else if(task.getPlanType() ==3 ) {
+						if(task.getTarnsGroup() ==-1) {//后扣整数手续费会在第一笔中存放
+							task.setActualAmt(task.getAmount() - task.getHkFee());
+							task.setIncludeAgentFee(true);
+						}else {
+							task.setActualAmt(task.getAmount());
+						}
+				}
 				}else {
 					task.setActualAmt(task.getAmount());
 				}

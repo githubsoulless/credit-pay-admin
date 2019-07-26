@@ -152,6 +152,10 @@ table.table1 tr th{
 	  					   	<option value="1" ${order.settleType==1?'selected="selected"':'' }>T1</option>
 	  					   </select> 
 					</div>
+					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label" for="chnlOrderNo">备注：</label>
+						<input  class="input-sm" type="text" id="remark"  name="remark" maxlength="100"  value="${order.remark}" /> 
+					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
 						<chrone:isAuth authCode="300000301">
@@ -290,6 +294,7 @@ table.table1 tr th{
 	<input type="hidden"  name="chnlId" value="${order.chnlId}"></input>
 	<input type="hidden"  name="taskId" value="${order.taskId}"></input>
 	<input type="hidden"  name="agentId" value="${order.agentId}"></input>
+	<input type="hidden"  name="remark" value="${order.remark}"></input>
 </form>
 <input type="hidden"  id="closeTp"/>
 </body>

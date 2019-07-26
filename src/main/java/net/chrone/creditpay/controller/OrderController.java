@@ -87,7 +87,13 @@ public class OrderController {
 							}else {
 								order_.setActualAmt(task.getAmount());
 							}
-						}
+						}else if(task.getPlanType() ==3 ) {
+							if(task.getTarnsGroup() ==-1) {//后扣整数手续费会在第一笔中存放
+								order_.setActualAmt(task.getAmount() - task.getHkFee());
+							}else {
+								order_.setActualAmt(task.getAmount());
+							}
+					}
 					}else {
 						order_.setActualAmt(task.getAmount());
 					}
