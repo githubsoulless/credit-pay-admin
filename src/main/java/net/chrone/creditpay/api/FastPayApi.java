@@ -25,6 +25,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String TENFUTONG="tenfutong";//腾付通
 	public final static String TENFUTONG2="tenfutong2";//腾付通2
 	public final static String ALLINPAY2="allinpay2";//通联大额快捷
+	public final static String CHANPAY_FAST="chanpay_fast";//畅捷快捷
 	
 	
 	/**
@@ -36,7 +37,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public static Map<String, String> fastPay_df(FastOrder order,CardExtService cardExtService,String code){
 		Map<String, String> resultMap = new HashMap<String, String>();
 		logger.info("找到通道:"+code);
-		if(CHRONE.equals(code)){
+		if(CHRONE.equals(code)||CHANPAY_FAST.equals(code)){
 			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){

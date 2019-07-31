@@ -187,7 +187,7 @@ public class ChroneApi {
 		map.put("accountName", order.getCardName());
 		map.put("destAmount", order.getAmount() + "");
 		map.put("cardNo", order.getCardNo());
-		map.put("certNo", "11111111111111111");
+		map.put("certNo", order.getUserCertNo());
 		map.put("pmsBankCd", order.getBankNo());
 		map.put("payChannelId", order.getChannel());
 		String plainText = SignatureUtil.hex(map);
@@ -229,7 +229,7 @@ public class ChroneApi {
 		map.put("accountName", order.getCardName());
 		map.put("destAmount", order.getAmount() +"");
 		map.put("cardNo", order.getCardNo());
-		map.put("certNo", "11111111111111111");
+		map.put("certNo", order.getUserCertNo());
 		map.put("pmsBankCd", order.getBankNo());
 		map.put("payChannelId", order.getChannel());
 		map.put("reserve1", cashCardExt.getReserve1());
