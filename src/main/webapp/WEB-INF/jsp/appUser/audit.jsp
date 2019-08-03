@@ -82,6 +82,7 @@ function init(){
 <body onload="init()">
 <form action="${ctx}/appUser/audit" id="subForm" method="post" target="hidden_frame">
 <input name="userId" type="hidden" value="${appuser.userId }"/>
+<input name="loginId" type="hidden" value="${appuser.loginId }"/>
 <input name="type" type="hidden" value="update"/>
 <div class="begin">
 <table style="white-space: nowrap;">

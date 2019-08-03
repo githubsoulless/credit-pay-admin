@@ -232,6 +232,7 @@ function exportExcel(){
 										<th>等级</th>
 										<th>状态</th>
 										<th>实名认证</th>
+										<th>资料提交时间</th>
 										<th>审核状态</th>
 										<th>注册时间</th>
 										<th>最后登录时间</th>
@@ -268,6 +269,9 @@ function exportExcel(){
 												<c:if test="${l.certStatus == 0 }">未认证</c:if>
 												<c:if test="${l.certStatus == 1 }">已认证</c:if>
 												<c:if test="${l.certStatus == 2 }">认证失败</c:if>
+											</td>
+											<td>
+												<fmt:formatDate value="${l.certTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 											</td>
 											<td>
 												<c:if test="${l.auditStatus == 0 }">待审核</c:if>
@@ -314,7 +318,7 @@ function exportExcel(){
 										</tr>
 									</c:forEach>
 									<tr>
-										<td colspan="18" align="left">查询结果：${page.rowTotal }</td>
+										<td colspan="19" align="left">查询结果：${page.rowTotal }</td>
 									</tr>
 								</tbody>
 							</table>

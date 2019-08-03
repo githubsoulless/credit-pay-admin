@@ -34,8 +34,10 @@ import net.chrone.creditpay.service.AppUserService;
 import net.chrone.creditpay.service.DayTransService;
 import net.chrone.creditpay.service.LevelService;
 import net.chrone.creditpay.service.PmsBankInfService;
+import net.chrone.creditpay.service.SMSMQService;
 import net.chrone.creditpay.service.UserTreeService;
 import net.chrone.creditpay.service.impl.LogConstant;
+import net.chrone.creditpay.util.ConfigReader;
 import net.chrone.creditpay.util.Constants;
 import net.chrone.creditpay.util.DateUtils;
 import net.chrone.creditpay.util.ExcelUtil;
@@ -70,6 +72,8 @@ public class AppUserController {
 	private AppUserMapper appUserMapper;
 	@Autowired
 	private DayTransService dayTransService;
+	@Autowired
+	private SMSMQService smsmqService;
 	
 	private static Logger logger = Logger.getLogger(AppUserController.class);
 	@RequestMapping("list")
@@ -160,6 +164,16 @@ public class AppUserController {
 				appuser.setRecUpdTs(new Date());
 				appuser.setRecUpdUsr(userInfSeesion.getLoginId());
 				appUserService.update(appuser);
+				
+				String certPicNotifySms = ConfigReader.getConfig("certPicNotifySms");
+				if(StringUtils.isNotEmpty(certPicNotifySms)) {
+					Map<String,String> smsMap = new HashMap<String, String>();
+					smsMap.put("orgId", ConfigReader.getConfig("smsOrgId"));
+					smsMap.put("mobiles", appuser.getLoginId());
+					smsMap.put("message", certPicNotifySms);
+					smsmqService.produce(smsMap);
+				}
+				
 				message = "success";
 			} else {
 				appuser = appUserService.getAppUserByUserId(appuser.getUserId());
