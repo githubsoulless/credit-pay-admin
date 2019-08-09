@@ -48,7 +48,7 @@ function addClose(){
 				<form action="${ctx}/agentProfits/list"  id="searchForm"   name="searchForm" method="post" class="form-inline" role="form">
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="agentName">代理商名称：</label>
-						<input  class="input-sm" type="text" id="agentName" name="agentName" maxlength="20"  value="${agentProfits.agentName}" placeholder="支持模糊查询" /> 
+						<input  class="input-sm" type="text" id="agentName" name="agentName" maxlength="20"  value="${agentProfits.agentName}" /> 
 					</div>
 					<div class="form-group">&nbsp;&nbsp;
 						<label class="control-label" for="agentId">代理商ID：</label>

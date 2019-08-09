@@ -490,7 +490,7 @@
 		<where>
 			and a.agent_id !=''
 			<if test="agentName !=null and agentName !=''">
-				and b.agent_name like  concat(concat('%',#{agentName}),'%')
+				and b.agent_name = #{agentName}
 			</if>
 			<if test="agentId !=null and agentId!=''">
 				and b.agent_id=#{agentId}
