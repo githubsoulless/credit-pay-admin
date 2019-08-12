@@ -134,9 +134,12 @@ public class PayPlanServiceImpl implements PayPlanService {
 				if(task.getPlanType() ==2 && task.getTarnsGroup() == 0) {
 					hkIntegerFee = task.getHkFee();
 				}
+				if(task.getPlanType() ==3 && task.getTarnsGroup() == -1) {
+					hkIntegerFee = task.getHkFee();
+				}
 				//己执行手续费
 				if(task.getStatus() == 2) {//任务己执行
-					if(task.getPlanType() ==0 || task.getPlanType() ==2) {//前扣每笔都要计算手续费
+					if(task.getPlanType() ==0 || task.getPlanType() ==2|| task.getPlanType() ==3) {//前扣每笔都要计算手续费
 						if(task.getType() == 0) {//消费
 							execTotalFee += Fen2YuanUtil.caclFee(task.getAmount(), task.getPayFee()==null?0:task.getPayFee());
 						}else {//还款
@@ -168,7 +171,7 @@ public class PayPlanServiceImpl implements PayPlanService {
 					}else {
 						totalFee += task.getDfFee();
 					}
-				}else if(task.getPlanType() ==2) {//后扣整数
+				}else if(task.getPlanType() ==2||task.getPlanType() ==3) {//后扣整数
 					totalFee = hkIntegerFee;
 				}
 			}
