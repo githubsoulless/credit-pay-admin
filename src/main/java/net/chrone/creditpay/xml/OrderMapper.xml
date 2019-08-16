@@ -27,6 +27,12 @@
     <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="chnl_id" jdbcType="VARCHAR" property="chnlId" />
+    <result column="chnlName" jdbcType="VARCHAR" property="chnlName" />
+    <result column="userProfits" jdbcType="INTEGER" property="userProfits" />
+    <result column="agentProfits" jdbcType="INTEGER" property="agentProfits" />
+    <result column="platFee" jdbcType="INTEGER" property="platFee" />
+    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
