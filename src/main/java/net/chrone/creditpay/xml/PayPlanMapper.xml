@@ -652,7 +652,8 @@
   	from t_pay_plan t 
   	<include refid="where_page" />
   	order by t.row_crt_ts desc
-  	)a limit  #{startRow} , #{pageSize}
+    limit  #{startRow} , #{pageSize}
+  	)a
   </select>
   
   <sql id="where_statistics_crt">
