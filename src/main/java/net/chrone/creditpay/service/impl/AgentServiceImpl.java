@@ -6,27 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.chrone.creditpay.mapper.*;
+import net.chrone.creditpay.model.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.chrone.creditpay.mapper.AgentMapper;
-import net.chrone.creditpay.mapper.AgentRoleMapper;
-import net.chrone.creditpay.mapper.AgentRoleMenuMapper;
-import net.chrone.creditpay.mapper.AppUserMapper;
-import net.chrone.creditpay.model.Agent;
-import net.chrone.creditpay.model.AgentExample;
-import net.chrone.creditpay.model.AgentMenu;
-import net.chrone.creditpay.model.AgentProfitVO;
-import net.chrone.creditpay.model.AgentRole;
-import net.chrone.creditpay.model.AgentRoleMenu;
-import net.chrone.creditpay.model.AgentUser;
-import net.chrone.creditpay.model.AppUser;
-import net.chrone.creditpay.model.AppUserExample;
 import net.chrone.creditpay.service.AgentMenuService;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AgentUserService;
+import sun.management.resources.agent;
 
 @Service
 public class AgentServiceImpl implements AgentService {
@@ -43,6 +33,9 @@ public class AgentServiceImpl implements AgentService {
 	private AgentRoleMapper agentRoleMapper;
 	@Autowired
 	private AppUserMapper appUserMapper;
+	@Autowired
+	private AgentUserMapper agentUserMapper;
+
 
 	@Override
 	public List<Agent> getAgentAll() {
@@ -218,4 +211,48 @@ public class AgentServiceImpl implements AgentService {
 		return agentMapper.getAgentUserStatisticsByPage(agent);
 	}
 
+//删除代理
+	@Override
+	public int deleteByAgentId(String agentId) {
+		int count1 = 0;
+		int count2 = 0;
+		count1 = agentUserMapper.deleteByAgentId(agentId);
+		count2 = agentMapper.deleteByPrimaryKey(agentId);
+		return (count1+count2);
+	}
+
+	//删除代理之后没有代理的用户更新agentId
+	@Override
+	public int updateAllUserWithoutAgent() {
+		int count1=0;
+		int count2=0;
+		List<AppUser> appUserList = appUserMapper.selectByExample(null);
+
+		for(AppUser appUser:appUserList) {
+			// 获取每个appUser中所有agentId
+			String agentId = appUser.getAgentId();
+			if(!("".equals(agentId))){
+				Agent agent = agentMapper.selectByPrimaryKey(agentId);
+				if(null == agent){
+					//更新appUser中的agentId
+					count1 += appUserMapper.updateAppUserAgentIdByUserId(appUser.getUserId());
+				}
+			}
+		}
+        List<Agent> agentList = agentMapper.selectByExample(null);
+
+        for(Agent agent:agentList) {
+            // 获取每个agent中所有agentParentId
+            String parentAgentId = agent.getParentAgentId();
+            if(!("".equals(parentAgentId))){
+                Agent agent1 = agentMapper.selectByPrimaryKey(agent.getParentAgentId());
+                if(null == agent1){
+                    //更新agent中的agentId
+                    count2 += agentMapper.updateAgentParentIdByAgentId(agent.getAgentId());
+                }
+            }
+        }
+
+		return count1+count2;
+	}
 }

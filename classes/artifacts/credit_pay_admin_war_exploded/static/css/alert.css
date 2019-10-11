@@ -1,0 +1,228 @@
+@charset "utf-8";
+/*弹窗css*/
+p,div,ul,li,table,tr,td,span,b,i,input,textarea,select,button{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	font-family: "微软雅黑",arial;
+	font-size: 14px;
+}
+a{
+	text-decoration: none;
+}
+button{
+	border: none;
+	cursor: pointer;
+	outline: none;
+}
+ul,li{
+	list-style: none;
+}
+i{
+	font-style: normal;
+}
+i,b{
+	display: inline-block;
+	font-weight: normal;
+}
+img{
+	border: none;
+	outline: none;
+}
+select{
+	padding: 6px 0px;
+}
+#screenfull {
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    display: none;
+    z-index: 99;
+    position: absolute;
+    top: 0px;
+}
+.acontent {
+    width: 700px;
+    height: 330px;
+    background-color: #fff;
+    margin: 8% auto auto auto;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    margin-top: -192px;
+    margin-left: -350px;
+    position: absolute;
+    overflow-y: auto;
+}
+.acontent .annouce {
+    background-color: #82d1f7;
+    height: 38px;
+    line-height: 38px;
+    font-size: 16px;
+    text-align: left;
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 16px;
+   -moz-border-radius-topleft: 5px;
+	-o-border-radius-topleft:5px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-o-border-radius-topright:5px;
+	-webkit-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+}
+
+/* 关闭按钮  */
+.closed{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+.closed tr{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+.btnclose{
+	width: 78px;
+	height: 30px;
+	line-height: 28px;
+	text-align: center;
+	color: #fff;
+	font-size: 16px;
+	background-color: #0095d9;	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: none;
+	margin: 0px 5px;
+}
+.acontent .annouce .i-img {
+    width: 21px;
+    height: 21px;
+    line-height: 21px;
+    float: right;
+    margin-top: 14px;
+    cursor: pointer;
+}
+/* 关闭按钮  */
+.close-img{
+	display: inline-block;
+	width: 19px;
+	height: 18px;
+	background-image: url(../img/icon-guanbi.png);
+	float: right;
+	cursor: pointer;
+	margin-top: 9px;
+}
+.begin{
+	padding: 20px;
+}
+table{
+	border-collapse: collapse;
+/* 	width: 677px; */
+	margin: 0 auto;
+	border: none;
+	font-size:13px;
+}
+table tr td{
+	padding: 5px 2px;
+	border: none;
+}
+
+.tdaa {
+	background: #66c0ff;
+	color: #fff;
+	padding-left: 10px;
+}
+
+table tr td span{
+	color: #323132;
+	font-size: 13px;
+}
+.width90{
+	width: 126px;
+	text-align: right;
+}
+.textcenter{
+	text-align: center;
+}
+ input.ipt:-moz-placeholder {
+	color: #a9a9a9;
+	font-size: 14px;
+}
+input.ipt::-moz-placeholder {
+	color: #a9a9a9;
+	font-size: 14px;
+}
+input.ipt:-ms-input-placeholder {
+	color: #a9a9a9;
+	font-size: 14px;
+}
+input.ipt::-webkit-input-placeholder {
+	color: #a9a9a9;
+	font-size: 14px;
+}
+input.ipt,select.set{
+	width: 205px;
+	height: 28px;
+	line-height: 28px;
+	border: 1px solid #a9a9a9;
+	padding-left: 5px;
+}
+select{
+	width: 210px;
+}
+button{
+	width:80px;
+	height: 30px;
+	line-height: 28px;
+	text-align: center;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+ 	cursor: pointer;
+ 	margin: 10px;
+ 	font-size: 13px;
+}
+.btn1{
+	color: #fff;
+	background: #50aded;
+}
+.btn2{
+	color: #545454;
+	background: #d2d3d3;
+}
+.btn2:hover{
+	background: #50aded;
+	color: #fff;
+}
+
+input{
+font-size: 13px !important;
+
+}
+input:-moz-placeholder {
+font-size: 13px !important;
+}
+input::-moz-placeholder {
+font-size: 13px !important;
+}
+input:-ms-input-placeholder {
+font-size: 13px !important;
+}
+input::-webkit-input-placeholder {
+font-size: 13px !important;
+}
+

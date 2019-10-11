@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+.back_login{ position:relative;}
+.back_login_main{ position:fixed;
+				  width:350px;
+				  height:365px;
+				  left:50%;
+				  margin-left:-175px;
+				  top:40%;
+				  margin-top:-182px;
+				 }
+.back_login_main .back_logo{ height:130px;}				 
+.back_login_main .back_logo h2{ width:250px; margin:0 auto;}
+.back_login_main .back_logo h3{ text-align:right;}				 
+.back_login_main input{ background-color:transparent;}
+.back_login_main .user_name{ padding-bottom:15px; padding-left:16px; border-bottom:1px solid #0068a4; margin-bottom:25px; position:relative;} 
+.back_login_main .user_name input{ border-left:1px solid #0068a4; padding-left:18px;}
+.back_login_main .user_name i{ margin:-4px 10px 0 0; float:left;}				 
+.back_login_main .user_name em{ position:absolute; top:-14px; cursor:pointer;}
+.back_login_main .back_login_btn{ height:40px; line-height:40px; background:#0068a4; text-align:center; border-radius:6px;}
+.back_login_main .back_login_btn a{ font-size:20px; color:#fff;}
+.back_login .back_copy{ position:fixed; left:50%; margin-left:-141px; bottom:10px; width:242px; font-size:14px; color:#050505;}
+
+/* CSS Document */
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */ dl, dt, dd, ul, ol, li, /* list elements 列表元素 */ pre, /* text formatting elements 文本格式元素 */ fieldset, lengend, button, input, textarea, /* form elements 表单元素 */ th, td { /* table elements 表格元素 */ margin: 0; padding: 0; }
+html,body{ width:100%; height:100%; color:#6e6e6e;}
+/* 设置默认字体 */
+body, button, input, select, textarea { /* for ie */ /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
+font: 14px/1 Tahoma, Helvetica, Arial, "微软雅黑", sans-serif,; /* 用 ascii 字符表示，使得在任何编码下都无问题 */ }
+h1 { font-size: 18px; /* 18px / 12px = 1.5 */ }
+h2 { font-size: 24px; font-weight:normal; color:#323232;}
+h3 { font-size: 14px; font-weight:normal; }
+h4, h5, h6 { font-size: 100%; font-weight:normal; }
+p{ font-size:14px; line-height:30px;}/* 段落默认字号和行高 */
+address, cite, dfn, em, var { font-style: normal; } /* 将斜体扶正 */
+code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } /* 统一等宽字体 */
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+/* 重置列表元素 */
+ul, ol { list-style: none; }
+select{ border-style:none;}
+/* 重置文本格式元素 */
+a { text-decoration: none; color:#6e6e6e; font-size:14px; }
+span{ font-size:14px; margin:}
+a:hover { text-decoration: none; }
+abbr[title], acronym[title] { /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */ border-bottom: 1px dotted; cursor: help; }
+q:before, q:after { content: ''; }
+/* 重置表单元素 */
+input{ border:none;}
+legend { color: #000; } /* for ie6 */
+fieldset, img { border: none; } /* img 搭车：让链接里的 img 无边框 */
+/* 注：optgroup 无法扶正 */
+button, input, select, textarea { font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */ }
+/* 重置表格元素 */
+table { border-collapse: collapse; border-spacing: 0; }
+/* 重置 hr */
+hr { border: none; height: 1px; }
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+html { overflow-y: scroll;}
+*:focus {outline: none;} 
+/* 版心 */
+.w100{ width:100%; /*min-width:1080px;*/ clear:both;}
+.w1200{ width:1200px; margin:0 auto;}
+.w1000{ width:1000px; margin:0 auto;}
+.w1080{ width:1080px; margin:0 auto;}
+/*常用样式*/
+.fl{ float:left;}
+.fr{ float:right;}
+.tc{ text-align:center;}
+.tr{ text-align:right;}
+.tl{ text-align:left;}
+.f14{ font-size:14px;}
+.f15{ font-size:15px;}
+.f16{ font-size:16px;}
+.f18{ font-size:18px;}
+.f22{ font-size:22px;}
+.f24{ font-size:24px; color:#323232;}
+.fc{ color:#d2151a;}
+.l24{ line-height:24px;}
+.l36{ line-height:36px;}
+.t2{ text-indent:2em;}
+.mt14{ margin-top:14px;}
+.mt20{ margin-top:20px;}
+.lh24{ line-height:24px;}
+.lh32{ line-height:32px;}
+.blue{ color:#0068a4;}
+.red{ color:#e20000; font-size:14px;}
+.ma{ margin:0 auto;}

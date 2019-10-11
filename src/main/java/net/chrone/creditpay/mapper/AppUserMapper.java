@@ -98,5 +98,6 @@ public interface AppUserMapper extends ParentMapper {
 	int getUserOrderStaticsPageCount(AppUser appuser);
 
 	List<AppUser> getUserOrderStaticsByPage(AppUser appuser);
-	
+
+	int updateAppUserAgentIdByUserId(String userId);
 }

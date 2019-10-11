@@ -1,0 +1,33 @@
+@charset "utf-8";
+.divTask{
+	padding: 10px 20px;
+}
+.tableTasko,.tableTaskt{
+	width: 100%;
+	white-space: nowrap;
+}
+.tableTasko tr th,.tableTaskt tr th{
+	background: #e4e4e4;;
+}
+.fontsize20{
+	font-size: 20px;
+	font-weight: bold;
+}
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th{
+	border: none !important;
+}
+#qq{
+	margin:0 auto;
+}
+.refreshr{
+	cursor: pointer;
+}
+.table-bordered>tbody>tr>td.borderddd,.table-bordered>tbody>tr>th.borderddd{
+	border-right: 1px solid #ddd !important;
+}
+
