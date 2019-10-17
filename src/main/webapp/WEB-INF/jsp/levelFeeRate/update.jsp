@@ -177,7 +177,7 @@ table tr td{
 					</td>
 				</tr>
 				
-				<tr>
+				 <tr>
 					<td class="width90"><span>
 					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong' }">${paychannel.name }：</c:if></c:forEach>
 					</span></td>
@@ -210,7 +210,7 @@ table tr td{
 							</c:forEach>
 						</span>
 					</td>
-				</tr>
+				</tr> 
 				<tr>
 					<td class="width90"><span>
 					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay' }">${paychannel.name }：</c:if></c:forEach>
@@ -245,7 +245,7 @@ table tr td{
 						</span>
 					</td>
 				</tr>
-				<tr>
+				 <tr>
 					<td class="width90"><span>
 					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'allinpay2' }">${paychannel.name }：</c:if></c:forEach>
 					</span></td>
@@ -261,8 +261,8 @@ table tr td{
 							</c:forEach>
 						</span>
 					</td>
-				</tr>
-				<tr>
+				</tr> 
+				 <tr>
 					<td class="width90"><span>
 					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'chanpay_fast' }">${paychannel.name }：</c:if></c:forEach>
 					</span></td>
@@ -312,7 +312,7 @@ table tr td{
 							</c:forEach>
 						</span>
 					</td>
-				</tr>
+				</tr> 
 				<tr>
 					<td class="width90"><span>
 					<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'changjie_fast' }">${paychannel.name }：</c:if></c:forEach>

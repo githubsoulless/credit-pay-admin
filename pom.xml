@@ -5,6 +5,7 @@
 	<groupId>net.chrone.creditpay</groupId>
 	<artifactId>credit-pay-admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework.version>4.1.5.RELEASE</org.springframework.version>

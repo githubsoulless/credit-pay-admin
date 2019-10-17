@@ -92,30 +92,30 @@ table.table1 tr th{
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'reapalfast' }">${paychannel.name }</c:if></c:forEach>
 										</th>
-										<th>
+										 <th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong' }">${paychannel.name }</c:if></c:forEach>
 										</th>
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'tenfutong2' }">${paychannel.name }</c:if></c:forEach>
-										</th>
+										</th> 
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay' }">${paychannel.name }</c:if></c:forEach>
 										</th>
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'yakupay2' }">${paychannel.name }</c:if></c:forEach>
 										</th>
-										<th>
+										 <th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'allinpay2' }">${paychannel.name }</c:if></c:forEach>
-										</th>
-										<th>
+										</th> 
+										 <th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'chanpay_fast' }">${paychannel.name }</c:if></c:forEach>
 										</th>
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'chanpay_fast2' }">${paychannel.name }</c:if></c:forEach>
-										</th>
-										<th>
+										</th> 
+										 <th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'huichao' }">${paychannel.name }</c:if></c:forEach>
-										</th>
+										</th> 
 										<th>
 											<c:forEach items="${payChannels }" var="paychannel"><c:if test="${paychannel.code eq 'changjie_fast' }">${paychannel.name }</c:if></c:forEach>
 										</th>
@@ -162,7 +162,7 @@ table.table1 tr th{
 													</c:if>
 												</c:forEach>
 											</td>
-											<td>
+											 <td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'tenfutong' }">
 														<c:if test="${lfr.feeRate > 0 }">
@@ -191,7 +191,7 @@ table.table1 tr th{
 														</c:if>
 													</c:if>
 												</c:forEach>
-											</td>
+											</td> 
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'yakupay' }">
@@ -222,7 +222,7 @@ table.table1 tr th{
 													</c:if>
 												</c:forEach>
 											</td>
-											<td>
+											 <td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'allinpay2' }">
 														<c:if test="${lfr.feeRate > 0 }">
@@ -236,8 +236,8 @@ table.table1 tr th{
 														</c:if>
 													</c:if>
 												</c:forEach>
-											</td>
-											<td>
+											</td> 
+											 <td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'huichao' }">
 														<c:if test="${lfr.feeRate > 0 }">
@@ -251,7 +251,7 @@ table.table1 tr th{
 														</c:if>
 													</c:if>
 												</c:forEach>
-											</td>
+											</td> 
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'changjie_fast' }">
@@ -270,6 +270,21 @@ table.table1 tr th{
 											<td>
 												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
 													<c:if test="${lfr.payChnlCode eq 'changjie_fast2' }">
+														<c:if test="${lfr.feeRate > 0 }">
+															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%
+															<c:if test="${lfr.payFee > 0 }">
+																+<chrone:fen2Yuan amt="${lfr.payFee }"/>元/笔
+															</c:if>
+															<c:if test="${lfr.upperlimit > 0 }">
+																，封顶<chrone:fen2Yuan amt="${lfr.upperlimit }"/>元
+															</c:if>
+														</c:if>
+													</c:if>
+												</c:forEach>
+											</td>
+											<td>
+												<c:forEach items="${l.listLevelFeeRate }" var="lfr">
+													<c:if test="${lfr.payChnlCode eq 'reapalfast2' }">
 														<c:if test="${lfr.feeRate > 0 }">
 															<fmt:formatNumber value="${lfr.feeRate }" type="currency" pattern="0.00"/>%
 															<c:if test="${lfr.payFee > 0 }">
