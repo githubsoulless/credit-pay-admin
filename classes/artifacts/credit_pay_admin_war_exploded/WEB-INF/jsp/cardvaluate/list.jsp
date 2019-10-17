@@ -62,6 +62,22 @@ function exportExcel(){
 	from.submit();
 	from.action='${ctx}/appUser/list';
 }
+function setFee(){
+	var url = "url:${ctx }/cardvaluate/updateCardValuate";
+	$.dialog({content:url ,
+		title:'修改测评金额',
+		lock: true,
+		background: '#FFF', /* 背景色 默认的遮罩背景色为:#DCE2F1浅蓝护眼色 */
+		max: false,
+		height:350,
+		width:700,
+		min: false,
+		opacity: 0.5,	/* 透明度 */
+		close: function(){
+			addClose();
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -82,9 +98,16 @@ function exportExcel(){
 						<label class="control-label">用户ID：</label>
 						<input  class="input-sm" type="text" id="userId" size="16"  name="userId" maxlength="20"  value="${cardValuate.userId}" />&nbsp;- 
 					</div>
-					
+					<div class="form-group">&nbsp;&nbsp;
+						<label class="control-label" for="startDate">测评日期：</label>
+						<input  class="Wdate input-sm" style="height: 30px" type="text" id="startDate"  name="startDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'});"  value="${cardValuate.startDate}"  />&nbsp;-
+						<input  class="Wdate input-sm" style="height: 30px" type="text" id="endDate"  name="endDate"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'});"  value="${cardValuate.endDate}"  />
+					</div>
 					<div class="form-group">
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
+					</div>
+					<div class="form-group">
+						&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" onclick="setFee()" >设置</button>
 					</div>
 				</form>
 			</div>
@@ -171,6 +194,8 @@ function exportExcel(){
 <form id="pageForm" action="${ctx }/cardvaluate/list"  method="post" >
 	<input type="hidden"  name="start" id="start"></input>
 	<input type="hidden"  name="status" value="${cardValuate.status}"></input>
+	<input type="hidden"  name="startDate" value="${cardValuate.startDate}"></input>
+	<input type="hidden"  name="endDate" value="${cardValuate.endDate}"></input>
 </form>
 <input type="hidden"  id="closeTp"/>
 </body>
