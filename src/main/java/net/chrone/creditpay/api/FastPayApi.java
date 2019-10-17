@@ -28,6 +28,8 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String CHANPAY_FAST="chanpay_fast";//畅捷快捷
 	public final static String CHANPAY_FAST2="chanpay_fast2";//畅捷快捷
 	public final static String HUICHAO = "huichao";//汇潮快捷
+	public final static String CHANGJIE_FAST="changjie_fast";//新畅杰快捷支付
+	public final static String CHANGJIE_FAST2="changjie_fast2";//新畅杰快捷支付
 	
 	
 	/**
@@ -39,13 +41,22 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public static Map<String, String> fastPay_df(FastOrder order,CardExtService cardExtService,String code){
 		Map<String, String> resultMap = new HashMap<String, String>();
 		logger.info("找到通道:"+code);
-		if(CHRONE.equals(code)||CHANPAY_FAST.equals(code)||CHANPAY_FAST2.equals(code)){
+		if(CHRONE.equals(code)||CHANGJIE_FAST.equals(code)||CHANGJIE_FAST2.equals(code)){
+			logger.info("fastPay_df 进入畅捷通道:");
 			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
-		}if(REAPALFAST.equals(code)){
+		}
+//		if(CHRONE.equals(code)||CHANPAY_FAST.equals(code)||CHANPAY_FAST2.equals(code)){
+//			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
+//					ConfigReader.getConfig("chronePayPriKey"));
+//			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+//				resultMap.put("status", "1");//成功
+//			}
+//		}
+	if(REAPALFAST.equals(code)){
 			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){

@@ -195,15 +195,16 @@ public class ChroneApi {
 		try {
 			List<String[]> headers = new ArrayList<>();
 			headers.add(new String[]{"Content-Type", "application/json"});
+			logger.info("请求网关代付-->请求参数:"+JSON.toJSONString(map));
 			HttpResponse httpRes = HttpClientHelper.doHttp(ConfigReader.getConfig("chroneAgentPayUrl"),
 					HttpClientHelper.POST,headers, "UTF-8", JSON.toJSONString(map), "60000");
-			logger.info(httpRes.getRspStr());
+			logger.info("请求网关代付-->返回参数:"+httpRes.getRspStr());
 			if (StringUtils.isNotEmpty(httpRes.getRspStr())) {
 				return JSON.parseObject(httpRes.getRspStr(), new TypeReference<HashMap<String, String>>() {
 				});
 			}
 		} catch (Exception e) {
-			LogWriter.error("请求乾恩代付接口失败");
+			logger.info("请求代付接口失败");
 			e.printStackTrace();
 		}
 		return null;

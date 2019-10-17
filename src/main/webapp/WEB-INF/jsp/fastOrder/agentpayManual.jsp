@@ -80,7 +80,6 @@ function queryFee(){
         		$("#chnlFee").text("通道手续费["+data[1]+"]分");
         		$("#profit").text("利润["+data[2]+"]分");
         		$("#actualAgentPay").text("应代付金额["+data[3]+"]分(包含代付费)");
-        		
         		setTimeout(function(){
         			$("#amount").val(data[3])
         		},1000)
@@ -88,10 +87,7 @@ function queryFee(){
         }
    });
 }
-	
 
-	
-	
 </script>
 <style type="text/css">
 .begin2{
@@ -108,7 +104,8 @@ function queryFee(){
 				<tr>
 					<td class="width90"><span style="color:red;">*</span><span>用户ID：</span></td>
 					<td><span><input name="userId" id="userId" value="" maxlength="50" class="ipt" /></span></td>
-					
+				</tr>
+				<tr>
 					<td class="width90"><span style="color:red;">*</span><span>金额：</span></td>
 					<td><span><input name="amount" id="amount" value="" maxlength="20" class="ipt" />单位分(输入消费金额自动计算实际代付金额)</span></td>
 				</tr>
@@ -116,7 +113,7 @@ function queryFee(){
 				<tr>
 					<td class="width90"><span><span style="color:red;">*</span>支付通道</span></td>
 					<td><span>
-						<select  name="channel" id="channel" >
+						<select  name="channel" id="channel" onchange="modifyDfSelect()">
 							<option value="reapalfast">融宝快捷</option>
 							<option value="huifu">汇付</option>
 							<option value="yspay">银盛</option>
@@ -126,11 +123,22 @@ function queryFee(){
 							<option value="tenfutong">腾付通</option>
 							<option value="tenfutong2">腾付通2</option>
 							<option value="allinpay2">通联大额快捷</option>
-							<option value="chanpay_fast">畅捷快捷低费率</option>
-							<option value="chanpay_fast2">畅捷快捷高费率</option>
+							<!-- <option value="chanpay_fast">畅捷快捷低费率</option>
+							<option value="chanpay_fast2">畅捷快捷高费率</option> -->
+							<option value="changjie_fast2">新畅捷高费率</option>
+							<option value="changjie_fast">新畅捷低费率</option>
 						</select>
 					</span></td>
 				</tr>	
+				<tr>
+					<td class="width90"><span><span style="color:red;"></span>代付类型</span></td>
+					<td>
+						<select  name="dfType" id="dfType" >
+							<option value="0">T0</option>
+							<option value="1">T1</option>
+						</select>
+					</td>
+				</tr>
 				
 				<tr>
 				<td class="width90">
