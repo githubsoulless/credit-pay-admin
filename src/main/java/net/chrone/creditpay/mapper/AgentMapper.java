@@ -105,4 +105,6 @@ public interface AgentMapper extends ParentMapper {
 	int getAgentUserStatisticsCount(Agent agent);
 
 	List<Agent> getAgentUserStatisticsByPage(Agent agent);
+
+    int updateAgentParentIdByAgentId(String agentId);
 }

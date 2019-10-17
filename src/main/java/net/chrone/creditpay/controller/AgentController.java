@@ -1,5 +1,6 @@
 package net.chrone.creditpay.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.chrone.creditpay.model.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
-import net.chrone.creditpay.model.Agent;
-import net.chrone.creditpay.model.AgentUser;
-import net.chrone.creditpay.model.AppUser;
-import net.chrone.creditpay.model.MgrUser;
 import net.chrone.creditpay.service.AgentService;
 import net.chrone.creditpay.service.AgentUserService;
 import net.chrone.creditpay.service.AppUserService;
@@ -207,5 +205,35 @@ public class AgentController {
 	public @ResponseBody String updateAllAgentUser() {
 		int count = agentService.updateAllAgentUser();
 		return "success:"+count;
+	}
+
+	@RequestMapping("updateAllUserWithoutAgent")
+	public @ResponseBody String updateAllUserWithoutAgent() {
+		int count = agentService.updateAllUserWithoutAgent();
+		return "success:"+count;
+	}
+
+	@RequestMapping("delete")
+	@ResponseBody
+	public String delete(String agentId, HttpServletRequest request) {
+
+		int i=0;
+		int count1 = 0;
+		int count2 = 0;//删掉代理之后只剩用户的更新情况
+		int count3 = 0;
+		try {
+			count1=agentService.deleteByAgentId(agentId);//2
+			count2=agentService.updateAllUserWithoutAgent();
+			count3=agentService.updateAllAgentUser();//可能是0
+			i = count1+ count3;//3，2
+			System.out.println("i的值是"+i);
+			System.out.println("count1的值是"+count1);
+			System.out.println("count2的值是"+count2);
+			System.out.println("count3的值是"+count3);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "0";
+		}
+		return String.valueOf(i);
 	}
 }

@@ -1,0 +1,43 @@
+@charset "utf-8";
+.tab-select{
+	margin: 25px;
+}
+.myTabContent{
+	margin: 10px 50px;
+}
+.piePic{
+	text-align: center;
+}
+.mark10px{
+	margin-right: 10px;
+}
+.tab-select li a{
+	height: 30px;
+	line-height: 30px;
+	padding: 1px 15px !important;
+}
+#grade{
+	margin-top: 50px;
+}
+tr.fontWeight{
+	font-weight: bold;
+}
+thead{
+	background: #e4e4e4;
+}
+.userGradet{
+	width: 500px !important;
+	margin: 0 auto;
+}
+/*日增统计*/
+.margin10px{
+	margin: 40px 0px;
+	text-align: center;
+}
+.trendPic{
+	width: 900px;
+	height: 325px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+}
+

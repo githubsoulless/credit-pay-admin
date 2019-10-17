@@ -28,4 +28,7 @@ public interface AgentService {
 
 	List<Agent> getAgentUserStatisticsByPage(Agent agent);
 
+	int deleteByAgentId(String agentId);
+
+    int updateAllUserWithoutAgent();
 }

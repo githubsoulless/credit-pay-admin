@@ -261,5 +261,42 @@
 			<version> 3.2.4.RELEASE  </version>
 			<scope>provided</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*.*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 编译插件 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<!-- 插件的版本 -->
+				<version>3.5.1</version>
+				<!-- 编译级别 -->
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<!-- 编码格式 -->
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

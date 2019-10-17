@@ -67,4 +67,6 @@ public interface AgentUserMapper extends ParentMapper {
 	 * @mbggenerated  Tue Dec 05 10:05:02 CST 2017
 	 */
 	int updateByPrimaryKey(AgentUser record);
+
+    int deleteByAgentId(String agentId);
 }
