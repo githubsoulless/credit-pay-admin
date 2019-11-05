@@ -32,7 +32,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String CHANGJIE_FAST="changjie_fast";//新畅杰快捷支付
 	public final static String CHANGJIE_FAST2="changjie_fast2";//新畅杰快捷支付
 	
-	
+	public final static String JF_CREDIT = "jf_credit";//即富小额快捷
 	/**
 	 * 代付接口(TX)
 	 * @param order
@@ -93,6 +93,13 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			}
 		}else if(HUICHAO.equals(code)) {
 			Map<String, String> resMap = HuiChaoApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
+					ConfigReader.getConfig("chronePayPriKey"));
+			if(resMap!=null && "200".equals(resMap.get("respCode"))){
+				resultMap.put("status", "1");//成功
+			}
+		}else if(JF_CREDIT.equals(code)) {
+			logger.info("重新发起代付通道代码为:"+code);
+			Map<String, String> resMap = ChroneApi.agentPayByJiFuPay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
