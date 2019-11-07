@@ -32,6 +32,7 @@ public class PropertiseUtil {
 			return resource.getString(key);
 		}catch(Exception e){
 			logger.error(fileName+"配置文件获取参数异常,key="+key);
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -88,7 +89,7 @@ public class PropertiseUtil {
 		    return null;
 		}
 		if (val.equalsIgnoreCase("true")) {
-			return Boolean.valueOf(true);
+			return Boolean.valueOf(true); 
 		}
 		if (val.equalsIgnoreCase("false")) {
 			return Boolean.valueOf(false);
