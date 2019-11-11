@@ -53,9 +53,20 @@ public class AppContentController extends BaseController{
     public String update(AppContent appContent,Model model, HttpServletRequest request) {
         int count = 0;
         count = appContentService.updateByAppContent(appContent);
+        AppBanner appBanner = new AppBanner();
+        int starIndex = 0;
+        appBanner.setStartRow(starIndex);
+        appBanner.setPageSize(4);
+        int rowTotal = appContentService.getBannerByCount(appBanner);
+        List<AppBanner> list = new ArrayList<>();
+        if (rowTotal > 0) {
+            list = appContentService.getBannerByPage(appBanner);
+        }
+        
         if(count > 0){
             AppContent updateAppContent = appContentService.selectAppContentByContentId(1);
             model.addAttribute("appContent", appContent);
+            model.addAttribute("list", list);
         }
         return "appContent/detail";
     }

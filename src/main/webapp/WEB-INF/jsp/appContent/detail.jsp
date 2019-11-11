@@ -59,7 +59,10 @@
 	})();
 
 	function fastSearch() {
+//		window.location.reload();
 		document.getElementById("searchForm").submit();
+//		alert(232);
+		
 	}
 
 	function addClose() {
