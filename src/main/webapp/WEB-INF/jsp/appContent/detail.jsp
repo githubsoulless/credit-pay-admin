@@ -105,6 +105,7 @@
 			opacity: 0.5,	/* 透明度 */
 			close: function(){
 				addClose();
+				window.location.reload();
 			}
 		});
 	}
