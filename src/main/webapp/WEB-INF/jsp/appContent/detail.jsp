@@ -59,12 +59,8 @@
 	})();
 
 	function fastSearch() {
-//		window.location.reload();
 		document.getElementById("searchForm").submit();
-//		alert(232);
-		
 	}
-
 	function addClose() {
 		if (document.getElementById("closeTp").value == "1") {
 			document.getElementById("searchForm").submit();
@@ -144,6 +140,7 @@
 			opacity: 0.5,	/* 透明度 */
 			close: function(){
 				addClose();
+				window.location.reload();
 			}
 		});
 	}
@@ -182,17 +179,21 @@
 					<input type="hidden" value="0" name="type"/>
 					<fieldset class="fieldset1">
 						<legend class="legend1">App内容修改</legend>
-						<div class="col-lg-4 col-md-6 margin10">
-							客服电话：<input type="text" class="input-sm" id="tel" name="tel" value="${appContent.tel}">
+						<div class="col-lg-6 col-md-8 margin10">
+							客服电话：<input type="text"  id="tel" name="tel" value="${appContent.tel}" style="width: 350px; length:10px" >
 						</div>
-						<div class="col-lg-4 col-md-6 margin10">
-							软件下载地址：<input type="text" class="input-sm" id="downloadUrl" name="downloadUrl" value="${appContent.downloadUrl}">
+						<div class="col-lg-6 col-md-8 margin10">
+							软件下载地址：<input type="text"  id="downloadUrl" name="downloadUrl" value="${appContent.downloadUrl}" style="width: 350px;">
 						</div>
-						<div class="col-lg-4 col-md-6 margin10">
-							背景图片下载地址：<input type="text" class="input-sm" id="backgroundUrl" name="backgroundUrl" value="${appContent.backgroundUrl}">
+						<div class="col-lg-6 col-md-8 margin10">
+							背景图片下载地址：<input type="text"  id="backgroundUrl" name="backgroundUrl" value="${appContent.backgroundUrl}" style="width: 350px;">
 						</div>
-						<div class="col-lg-4 col-md-6 margin10">
-							公司简介文字：<textarea rows="1" cols="130" id="introduction" name="introduction">${appContent.introduction }</textarea>
+						<div class="col-lg-6 col-md-8 margin10">
+
+							客服电话2(没有可不填)：<input type="text"  id="reservation1" name="reservation1" value="${appContent.reservation1}" style="width: 350px; length:10px" >
+						</div>
+						<div>
+							公司简介文字：<textarea rows="3" cols="130" id="introduction" name="introduction">${appContent.introduction }</textarea>
 						</div>
 					</fieldset>
 					<div class="align-center divbtn">
@@ -205,7 +206,7 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="form-group">
-								&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="upload()">上传图片</button>
+								&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="upload()">上传图片</button>&nbsp;&nbsp;（图片尺寸大小尽量一致）
 							</div>
 						</div>
 					</div>

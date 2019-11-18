@@ -46,7 +46,6 @@
 			alert("操作成功!");
 			D.getElementById('closeTp').value = "1";
 			api.close();
-			window.location.reload();
 		} else {
 			alert("操作失败," + result + "!");
 		}
