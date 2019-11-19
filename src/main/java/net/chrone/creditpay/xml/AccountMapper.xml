@@ -379,5 +379,14 @@
   		desc
   	)a limit #{startRow} , #{pageSize}
   </select>
-  	
+  <select id="selectByPrimaryKeyforUpdate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_account
+    where owner_id = #{ownerId,jdbcType=CHAR} for update
+  </select>
+  <update id="updateAdjust" parameterType="map">
+  update t_account set total=total+#{amt},available=available+#{amt} ,row_upd_usr=#{rowUpdUsr}
+  where owner_id=#{ownerId} and total+#{amt} >=0 and available+#{amt} >=0
+  </update>
 </mapper>

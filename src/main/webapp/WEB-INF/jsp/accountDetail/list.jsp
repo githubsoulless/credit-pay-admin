@@ -52,6 +52,23 @@ function addClose(){
 		document.getElementById("searchForm").submit();
 	}
 }
+
+function adjust(){
+	var url = "url:${ctx }/accountDetail/toAdjust";
+	$.dialog({content:url ,
+		title:'手动调账',
+		lock: true,
+		background: '#FFF', /* 背景色 默认的遮罩背景色为:#DCE2F1浅蓝护眼色 */
+		max: false,
+		height:350,
+		width:700,
+		min: false,
+		opacity: 0.5,	/* 透明度 */
+		close: function(){
+			addClose();
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -112,6 +129,9 @@ function addClose(){
 						&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="fastSearch()">查询</button>
 						<chrone:isAuth authCode="400000101">
 							&nbsp;&nbsp;<button type="button" class="btn btn-primary"  onclick="exportExcel()">导出</button>
+						</chrone:isAuth>
+						<chrone:isAuth authCode="400000102">
+							&nbsp;&nbsp;<button type="button" class="btn btn-primary" onclick="adjust()" >手动调账</button>
 						</chrone:isAuth>
 					</div>
 				</form>

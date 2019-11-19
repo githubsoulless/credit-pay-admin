@@ -18,5 +18,6 @@ public interface AccountService {
 	Map<String, Object> countAccount(Account account);
 	//钱包实时统计
 	List<Account> listAccount(Account account);
+	int updateAdjustByHand(int srcAmt, int transType, String memo, String srcUserId);
 
 }

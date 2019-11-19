@@ -971,4 +971,13 @@ public class AccountDetail extends ParentMode {
 		this.accountName = accountName;
 	}
 
+	private String srcUserId;
+
+	public String getSrcUserId() {
+		return srcUserId;
+	}
+
+	public void setSrcUserId(String srcUserId) {
+		this.srcUserId = srcUserId;
+	}
 }

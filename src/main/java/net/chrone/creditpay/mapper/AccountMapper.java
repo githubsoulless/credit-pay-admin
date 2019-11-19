@@ -100,4 +100,8 @@ public interface AccountMapper extends ParentMapper {
     Map<String, Object> countAccount(Account account);
 	//钱包实时统计
 	List<Account> listAccount(Account account);
+
+    public abstract int updateAdjust(Map<String, Object> paramMap);
+
+    Account selectByPrimaryKeyforUpdate(String ownerId);
 }

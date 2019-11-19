@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.chrone.creditpay.model.MgrUser;
+import net.chrone.creditpay.service.AccountService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -46,6 +48,8 @@ public class AccountDetailController {
 
 	@Autowired
 	private AccountDetailService accountDetailService;
+	@Autowired
+	private AccountService accountService;
 	private static Logger logger = Logger.getLogger(AccountDetailController.class);
 
 	@RequestMapping("list")
@@ -157,4 +161,24 @@ public class AccountDetailController {
     		}
     	}
     }
+
+	@RequestMapping("toAdjust")
+	public String toAdjust() {
+		return "accountDetail/adjust";
+	}
+	@RequestMapping("adjust")
+	public String adjust(AccountDetail accountDetail,String start, Model model,int srcAmt,HttpServletRequest request) {
+		String message = "";
+		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
+		String memo = accountDetail.getMemo()+"["+userInfSeesion.getLoginId()+"]";
+		int count = accountService.updateAdjustByHand(srcAmt, accountDetail.getTransType(), memo, accountDetail.getSrcUserId());
+		if(count > 0){
+			message = "success";
+		}else{
+			message = "系统异常";
+		}
+		model.addAttribute("message", message);
+		return "accountDetail/adjust";
+	}
+
 }
