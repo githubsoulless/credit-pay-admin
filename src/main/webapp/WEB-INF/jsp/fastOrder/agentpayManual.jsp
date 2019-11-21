@@ -115,16 +115,8 @@ function queryFee(){
 					<td><span>
 						<select  name="channel" id="channel" onchange="modifyDfSelect()">
 							<option value="reapalfast">融宝快捷</option>
-							<option value="huifu">汇付</option>
-							<option value="yspay">银盛</option>
 							<option value="yakupay">雅酷</option>
-							<option value="yspay2">银盛2</option>
 							<option value="yakupay2">雅酷2</option>
-							<option value="tenfutong">腾付通</option>
-							<option value="tenfutong2">腾付通2</option>
-							<option value="allinpay2">通联大额快捷</option>
-							<!-- <option value="chanpay_fast">畅捷快捷低费率</option>
-							<option value="chanpay_fast2">畅捷快捷高费率</option> -->
 							<option value="changjie_fast2">新畅捷高费率</option>
 							<option value="changjie_fast">新畅捷低费率</option>
 							<option value="reapalfast2">融宝快捷2</option>
