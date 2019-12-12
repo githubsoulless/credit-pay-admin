@@ -139,7 +139,7 @@ table.table1 tr th{
 	  					   	<option value="0" ${order.paySt==0?'selected="selected"':'' }>待支付</option>
 	  					   	<option value="1" ${order.paySt==1?'selected="selected"':'' }>处理中</option>
 	  					   	<option value="2" ${order.paySt==2?'selected="selected"':'' }>支付成功</option>
-	  					   	<option value="3" ${order.paySt==3?'selected="selected"':'' }>支付失败</option>
+	  					   	<option value="3" ${order.paySt==o'o'o'o'o'o'o'o'o'o'o'o'o'o'o'o'o'o'o3?'selected="selected"':'' }>支付失败</option>
 	  					   	<option value="4" ${order.paySt==4?'selected="selected"':'' }>已重发</option>
 	  					   </select> 
 					</div>
