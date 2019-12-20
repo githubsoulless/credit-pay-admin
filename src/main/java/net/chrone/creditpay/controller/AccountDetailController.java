@@ -43,7 +43,9 @@ import net.chrone.creditpay.util.MyPage;
  *
  */
 @Controller
+//小蜜卡restful
 @RequestMapping("accountDetail")
+//@RequestMapping({"accountDetail"})
 public class AccountDetailController {
 
 	@Autowired
@@ -53,6 +55,7 @@ public class AccountDetailController {
 	private static Logger logger = Logger.getLogger(AccountDetailController.class);
 
 	@RequestMapping("list")
+//	@RequestMapping({"list"})
 	public String list(AccountDetail accountDetail, String start, Model model) {
 		int starIndex = StringUtils.isEmpty(start) ? 0 : Integer.valueOf(start);
 		accountDetail.setStartRow(starIndex);
@@ -81,7 +84,7 @@ public class AccountDetailController {
 		model.addAttribute("rowTotal", rowTotal);
 		return "accountDetail/list";
 	}
-	
+
 	   /**
      * 导出到excel -xls
      * 
@@ -91,6 +94,7 @@ public class AccountDetailController {
      * @param model
      */
     @RequestMapping("/exportExcel")
+//	   @RequestMapping({"/exportExcel"})
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, AccountDetail accountDetail, Model model) {
         
     	long currentTimeMillis = System.currentTimeMillis();
@@ -163,10 +167,12 @@ public class AccountDetailController {
     }
 
 	@RequestMapping("toAdjust")
+//	@RequestMapping({"/toAdjust"})
 	public String toAdjust() {
 		return "accountDetail/adjust";
 	}
 	@RequestMapping("adjust")
+//	@RequestMapping({"/adjust"})
 	public String adjust(AccountDetail accountDetail,String start, Model model,int srcAmt,HttpServletRequest request) {
 		String message = "";
 		MgrUser userInfSeesion = (MgrUser) request.getSession().getAttribute(Constants.LOGIN_SESSION);
