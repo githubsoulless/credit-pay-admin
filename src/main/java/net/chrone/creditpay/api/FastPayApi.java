@@ -33,6 +33,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 	public final static String CHANGJIE_FAST2="changjie_fast2";//新畅杰快捷支付
 	
 	public final static String JF_CREDIT = "jf_credit";//即富小额快捷
+	public final static String REAPALFAST4="reapalfast4";//融宝快捷4
 	/**
 	 * 代付接口(TX)
 	 * @param order
@@ -49,7 +50,7 @@ private static final Logger logger = Logger.getLogger(FastPayApi.class);
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){
 				resultMap.put("status", "1");//成功
 			}
-		}else if(REAPALFAST.equals(code)||REAPALFAST2.equals(code)){
+		}else if(REAPALFAST.equals(code)||REAPALFAST2.equals(code)||REAPALFAST4.equals(code)){
 			Map<String, String> resMap = ChroneApi.agentPay(order, ConfigReader.getConfig("chronePayOrgId"), 
 					ConfigReader.getConfig("chronePayPriKey"));
 			if(resMap!=null && "200".equals(resMap.get("respCode"))){

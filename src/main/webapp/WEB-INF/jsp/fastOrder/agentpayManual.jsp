@@ -120,6 +120,7 @@ function queryFee(){
 							<option value="changjie_fast">最新畅捷高费率</option>
 							<option value="changjie_fast2">最新畅捷低费率</option>
 							<option value="reapalfast2">融宝快捷2</option>
+							<option value="reapalfast4">融宝快捷4</option>
 						</select>
 					</span></td>
 				</tr>	
