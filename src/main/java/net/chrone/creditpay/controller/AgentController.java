@@ -41,6 +41,7 @@ import net.chrone.creditpay.util.StringUtil;
 @Controller
 @RequestMapping("agent")
 public class AgentController {
+	//
 	@Autowired
 	private AgentService agentService;
 	@Autowired
